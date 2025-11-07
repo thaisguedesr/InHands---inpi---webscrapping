@@ -215,7 +215,9 @@ Processando dados..."""
                 {"id": execucao_id},
                 {"$set": {
                     "status": "concluido",
-                    "total_processos": len(processos)
+                    "total_processos": len(processos_sem_procurador),
+                    "total_com_procurador": len(processos_com_procurador),
+                    "total_sem_procurador": len(processos_sem_procurador)
                 }}
             )
             
