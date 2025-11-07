@@ -311,31 +311,56 @@ class PepiScraper:
                         logger.warning(f"⚠️  Erro ao abrir popup: {str(e)}")
                         time.sleep(2)
                 
-                # 7. Procurar ícone do PDF da PRIMEIRA petição
-                # A primeira petição normalmente contém os dados do requerente
-                # Vamos pegar o ÚLTIMO PDF da lista (mais antigo = primeiro depositado)
-                pdf_icons = page.locator('img.salvaDocumento, img[name="certificadoPublicacao"]')
+                # 7. Procurar ícone do PDF correto (código 389 ou 394, o mais antigo)
+                logger.info("🔍 Procurando PDF correto (código 389 ou 394)...")
                 
-                if pdf_icons.count() == 0:
-                    logger.warning("Nenhum ícone do PDF encontrado")
+                # Procurar todos os PDFs
+                all_pdf_icons = page.locator('img.salvaDocumento, img[name="certificadoPublicacao"]').all()
+                
+                if len(all_pdf_icons) == 0:
+                    logger.warning("❌ Nenhum ícone do PDF encontrado")
                     browser.close()
                     return {'marca': None, 'email': None}
                 
-                # Pegar o ÚLTIMO ícone (primeira petição cronologicamente)
-                pdf_icon = pdf_icons.last
-                logger.info(f"Encontrado {pdf_icons.count()} PDF(s), usando o último (primeira petição)")
+                logger.info(f"  📄 Total de PDFs encontrados: {len(all_pdf_icons)}")
                 
-                if pdf_icon.count() == 0:
-                    logger.warning("Ícone do PDF não encontrado")
-                    browser.close()
-                    return {'marca': None, 'email': None}
+                # Tentar encontrar PDF com código 389 ou 394
+                pdf_icon = None
+                pdf_escolhido = None
                 
-                logger.info("Ícone do PDF encontrado")
+                for icon in all_pdf_icons:
+                    try:
+                        # Verificar atributos do ícone (id, name, etc)
+                        icon_id = icon.get_attribute('id') or ""
+                        icon_name = icon.get_attribute('name') or ""
+                        
+                        logger.info(f"    🔸 PDF: id={icon_id[:50]}, name={icon_name[:50]}")
+                        
+                        # Verificar se contém código 389 ou 394
+                        if '389' in icon_id or '389' in icon_name:
+                            pdf_icon = icon
+                            pdf_escolhido = "389"
+                            logger.info(f"  ✅ Encontrado PDF com código 389!")
+                            break
+                        elif '394' in icon_id or '394' in icon_name:
+                            pdf_icon = icon
+                            pdf_escolhido = "394"
+                            logger.info(f"  ✅ Encontrado PDF com código 394!")
+                            break
+                    except:
+                        continue
                 
-                # 8. Clicar no ícone do PDF (isso abrirá o modal do CAPTCHA)
+                # Se não encontrou 389/394, pegar o ÚLTIMO da lista (mais antigo)
+                if not pdf_icon:
+                    pdf_icon = all_pdf_icons[-1]  # Último = mais antigo
+                    pdf_escolhido = "último (mais antigo)"
+                    logger.info(f"  ⚠️  Códigos 389/394 não encontrados, usando o {pdf_escolhido}")
+                
+                # 8. Clicar no ícone do PDF escolhido
+                logger.info(f"🖱️  Clicando no PDF escolhido: {pdf_escolhido}")
                 pdf_icon.click()
                 time.sleep(2)
-                logger.info("Clicou no ícone do PDF - modal do CAPTCHA deve ter aparecido")
+                logger.info("  ✅ Clicou no ícone do PDF - modal do CAPTCHA deve ter aparecido")
                 
                 # 9. Resolver o reCAPTCHA
                 # Site key é sempre o mesmo: 6LfhwSAaAAAAANyx2xt8Ikk-YkQ3PGeAVhCfF3i2
