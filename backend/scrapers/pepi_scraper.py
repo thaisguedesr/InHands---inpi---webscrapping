@@ -325,6 +325,9 @@ class PepiScraper:
                     except Exception as e:
                         logger.warning(f"⚠️  Erro ao abrir popup: {str(e)}")
                         time.sleep(2)
+                else:
+                    # Link não existe - PDFs já devem estar visíveis
+                    logger.info("✅ Link 'Clique aqui...' NÃO encontrado - PDFs já devem estar visíveis")
                 
                 # 7. Procurar ícone do PDF correto (código 389 ou 394 na coluna Serviço)
                 logger.info("🔍 Procurando PDF com Serviço 389 ou 394...")
