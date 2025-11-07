@@ -381,13 +381,16 @@ class PepiScraper:
                                 logger.info(f"  🔍 Linha com código {codigo_encontrado} encontrada")
                                 
                                 # Procurar o ícone do PDF nessa linha
-                                pdf_in_row = row.locator('img.salvaDocumento, img[src*="pdf.gif"]')
+                                # Tentar múltiplos seletores
+                                pdf_in_row = row.locator('img[src*="pdf.gif"]')
                                 
                                 if pdf_in_row.count() > 0:
                                     pdf_icon = pdf_in_row.first
                                     pdf_escolhido = f"Serviço {codigo_encontrado}"
-                                    logger.info(f"  ✅ Encontrado PDF com Serviço {codigo_encontrado}!")
+                                    logger.info(f"  ✅ Encontrado ícone PDF na linha com Serviço {codigo_encontrado}!")
                                     break
+                                else:
+                                    logger.warning(f"  ⚠️  Linha tem {codigo_encontrado} mas não encontrou ícone PDF")
                         except:
                             continue
                     
