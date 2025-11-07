@@ -386,20 +386,25 @@ class PepiScraper:
                         logger.warning(f"    ⚠️  Erro ao procurar serviço {codigo}: {str(e)}")
                         continue
                 
-                # Se não encontrou 389/394, pegar o ÚLTIMO PDF da lista (mais antigo)
+                # Se não encontrou 389/394, FALHAR (não usar fallback)
                 if not pdf_icon:
-                    logger.info("  ℹ️  Serviços 389/394 não encontrados, procurando todos os PDFs...")
-                    all_pdf_icons = page.locator('img.salvaDocumento, img[name="certificadoPublicacao"]').all()
+                    logger.error("❌ PDF com Serviço 389 ou 394 NÃO encontrado!")
+                    logger.error("   Salvando HTML para debug...")
                     
-                    if len(all_pdf_icons) == 0:
-                        logger.warning("❌ Nenhum ícone do PDF encontrado")
-                        browser.close()
-                        return {'marca': None, 'email': None}
+                    # Salvar HTML para debug
+                    with open(f"/tmp/sem_389_394_{numero_processo}.html", "w") as f:
+                        f.write(page.content())
                     
-                    logger.info(f"  📄 Total de PDFs encontrados: {len(all_pdf_icons)}")
-                    pdf_icon = all_pdf_icons[-1]  # Último = mais antigo
-                    pdf_escolhido = "último (mais antigo)"
-                    logger.info(f"  ⚠️  Usando o {pdf_escolhido}")
+                    # Listar todos os serviços encontrados
+                    all_services = page.locator('td').all()
+                    logger.info("   Serviços encontrados na página:")
+                    for cell in all_services[:20]:  # Primeiros 20
+                        text = cell.inner_text().strip()
+                        if text.isdigit() and len(text) == 3:
+                            logger.info(f"     - Serviço: {text}")
+                    
+                    browser.close()
+                    return {'marca': marca_extraida, 'email': None}
                 
                 # 8. Clicar no ícone do PDF escolhido
                 logger.info(f"🖱️  Clicando no PDF escolhido: {pdf_escolhido}")
