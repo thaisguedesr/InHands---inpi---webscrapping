@@ -230,27 +230,24 @@ class PepiScraper:
                     else:
                         logger.warning("  ⚠️  Checkbox não encontrado")
                     
-                    # Clicar no botão Enviar
+                    # Clicar no botão Enviar (isso fechará o popup e recarregará a página principal)
                     enviar_btn = popup_page.locator('button:has-text("Enviar"), input[value="Enviar"]')
                     if enviar_btn.count() > 0:
                         enviar_btn.first.click()
                         logger.info("  ✅ Formulário enviado")
-                        popup_page.wait_for_load_state("networkidle", timeout=15000)
-                        time.sleep(2)
+                        
+                        # Aguardar o popup fechar e a página principal recarregar
+                        time.sleep(3)
+                        page.wait_for_load_state("networkidle", timeout=15000)
+                        logger.info("  📄 Página principal recarregada com petições")
                     else:
                         logger.warning("  ⚠️  Botão Enviar não encontrado")
-                    
-                    # Agora o popup deve ter carregado a página de petições
-                    logger.info(f"  URL após envio: {popup_page.url}")
-                    
-                    # Continuar trabalhando no popup (que agora é a página de petições)
-                    page = popup_page
+                        popup_page.close()
                 
                 except Exception as e:
-                    logger.error(f"  ❌ Erro ao preencher formulário: {str(e)}")
-                    popup_page.close()
-                    browser.close()
-                    return {'marca': None, 'email': None}
+                    logger.warning(f"  ⚠️  Popup pode ter fechado: {str(e)}")
+                    # Continuar mesmo se der erro - o popup pode ter fechado automaticamente
+                    time.sleep(2)
                 
                 # 7. Procurar ícone do PDF da PRIMEIRA petição
                 # A primeira petição normalmente contém os dados do requerente
