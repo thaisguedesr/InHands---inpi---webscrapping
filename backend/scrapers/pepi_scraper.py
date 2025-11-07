@@ -73,18 +73,34 @@ class PepiScraper:
         try:
             logger.info(f"Resolvendo reCAPTCHA com site_key: {site_key}")
             
-            capmonster = CapMonsterClient(self.capmonster_api_key)
+            # Criar cliente CapMonster
+            capmonster = CapmonsterClient(self.capmonster_api_key)
+            
+            # Criar task de reCAPTCHA v2
             task = RecaptchaV2Task(
-                website_url=page_url,
-                website_key=site_key
+                websiteURL=page_url,
+                websiteKey=site_key
             )
             
-            # Resolver o captcha (pode levar alguns segundos)
-            result = capmonster.solve_captcha(task)
-            token = result.get('gRecaptchaResponse')
+            # Criar a task no CapMonster
+            task_id = capmonster.create_task(task)
+            logger.info(f"Task criada no CapMonster com ID: {task_id}")
             
-            logger.info("reCAPTCHA resolvido com sucesso!")
-            return token
+            # Aguardar e obter o resultado
+            result = capmonster.join_task_result(task_id)
+            logger.info(f"Resultado do CapMonster: {result}")
+            
+            # Extrair o token
+            token = result.get('gRecaptchaResponse')
+            if not token:
+                # Tentar alternativa
+                token = result.get('solution', {}).get('gRecaptchaResponse')
+            
+            if token:
+                logger.info("reCAPTCHA resolvido com sucesso!")
+                return token
+            else:
+                raise Exception(f"Token não encontrado no resultado: {result}")
             
         except Exception as e:
             logger.error(f"Erro ao resolver reCAPTCHA: {str(e)}")
