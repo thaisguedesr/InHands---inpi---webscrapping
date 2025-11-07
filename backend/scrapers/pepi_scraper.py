@@ -63,9 +63,10 @@ class PepiScraper:
             logger.error(f"Erro ao extrair dados do PDF: {str(e)}")
             return {'marca': None, 'email': None}
     
-    def buscar_processo_e_extrair_email(self, numero_processo: str) -> str:
+    def buscar_processo_e_extrair_dados(self, numero_processo: str) -> dict:
         """
-        Faz login no pePI, busca o processo e extrai o email do PDF código 300
+        Faz login no pePI, busca o processo e extrai marca e email do PDF código 300
+        Retorna: {'marca': str, 'email': str}
         """
         try:
             with sync_playwright() as p:
