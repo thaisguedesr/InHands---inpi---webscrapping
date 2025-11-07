@@ -5,7 +5,7 @@ import re
 from PyPDF2 import PdfReader
 import io
 import os
-from capmonster_python import CapMonsterClient, RecaptchaV2Task
+from capmonster_python import CapmonsterClient, RecaptchaV2Task
 
 logger = logging.getLogger(__name__)
 
