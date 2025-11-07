@@ -113,6 +113,36 @@ class PepiScraper:
             logger.error(f"Erro ao extrair dados do PDF: {str(e)}")
             return {'marca': None, 'email': None}
     
+    def _procurar_pdf_389_394(self, page):
+        """Procura PDF com Serviço 389 ou 394 na tabela"""
+        try:
+            all_rows = page.locator('table tr').all()
+            logger.info(f"  📊 Total de linhas na tabela: {len(all_rows)}")
+            
+            for row in all_rows:
+                try:
+                    cells = row.locator('td').all()
+                    row_text = " ".join([c.inner_text().strip() for c in cells])
+                    
+                    if '389' in row_text or '394' in row_text:
+                        codigo_encontrado = '389' if '389' in row_text else '394'
+                        logger.info(f"  🔍 Linha com código {codigo_encontrado} encontrada")
+                        
+                        pdf_in_row = row.locator('img[src*="pdf.gif"]')
+                        
+                        if pdf_in_row.count() > 0:
+                            logger.info(f"  ✅ Encontrado ícone PDF na linha com Serviço {codigo_encontrado}!")
+                            return pdf_in_row.first
+                        else:
+                            logger.warning(f"  ⚠️  Linha tem {codigo_encontrado} mas não encontrou ícone PDF")
+                except:
+                    continue
+            
+            return None
+        except Exception as e:
+            logger.error(f"  ❌ Erro ao procurar PDF: {str(e)}")
+            return None
+    
     def resolver_recaptcha(self, page_url: str, site_key: str) -> str:
         """
         Resolve o reCAPTCHA usando CapMonster API
