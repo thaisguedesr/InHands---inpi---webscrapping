@@ -4,6 +4,8 @@ from bs4 import BeautifulSoup
 from datetime import datetime, timezone
 from typing import Optional
 import uuid
+import zipfile
+import io
 from .xml_parser import parsear_xml_revista
 from .email_notifier import enviar_email_notificacao
 
@@ -14,8 +16,10 @@ class INPIScraper:
         self.db = db
         self.base_url = "https://revistas.inpi.gov.br/rpi/"
     
-    async def buscar_ultimo_xml_marcas(self) -> Optional[str]:
-        """Busca URL do último XML da seção de marcas"""
+    async def buscar_ultimo_xml_marcas(self) -> Optional[tuple]:
+        """Busca URL do último XML da seção de marcas
+        Retorna: (xml_url, numero_revista)
+        """
         try:
             logger.info(f"Buscando revista em {self.base_url}")
             response = requests.get(self.base_url, timeout=30)
@@ -23,29 +27,34 @@ class INPIScraper:
             
             soup = BeautifulSoup(response.content, 'html.parser')
             
-            # Procurar link do XML de marcas (última edição)
-            # Normalmente é algo como: "Marca - Download XML"
-            links = soup.find_all('a', href=True)
+            # Encontrar primeira linha da tabela (última edição)
+            # Formato do link: https://revistas.inpi.gov.br/txt/RM{NUMERO}.zip
+            table = soup.find('table')
+            if not table:
+                logger.error("Tabela de revistas não encontrada")
+                return None
             
-            for link in links:
-                href = link.get('href', '')
-                text = link.get_text().strip().lower()
-                
-                # Buscar link que contenha 'marca' e 'xml'
-                if 'marca' in text and 'xml' in href.lower():
-                    xml_url = href if href.startswith('http') else f"{self.base_url.rstrip('/')}/{href.lstrip('/')}"
-                    logger.info(f"XML encontrado: {xml_url}")
-                    return xml_url
+            rows = table.find_all('tr')
+            for row in rows:
+                cols = row.find_all('td')
+                if len(cols) > 0:
+                    # Primeira coluna: número da revista
+                    numero_revista = cols[0].get_text().strip()
+                    
+                    # Buscar link XML na coluna de Marcas (coluna 5)
+                    if len(cols) >= 5:
+                        marcas_col = cols[4]  # Coluna "SEÇÃO V - MARCAS"
+                        xml_link = marcas_col.find('a', string='XML')
+                        
+                        if xml_link and xml_link.get('href'):
+                            xml_url = xml_link.get('href')
+                            if not xml_url.startswith('http'):
+                                xml_url = f"https://revistas.inpi.gov.br/{xml_url.lstrip('/')}"
+                            
+                            logger.info(f"XML encontrado: {xml_url} (Revista {numero_revista})")
+                            return (xml_url, numero_revista)
             
-            # Se não encontrar pela descrição, buscar diretamente arquivo .xml
-            for link in links:
-                href = link.get('href', '')
-                if 'marca' in href.lower() and href.endswith('.xml'):
-                    xml_url = href if href.startswith('http') else f"{self.base_url.rstrip('/')}/{href.lstrip('/')}"
-                    logger.info(f"XML encontrado (direto): {xml_url}")
-                    return xml_url
-            
-            logger.warning("Nenhum XML de marcas encontrado")
+            logger.warning("Nenhum XML de marcas encontrado na primeira edição")
             return None
             
         except Exception as e:
@@ -53,15 +62,38 @@ class INPIScraper:
             return None
     
     async def baixar_xml(self, url: str) -> Optional[str]:
-        """Baixa o conteúdo XML"""
+        """Baixa e extrai o conteúdo XML do arquivo ZIP"""
         try:
-            logger.info(f"Baixando XML de {url}")
+            logger.info(f"Baixando arquivo ZIP de {url}")
             response = requests.get(url, timeout=60)
             response.raise_for_status()
-            logger.info(f"XML baixado com sucesso - {len(response.content)} bytes")
-            return response.text
+            logger.info(f"ZIP baixado com sucesso - {len(response.content)} bytes")
+            
+            # Extrair XML do ZIP
+            with zipfile.ZipFile(io.BytesIO(response.content)) as zip_file:
+                # Listar arquivos no ZIP
+                file_list = zip_file.namelist()
+                logger.info(f"Arquivos no ZIP: {file_list}")
+                
+                # Buscar arquivo XML
+                xml_file = None
+                for filename in file_list:
+                    if filename.lower().endswith('.xml'):
+                        xml_file = filename
+                        break
+                
+                if not xml_file:
+                    logger.error("Nenhum arquivo XML encontrado no ZIP")
+                    return None
+                
+                # Ler conteúdo do XML
+                with zip_file.open(xml_file) as xml_content:
+                    xml_text = xml_content.read().decode('utf-8')
+                    logger.info(f"XML extraído com sucesso - {len(xml_text)} bytes")
+                    return xml_text
+            
         except Exception as e:
-            logger.error(f"Erro ao baixar XML: {str(e)}")
+            logger.error(f"Erro ao baixar/extrair XML: {str(e)}")
             return None
     
     async def executar_scraping(self):
