@@ -31,53 +31,61 @@ class PepiScraper:
                 'email': None
             }
             
-            # Extrair MARCA (Elemento Nominativo)
-            # Padrões possíveis:
-            # 1. "Elemento Nominativo: NOME DA MARCA"
-            # 2. "Marca: NOME DA MARCA"
-            # 3. Linha após "Dados da Marca"
+            # ============ EXTRAIR MARCA (Elemento Nominativo em Dados da Marca) ============
+            # Procurar pela seção "Dados da Marca" e depois "Elemento Nominativo"
             
-            marca_patterns = [
-                r'Elemento Nominativo[:\s]+([^\n]+)',
-                r'(?:^|\n)Marca[:\s]+([^\n]+)',
-                r'Sinal[:\s]+([^\n]+)',
-                r'Nome da marca[:\s]+([^\n]+)'
-            ]
+            # 1. Tentar encontrar "Elemento Nominativo:" seguido do nome
+            marca_pattern = r'Elemento\s+Nominativo[:\s]+([^\n]+)'
+            marca_match = re.search(marca_pattern, texto_completo, re.IGNORECASE)
             
-            for pattern in marca_patterns:
-                marca_match = re.search(pattern, texto_completo, re.IGNORECASE | re.MULTILINE)
-                if marca_match:
-                    marca_text = marca_match.group(1).strip()
-                    # Limpar possíveis quebras de linha extras
-                    marca_text = ' '.join(marca_text.split())
-                    if len(marca_text) > 2:  # Validar que não é vazio
-                        resultado['marca'] = marca_text
-                        logger.info(f"Marca encontrada no PDF: {resultado['marca']}")
-                        break
+            if marca_match:
+                marca_text = marca_match.group(1).strip()
+                # Limpar possíveis caracteres extras
+                marca_text = marca_text.split('\n')[0].strip()
+                marca_text = ' '.join(marca_text.split())
+                
+                if len(marca_text) > 1 and not marca_text.lower().startswith(('mista', 'nominativa', 'figurativa', 'tridimensional')):
+                    resultado['marca'] = marca_text
+                    logger.info(f"Marca encontrada no PDF: {resultado['marca']}")
             
             if not resultado['marca']:
                 logger.warning("Marca (Elemento Nominativo) não encontrada no PDF")
             
-            # Extrair EMAIL
-            # Padrões possíveis:
-            # 1. "e-mail: email@domain.com"  
-            # 2. "E-mail: email@domain.com"
-            # 3. Qualquer email no texto
+            # ============ EXTRAIR EMAIL (Dados Gerais ou Dados do Requerente) ============
+            # Procurar nas seções específicas primeiro
             
-            email_patterns = [
-                r'e-?mail[:\s]+([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})',
-                r'\b([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})\b'
-            ]
+            # 1. Procurar na seção "Dados Gerais"
+            dados_gerais_match = re.search(r'Dados\s+Gerais(.*?)(?:Dados\s+da\s+Marca|Dados\s+do\s+Procurador|$)', 
+                                          texto_completo, re.IGNORECASE | re.DOTALL)
             
-            for pattern in email_patterns:
-                email_match = re.search(pattern, texto_completo, re.IGNORECASE)
+            if dados_gerais_match:
+                secao_dados_gerais = dados_gerais_match.group(1)
+                email_match = re.search(r'e-?mail[:\s]*([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})', 
+                                       secao_dados_gerais, re.IGNORECASE)
                 if email_match:
-                    email_text = email_match.group(1).strip().lower()
-                    # Validar que não é um email genérico/inválido
-                    if '@' in email_text and '.' in email_text.split('@')[1]:
-                        resultado['email'] = email_text
-                        logger.info(f"Email encontrado no PDF: {resultado['email']}")
-                        break
+                    resultado['email'] = email_match.group(1).strip().lower()
+                    logger.info(f"Email encontrado em Dados Gerais: {resultado['email']}")
+            
+            # 2. Se não encontrou, procurar na seção "Dados do(s) requerente(s)"
+            if not resultado['email']:
+                requerente_match = re.search(r'Dados\s+do\(?s?\)?\s+requerente\(?s?\)?(.*?)(?:Dados\s+da\s+Marca|Dados\s+do\s+Procurador|$)', 
+                                            texto_completo, re.IGNORECASE | re.DOTALL)
+                
+                if requerente_match:
+                    secao_requerente = requerente_match.group(1)
+                    email_match = re.search(r'e-?mail[:\s]*([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})', 
+                                          secao_requerente, re.IGNORECASE)
+                    if email_match:
+                        resultado['email'] = email_match.group(1).strip().lower()
+                        logger.info(f"Email encontrado em Dados do Requerente: {resultado['email']}")
+            
+            # 3. Fallback: procurar qualquer email no documento
+            if not resultado['email']:
+                email_match = re.search(r'e-?mail[:\s]*([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})', 
+                                       texto_completo, re.IGNORECASE)
+                if email_match:
+                    resultado['email'] = email_match.group(1).strip().lower()
+                    logger.info(f"Email encontrado no PDF (genérico): {resultado['email']}")
             
             if not resultado['email']:
                 logger.warning("Nenhum email encontrado no PDF")
