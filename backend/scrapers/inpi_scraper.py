@@ -203,7 +203,7 @@ Processando dados..."""
                 
                 await self.db.processos_indeferimento.insert_many(processos_dict)
             
-            # 5. Atualizar execução como concluída
+            # 6. Atualizar execução como concluída
             await self.db.execucoes.update_one(
                 {"id": execucao_id},
                 {"$set": {
