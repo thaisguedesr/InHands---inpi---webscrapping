@@ -86,11 +86,13 @@ class PepiScraper:
                 page.wait_for_load_state("networkidle")
                 
                 # 2. Fazer login
-                page.fill('input[name="login"]', self.login_user)
-                page.fill('input[name="senha"]', self.login_pass)
-                page.click('button:has-text("Continuar")')
-                page.wait_for_load_state("networkidle")
-                time.sleep(2)
+                page.fill('input[name="T_Login"]', self.login_user)
+                page.fill('input[name="T_Senha"]', self.login_pass)
+                
+                # Clicar no botão de submit do formulário
+                page.click('input[type="submit"][value="Continuar"]')
+                page.wait_for_load_state("networkidle", timeout=60000)
+                time.sleep(3)
                 
                 # 3. Clicar em "Marcas"
                 page.click('text=Marca')
