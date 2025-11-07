@@ -32,21 +32,38 @@ class PepiScraper:
             }
             
             # ============ EXTRAIR MARCA (Elemento Nominativo em Dados da Marca) ============
-            # Procurar pela seção "Dados da Marca" e depois "Elemento Nominativo"
+            # A marca aparece ANTES de "Elemento Nominativo:", não depois!
+            # Formato: "Natureza:\n[NOME DA MARCA] Elemento Nominativo:"
             
-            # 1. Tentar encontrar "Elemento Nominativo:" seguido do nome
-            marca_pattern = r'Elemento\s+Nominativo[:\s]+([^\n]+)'
-            marca_match = re.search(marca_pattern, texto_completo, re.IGNORECASE)
+            # Procurar por texto que vem ANTES de "Elemento Nominativo:"
+            marca_pattern = r'Natureza:\s*\n?\s*([^\n]+?)\s+Elemento\s+Nominativo'
+            marca_match = re.search(marca_pattern, texto_completo, re.IGNORECASE | re.DOTALL)
             
             if marca_match:
                 marca_text = marca_match.group(1).strip()
                 # Limpar possíveis caracteres extras
-                marca_text = marca_text.split('\n')[0].strip()
                 marca_text = ' '.join(marca_text.split())
                 
-                if len(marca_text) > 1 and not marca_text.lower().startswith(('mista', 'nominativa', 'figurativa', 'tridimensional')):
+                if len(marca_text) > 1 and not marca_text.lower() in ('mista', 'nominativa', 'figurativa', 'tridimensional'):
                     resultado['marca'] = marca_text
                     logger.info(f"Marca encontrada no PDF: {resultado['marca']}")
+            
+            # Se não encontrou, tentar padrão alternativo
+            if not resultado['marca']:
+                # Às vezes o nome vem depois
+                marca_pattern2 = r'Elemento\s+Nominativo[:\s]+([^\n]+)'
+                marca_match2 = re.search(marca_pattern2, texto_completo, re.IGNORECASE)
+                
+                if marca_match2:
+                    marca_text = marca_match2.group(1).strip()
+                    marca_text = marca_text.split('\n')[0].strip()
+                    marca_text = ' '.join(marca_text.split())
+                    
+                    # Validar que não é texto genérico
+                    palavras_invalidas = ['marca possui', 'não se aplica', 'sim', 'não', 'mista', 'nominativa']
+                    if len(marca_text) > 1 and not any(inv in marca_text.lower() for inv in palavras_invalidas):
+                        resultado['marca'] = marca_text
+                        logger.info(f"Marca encontrada no PDF (padrão 2): {resultado['marca']}")
             
             if not resultado['marca']:
                 logger.warning("Marca (Elemento Nominativo) não encontrada no PDF")
