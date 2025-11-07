@@ -197,8 +197,13 @@ Processando dados..."""
                 logger.info(f"{'='*80}")
                 
                 try:
-                    # Buscar dados no pePI
-                    dados = pepi_scraper.buscar_processo_e_extrair_dados(numero_processo)
+                    # Buscar dados no pePI (executar em thread para não bloquear loop async)
+                    loop = asyncio.get_event_loop()
+                    dados = await loop.run_in_executor(
+                        None,
+                        pepi_scraper.buscar_processo_e_extrair_dados,
+                        numero_processo
+                    )
                     
                     # Verificar se é figurativa
                     if dados.get('tipo') == 'figurativa':
