@@ -104,24 +104,43 @@ def debug_pepi_navigation():
                 logger.info("   ✅ Screenshot salvo: step6_search_results.png")
                 logger.info(f"   URL atual: {page.url}")
                 
-                # 5. Procurar link de petições
-                logger.info("7. Procurando link de petições...")
-                peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso as petições do processo")')
-                logger.info(f"   Link de petições encontrado: {peticoes_link.count() > 0}")
+                # 5. Procurar link dos detalhes do processo
+                logger.info("7. Procurando link dos detalhes do processo...")
+                detail_link = page.locator(f'a[href*="Action=detail"]').first
+                logger.info(f"   Link de detalhes encontrado: {detail_link.count() > 0}")
                 
-                if peticoes_link.count() > 0:
-                    logger.info("8. Clicando no link de petições...")
-                    peticoes_link.click()
+                if detail_link.count() > 0:
+                    logger.info("8. Clicando no link de detalhes...")
+                    detail_link.click()
                     time.sleep(3)
-                    page.screenshot(path="/app/step7_peticoes_page.png")
-                    logger.info("   ✅ Screenshot salvo: step7_peticoes_page.png")
+                    page.screenshot(path="/app/step7_detail_page.png")
+                    logger.info("   ✅ Screenshot salvo: step7_detail_page.png")
                     logger.info(f"   URL atual: {page.url}")
                     
-                    # Salvar HTML da página de petições
-                    html_content = page.content()
-                    with open("/app/peticoes_html.html", "w") as f:
-                        f.write(html_content)
-                    logger.info("   ✅ HTML das petições salvo: peticoes_html.html")
+                    # Procurar link de petições na página de detalhes
+                    logger.info("9. Procurando link de petições na página de detalhes...")
+                    peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso")')
+                    logger.info(f"   Link de petições encontrado: {peticoes_link.count() > 0}")
+                    
+                    if peticoes_link.count() > 0:
+                        logger.info("10. Clicando no link de petições...")
+                        peticoes_link.click()
+                        time.sleep(3)
+                        page.screenshot(path="/app/step8_peticoes_page.png")
+                        logger.info("   ✅ Screenshot salvo: step8_peticoes_page.png")
+                        logger.info(f"   URL atual: {page.url}")
+                        
+                        # Salvar HTML da página de petições
+                        html_content = page.content()
+                        with open("/app/peticoes_html.html", "w") as f:
+                            f.write(html_content)
+                        logger.info("   ✅ HTML das petições salvo: peticoes_html.html")
+                    else:
+                        # Salvar HTML da página de detalhes
+                        html_content = page.content()
+                        with open("/app/detail_html.html", "w") as f:
+                            f.write(html_content)
+                        logger.info("   ✅ HTML dos detalhes salvo: detail_html.html")
                 else:
                     # Salvar HTML da página de resultados
                     html_content = page.content()
