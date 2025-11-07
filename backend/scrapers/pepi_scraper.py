@@ -141,8 +141,8 @@ class PepiScraper:
                 time.sleep(2)
                 
                 # 4. Preencher número do processo e pesquisar
-                page.fill('input[name="processo"]', numero_processo)
-                page.click('button:has-text("pesquisar")')
+                page.fill('input[name="NumPedido"]', numero_processo)
+                page.click('input[type="submit"][name="botao"]')
                 page.wait_for_load_state("networkidle")
                 time.sleep(3)
                 
