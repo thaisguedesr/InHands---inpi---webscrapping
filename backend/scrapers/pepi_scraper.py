@@ -357,34 +357,42 @@ class PepiScraper:
                 logger.info("🔍 Procurando PDF com Serviço 389 ou 394...")
                 
                 # Procurar na tabela de petições
-                # A estrutura é: <tr> contém <td> com o serviço e <td> com a imagem do PDF
+                # A estrutura é: <tr> contém várias <td>, uma delas tem o serviço e outra tem o PDF
                 pdf_icon = None
                 pdf_escolhido = None
                 
-                # Procurar por células que contenham 389 ou 394
-                for codigo in ['389', '394']:
-                    try:
-                        # Procurar td que contenha o código do serviço
-                        service_cells = page.locator(f'td:has-text("{codigo}")').all()
-                        
-                        for cell in service_cells:
-                            # Pegar a linha (tr) que contém essa célula
-                            row = cell.locator('xpath=ancestor::tr').first
+                # Estratégia: Procurar todas as linhas (tr) da tabela e verificar cada uma
+                try:
+                    # Procurar a tabela de petições (pode estar dentro de um div ou section específico)
+                    all_rows = page.locator('table tr').all()
+                    logger.info(f"  📊 Total de linhas na tabela: {len(all_rows)}")
+                    
+                    for row in all_rows:
+                        try:
+                            # Pegar todas as células da linha
+                            cells = row.locator('td').all()
                             
-                            # Procurar o ícone do PDF nessa linha
-                            pdf_in_row = row.locator('img.salvaDocumento, img[name="certificadoPublicacao"]')
+                            # Procurar se alguma célula contém 389 ou 394
+                            row_text = " ".join([c.inner_text().strip() for c in cells])
                             
-                            if pdf_in_row.count() > 0:
-                                pdf_icon = pdf_in_row.first
-                                pdf_escolhido = f"Serviço {codigo}"
-                                logger.info(f"  ✅ Encontrado PDF com Serviço {codigo}!")
-                                break
-                        
-                        if pdf_icon:
-                            break
-                    except Exception as e:
-                        logger.warning(f"    ⚠️  Erro ao procurar serviço {codigo}: {str(e)}")
-                        continue
+                            if '389' in row_text or '394' in row_text:
+                                # Esta linha tem o código que procuramos!
+                                codigo_encontrado = '389' if '389' in row_text else '394'
+                                logger.info(f"  🔍 Linha com código {codigo_encontrado} encontrada")
+                                
+                                # Procurar o ícone do PDF nessa linha
+                                pdf_in_row = row.locator('img.salvaDocumento, img[src*="pdf.gif"]')
+                                
+                                if pdf_in_row.count() > 0:
+                                    pdf_icon = pdf_in_row.first
+                                    pdf_escolhido = f"Serviço {codigo_encontrado}"
+                                    logger.info(f"  ✅ Encontrado PDF com Serviço {codigo_encontrado}!")
+                                    break
+                        except:
+                            continue
+                    
+                except Exception as e:
+                    logger.error(f"  ❌ Erro ao procurar na tabela: {str(e)}")
                 
                 # Se não encontrou 389/394, FALHAR (não usar fallback)
                 if not pdf_icon:
