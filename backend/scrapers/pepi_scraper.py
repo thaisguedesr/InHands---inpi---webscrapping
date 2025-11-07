@@ -274,11 +274,17 @@ class PepiScraper:
                         
                         # Preencher o formulário no popup
                         try:
-                            # Selecionar primeira opção do dropdown
+                            # Selecionar finalidade específica
                             selects = popup_page.locator('select')
                             if selects.count() > 0:
-                                selects.first.select_option(index=1)
-                                logger.info("  ✅ Finalidade selecionada")
+                                # Tentar selecionar por texto primeiro
+                                try:
+                                    selects.first.select_option(label="Pesquisa para Fins Profissionais ou Acadêmicos")
+                                    logger.info("  ✅ Finalidade selecionada: 'Pesquisa para Fins Profissionais ou Acadêmicos'")
+                                except:
+                                    # Fallback para index 1 se não encontrar por texto
+                                    selects.first.select_option(index=1)
+                                    logger.info("  ✅ Finalidade selecionada (index 1)")
                             
                             # Marcar o checkbox
                             checkboxes = popup_page.locator('input[type="checkbox"]')
