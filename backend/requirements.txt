@@ -17,6 +17,7 @@ email-validator==2.3.0
 et_xmlfile==2.0.0
 fastapi==0.110.1
 flake8==7.3.0
+greenlet==3.2.4
 h11==0.16.0
 idna==3.11
 iniconfig==2.3.0
@@ -38,16 +39,19 @@ pandas==2.3.3
 passlib==1.7.4
 pathspec==0.12.1
 platformdirs==4.5.0
+playwright==1.55.0
 pluggy==1.6.0
 pyasn1==0.6.1
 pycodestyle==2.14.0
 pycparser==2.23
 pydantic==2.12.4
 pydantic_core==2.41.5
+pyee==13.0.0
 pyflakes==3.4.0
 Pygments==2.19.2
 PyJWT==2.10.1
 pymongo==4.5.0
+PyPDF2==3.0.1
 pytest==8.4.2
 python-dateutil==2.9.0.post0
 python-dotenv==1.2.1
