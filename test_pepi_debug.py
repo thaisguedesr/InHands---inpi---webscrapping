@@ -92,12 +92,12 @@ def debug_pepi_navigation():
             # 4. Preencher e pesquisar
             if processo_field.count() > 0:
                 logger.info("5. Preenchendo número do processo...")
-                page.fill('input[name="processo"]', numero_processo)
+                page.fill('input[name="NumPedido"]', numero_processo)
                 page.screenshot(path="/app/step5_processo_filled.png")
                 logger.info("   ✅ Screenshot salvo: step5_processo_filled.png")
                 
                 logger.info("6. Clicando em pesquisar...")
-                page.click('button:has-text("pesquisar")')
+                page.click('input[type="submit"][name="botao"]')
                 page.wait_for_load_state("networkidle")
                 time.sleep(3)
                 page.screenshot(path="/app/step6_search_results.png")
