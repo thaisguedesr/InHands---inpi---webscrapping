@@ -23,7 +23,7 @@ def debug_pepi_navigation():
     login_user = "InHandsC"
     login_pass = "Marcas01"
     base_url = "https://busca.inpi.gov.br/pePI/"
-    numero_processo = "927960690"  # Alterado para testar outro processo
+    numero_processo = "907206638"  # Fornecido pelo usuário
     
     with sync_playwright() as p:
         # Iniciar browser em modo não-headless para debug
