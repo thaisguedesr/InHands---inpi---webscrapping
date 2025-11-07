@@ -164,13 +164,13 @@ Processando dados..."""
             logger.info(f"Total de processos sem procurador: {len(processos_sem_procurador)}")
             logger.info(f"Total de processos com procurador: {len(processos_com_procurador)} (serão ignorados)")
             
-            # Pegar processos 101-110 (índices 100 a 109)
+            # Pegar processos 101-103 (índices 100 a 102) - APENAS 3 PARA TESTAR
             if len(processos_sem_procurador) > 100:
-                processos_sem_procurador = processos_sem_procurador[100:110]
-                logger.info(f"📋 Selecionados processos 101-110: {len(processos_sem_procurador)} processos")
+                processos_sem_procurador = processos_sem_procurador[100:103]
+                logger.info(f"📋 Selecionados processos 101-103: {len(processos_sem_procurador)} processos")
             else:
-                logger.warning(f"⚠️  Menos de 100 processos disponíveis. Usando os primeiros 10.")
-                processos_sem_procurador = processos_sem_procurador[:10]
+                logger.warning(f"⚠️  Menos de 100 processos disponíveis. Usando os primeiros 3.")
+                processos_sem_procurador = processos_sem_procurador[:3]
             
             # 4. PRIMEIRO: Salvar apenas os números de processo no MongoDB
             logger.info(f"💾 Salvando {len(processos_sem_procurador)} números de processo no MongoDB...")
