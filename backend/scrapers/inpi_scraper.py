@@ -6,8 +6,11 @@ from typing import Optional
 import uuid
 import zipfile
 import io
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 from .xml_parser import parsear_xml_revista
 from .email_notifier import enviar_email_notificacao
+from .pepi_scraper import PepiScraper
 
 logger = logging.getLogger(__name__)
 
