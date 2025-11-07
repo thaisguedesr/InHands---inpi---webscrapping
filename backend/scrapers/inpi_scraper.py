@@ -41,9 +41,9 @@ class INPIScraper:
                     # Primeira coluna: número da revista
                     numero_revista = cols[0].get_text().strip()
                     
-                    # Buscar link XML na coluna de Marcas (coluna 5)
-                    if len(cols) >= 5:
-                        marcas_col = cols[4]  # Coluna "SEÇÃO V - MARCAS"
+                    # Buscar link XML na coluna de Marcas (coluna 6)
+                    if len(cols) >= 7:
+                        marcas_col = cols[6]  # Coluna "SEÇÃO V - MARCAS"
                         xml_link = marcas_col.find('a', string='XML')
                         
                         if xml_link and xml_link.get('href'):
