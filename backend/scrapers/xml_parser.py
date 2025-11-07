@@ -30,7 +30,8 @@ def parsear_xml_revista(xml_content: str, execucao_id: str, semana: int, ano: in
                     continue
                 
                 # Extrair NOME DA MARCA (tag <nome> dentro de <marca>)
-                marca = 'Não informado'
+                # Se não existir no XML, será extraído do PDF
+                marca = None
                 marca_tag = processo_tag.find('marca')
                 
                 if marca_tag:
@@ -38,13 +39,7 @@ def parsear_xml_revista(xml_content: str, execucao_id: str, semana: int, ano: in
                     if nome_marca_tag:
                         marca = nome_marca_tag.get_text(strip=True)
                 
-                # Se não encontrou marca, usar nome do titular como fallback
-                if marca == 'Não informado':
-                    titular_tag = processo_tag.find('titular')
-                    if titular_tag:
-                        marca = titular_tag.get('nome-razao-social', 'Não informado')
-                
-                # Extrair email (será preenchido depois pelo pePI scraper)
+                # Email será extraído do PDF pelo pePI scraper
                 email = None
                 
                 # Verificar se tem procurador
