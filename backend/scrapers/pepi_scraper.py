@@ -308,7 +308,7 @@ class PepiScraper:
                 # 7. Procurar ícone do PDF da PRIMEIRA petição
                 # A primeira petição normalmente contém os dados do requerente
                 # Vamos pegar o ÚLTIMO PDF da lista (mais antigo = primeiro depositado)
-                pdf_icons = page.locator('img[name="certificadoPublicacao"]')
+                pdf_icons = page.locator('img.salvaDocumento, img[name="certificadoPublicacao"]')
                 
                 if pdf_icons.count() == 0:
                     logger.warning("Nenhum ícone do PDF encontrado")
