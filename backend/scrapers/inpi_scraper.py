@@ -166,7 +166,46 @@ Processando dados..."""
             
             logger.info(f"   ✅ Com procurador: {len(processos_com_procurador)} (serão ignorados)")
             logger.info(f"   ❌ Sem procurador: {len(processos_sem_procurador)} (TESTE: processando apenas 10)")
-            logger.info("TESTE: Pulando busca no pePI por enquanto...")
+            logger.info("Iniciando busca de MARCA e EMAIL no pePI...")
+            
+            # 4. Buscar marca e email no pePI apenas para processos SEM procurador
+            pepi_scraper = PepiScraper()
+            
+            # Processar em lotes para não sobrecarregar
+            lote_size = 5  # Reduzido para 5 processos por vez
+            total_com_dados = 0
+            
+            for i in range(0, len(processos_sem_procurador), lote_size):
+                lote = processos_sem_procurador[i:i+lote_size]
+                logger.info(f"Processando lote {i//lote_size + 1}/{(len(processos_sem_procurador)//lote_size) + 1}")
+                
+                # Executar em paralelo (ThreadPoolExecutor para código síncrono)
+                with ThreadPoolExecutor(max_workers=3) as executor:
+                    futures = []
+                    for proc in lote:
+                        future = executor.submit(
+                            pepi_scraper.buscar_processo_e_extrair_dados,
+                            proc['numero_processo']
+                        )
+                        futures.append((proc, future))
+                    
+                    # Coletar resultados
+                    for proc, future in futures:
+                        try:
+                            dados = future.result(timeout=90)
+                            if dados.get('marca'):
+                                proc['marca'] = dados['marca']
+                            if dados.get('email'):
+                                proc['email'] = dados['email']
+                            if dados.get('marca') or dados.get('email'):
+                                total_com_dados += 1
+                        except Exception as e:
+                            logger.error(f"Erro ao processar {proc['numero_processo']}: {str(e)}")
+                
+                # Pequeno delay entre lotes
+                await asyncio.sleep(3)
+            
+            logger.info(f"Total de processos com dados extraídos do pePI: {total_com_dados}/{len(processos_sem_procurador)}")
             
             # 5. Salvar apenas processos SEM procurador no banco
             if processos_sem_procurador:
