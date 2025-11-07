@@ -29,30 +29,23 @@ def parsear_xml_revista(xml_content: str, execucao_id: str, semana: int, ano: in
                 if not numero_processo:
                     continue
                 
-                # Extrair marca (titular ou nome da marca)
-                marca = ''
-                marca_tag = processo_tag.find('marca')
-                if marca_tag:
-                    # Tentar pegar apresentacao ou nome
-                    apresentacao = marca_tag.find('apresentacao')
-                    if apresentacao:
-                        marca = apresentacao.get_text(strip=True)
-                    else:
-                        marca = marca_tag.get_text(strip=True)
-                
-                # Extrair email (pode estar em titular)
-                email = None
+                # Extrair marca do titular (atributo nome-razao-social)
+                marca = 'Não informado'
                 titular_tag = processo_tag.find('titular')
                 if titular_tag:
-                    email_tag = titular_tag.find('email')
-                    if email_tag:
-                        email = email_tag.get_text(strip=True)
+                    marca = titular_tag.get('nome-razao-social', 'Não informado')
+                
+                # Extrair email (pode estar como atributo ou tag)
+                email = None
+                if titular_tag:
+                    # Tentar pegar email como atributo
+                    email = titular_tag.get('email')
                     
-                    # Se não encontrou marca ainda, pegar nome do titular
-                    if not marca:
-                        nome_tag = titular_tag.find('nome')
-                        if nome_tag:
-                            marca = nome_tag.get_text(strip=True)
+                    # Se não encontrou, tentar como tag
+                    if not email:
+                        email_tag = titular_tag.find('email')
+                        if email_tag:
+                            email = email_tag.get_text(strip=True)
                 
                 processo_dict = {
                     'id': str(uuid.uuid4()),
