@@ -5,6 +5,7 @@ import re
 from PyPDF2 import PdfReader
 import io
 import os
+from capmonster_python import CapMonsterClient, RecaptchaV2Task
 
 logger = logging.getLogger(__name__)
 
@@ -13,6 +14,7 @@ class PepiScraper:
         self.login_user = "InHandsC"
         self.login_pass = "Marcas01"
         self.base_url = "https://busca.inpi.gov.br/pePI/"
+        self.capmonster_api_key = os.environ.get('CAPMONSTER_API_KEY', 'feeda35a6d124c535a42e3b2ff997bc6')
     
     def extrair_dados_de_pdf(self, pdf_content: bytes) -> dict:
         """Extrai marca (Elemento Nominativo) e email do PDF"""
