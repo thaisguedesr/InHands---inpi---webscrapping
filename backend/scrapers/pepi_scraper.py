@@ -201,50 +201,56 @@ class PepiScraper:
                     browser.close()
                     return {'marca': None, 'email': None}
                 
-                peticoes_link.click()
-                time.sleep(3)
-                logger.info("Link de petições clicado")
+                # O link abre em uma NOVA JANELA/TAB (popup)
+                # Aguardar nova janela aparecer
+                with page.expect_popup() as popup_info:
+                    peticoes_link.click()
+                    logger.info("Link de petições clicado")
                 
-                # 6.1 A página NAVEGA para o formulário de finalidade
-                # Aguardar carregar a página do formulário (Action=modalSolicitacaoAmploAcesso)
-                page.wait_for_load_state("networkidle", timeout=10000)
-                logger.info("📋 Página de finalidade carregada")
+                popup_page = popup_info.value
+                popup_page.wait_for_load_state("networkidle", timeout=10000)
+                logger.info("📋 Popup de finalidade aberto")
+                logger.info(f"  URL do popup: {popup_page.url}")
                 
-                # Verificar se estamos na página de finalidade
-                current_url = page.url
-                logger.info(f"  URL atual: {current_url}")
-                
-                if "modalSolicitacaoAmploAcesso" in current_url:
-                    logger.info("  ✅ Detectada página de finalidade")
+                # Preencher o formulário no popup
+                try:
+                    # Selecionar primeira opção do dropdown
+                    selects = popup_page.locator('select')
+                    if selects.count() > 0:
+                        selects.first.select_option(index=1)
+                        logger.info("  ✅ Finalidade selecionada")
+                    else:
+                        logger.warning("  ⚠️  Dropdown não encontrado")
                     
-                    # Preencher o formulário
-                    try:
-                        # Selecionar primeira opção do dropdown
-                        selects = page.locator('select')
-                        if selects.count() > 0:
-                            selects.first.select_option(index=1)
-                            logger.info("  ✅ Finalidade selecionada")
-                        
-                        # Marcar o checkbox
-                        checkboxes = page.locator('input[type="checkbox"]')
-                        if checkboxes.count() > 0:
-                            checkboxes.first.check()
-                            logger.info("  ✅ Checkbox marcado")
-                        
-                        # Clicar no botão Enviar
-                        enviar_btn = page.locator('button:has-text("Enviar"), input[value="Enviar"]')
-                        if enviar_btn.count() > 0:
-                            enviar_btn.first.click()
-                            logger.info("  ✅ Formulário enviado")
-                            page.wait_for_load_state("networkidle", timeout=15000)
-                            time.sleep(2)
-                        else:
-                            logger.warning("  ⚠️  Botão Enviar não encontrado")
+                    # Marcar o checkbox
+                    checkboxes = popup_page.locator('input[type="checkbox"]')
+                    if checkboxes.count() > 0:
+                        checkboxes.first.check()
+                        logger.info("  ✅ Checkbox marcado")
+                    else:
+                        logger.warning("  ⚠️  Checkbox não encontrado")
                     
-                    except Exception as e:
-                        logger.error(f"  ❌ Erro ao preencher formulário: {str(e)}")
-                else:
-                    logger.info("  ℹ️  Já está na página de petições (sem formulário)")
+                    # Clicar no botão Enviar
+                    enviar_btn = popup_page.locator('button:has-text("Enviar"), input[value="Enviar"]')
+                    if enviar_btn.count() > 0:
+                        enviar_btn.first.click()
+                        logger.info("  ✅ Formulário enviado")
+                        popup_page.wait_for_load_state("networkidle", timeout=15000)
+                        time.sleep(2)
+                    else:
+                        logger.warning("  ⚠️  Botão Enviar não encontrado")
+                    
+                    # Agora o popup deve ter carregado a página de petições
+                    logger.info(f"  URL após envio: {popup_page.url}")
+                    
+                    # Continuar trabalhando no popup (que agora é a página de petições)
+                    page = popup_page
+                
+                except Exception as e:
+                    logger.error(f"  ❌ Erro ao preencher formulário: {str(e)}")
+                    popup_page.close()
+                    browser.close()
+                    return {'marca': None, 'email': None}
                 
                 # 7. Procurar ícone do PDF da PRIMEIRA petição
                 # A primeira petição normalmente contém os dados do requerente
