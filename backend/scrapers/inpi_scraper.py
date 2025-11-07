@@ -156,8 +156,45 @@ Processando dados..."""
             processos = parsear_xml_revista(xml_content, execucao_id, semana, ano)
             
             logger.info(f"Encontrados {len(processos)} processos de indeferimento")
+            logger.info("Iniciando busca de emails no pePI...")
             
-            # 4. Salvar processos no banco
+            # 4. Buscar emails no pePI para cada processo (paralelizar)
+            pepi_scraper = PepiScraper()
+            
+            # Processar em lotes para não sobrecarregar
+            lote_size = 10
+            total_com_email = 0
+            
+            for i in range(0, len(processos), lote_size):
+                lote = processos[i:i+lote_size]
+                logger.info(f"Processando lote {i//lote_size + 1}/{(len(processos)//lote_size) + 1}")
+                
+                # Executar em paralelo (ThreadPoolExecutor para código síncrono)
+                with ThreadPoolExecutor(max_workers=5) as executor:
+                    futures = []
+                    for proc in lote:
+                        future = executor.submit(
+                            pepi_scraper.buscar_processo_e_extrair_email,
+                            proc['numero_processo']
+                        )
+                        futures.append((proc, future))
+                    
+                    # Coletar resultados
+                    for proc, future in futures:
+                        try:
+                            email = future.result(timeout=60)
+                            if email:
+                                proc['email'] = email
+                                total_com_email += 1
+                        except Exception as e:
+                            logger.error(f"Erro ao processar {proc['numero_processo']}: {str(e)}")
+                
+                # Pequeno delay entre lotes
+                await asyncio.sleep(2)
+            
+            logger.info(f"Total de processos com email extraído: {total_com_email}/{len(processos)}")
+            
+            # 5. Salvar processos no banco
             if processos:
                 processos_dict = [p.dict() if hasattr(p, 'dict') else p for p in processos]
                 for proc in processos_dict:
