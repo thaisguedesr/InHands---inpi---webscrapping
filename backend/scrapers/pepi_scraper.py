@@ -245,10 +245,11 @@ class PepiScraper:
                     
                     # O link abre em uma NOVA JANELA/TAB (popup)
                     # Aguardar nova janela aparecer
+                    logger.info("  🖱️  2º AÇÃO: Clicando no link...")
                     try:
                         with page.expect_popup(timeout=5000) as popup_info:
                             peticoes_link.click()
-                            logger.info("Link de petições clicado")
+                            logger.info("  ✅ Link clicado - aguardando popup...")
                         
                         popup_page = popup_info.value
                         popup_page.wait_for_load_state("networkidle", timeout=10000)
