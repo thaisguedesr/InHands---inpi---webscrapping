@@ -1,0 +1,2237 @@
+<html><head><meta http-equiv="origin-trial" content="A7vZI3v+Gz7JfuRolKNM4Aff6zaGuT7X0mf3wtoZTnKv6497cVMnhy03KDqX7kBz/q/iidW7srW31oQbBt4VhgoAAACUeyJvcmlnaW4iOiJodHRwczovL3d3dy5nb29nbGUuY29tOjQ0MyIsImZlYXR1cmUiOiJEaXNhYmxlVGhpcmRQYXJ0eVN0b3JhZ2VQYXJ0aXRpb25pbmczIiwiZXhwaXJ5IjoxNzU3OTgwODAwLCJpc1N1YmRvbWFpbiI6dHJ1ZSwiaXNUaGlyZFBhcnR5Ijp0cnVlfQ==">
+        <title>INPI</title>
+        <meta content="text/html; charset=ISO-8859-1" http-equiv="Content-Type">
+        <link href="../jsp/css/inpi.css" rel="stylesheet" type="text/css">
+        <link href="../jsp/css/captcha.css" rel="stylesheet" type="text/css">
+        <link href="../jsp/css/accordions.css" rel="stylesheet" type="text/css">
+        <link href="../jsp/css/MarcaDetalhe.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" async="" charset="utf-8" src="https://www.gstatic.com/recaptcha/releases/naPR4A6FAh-yZLuCX253WaZq/recaptcha__en.js" crossorigin="anonymous" integrity="sha384-qNLemyKcD24MKXWUXqTaOJ9ESai7afdFb4RzK+fa3lNAf2knAo6+3YtXf5YGXQM5"></script><script type="text/javascript" src="../jsp/funcoes/geral.js"></script>
+        <script type="text/javascript" src="../jsp/funcoes/jquery-1.6.2.min.js"></script>
+        <script type="text/javascript" src="../jsp/funcoes/captcha.js"></script>
+   		<script type="text/javascript" src="../jsp/funcoes/meusPedidos.js"></script>
+   		<script type="text/javascript" src="../jsp/funcoes/MarcaDetalhe.js"></script>
+
+   		<!-- RECAPTCHA -->
+		<script src="//www.google.com/recaptcha/api.js"></script>
+   		    <style type="text/css" media="all">#barra-brasil div,#barra-brasil a,#barra-brasil ul,#barra-brasil li{margin:0;padding:0;font-size:100%;font-family:inherit;vertical-align:baseline}#barra-brasil ul{list-style:none}@font-face{font-family:"Open Sans";font-style:normal;font-weight:700;src:local("Open Sans Bold"),local("OpenSans-Bold"),url("//barra.brasil.gov.br/static/opensans-bold.woff") format("woff")}#barra-brasil{height:32px;background:#f1f1f1;font-weight:bold;font-size:12px;line-height:32px;font-family:"Open Sans",Arial,Helvetica,sans-serif;border-bottom:1px solid #dfdfdf;box-sizing:content-box}#barra-brasil a{text-decoration:none}body.contraste #barra-brasil{background:#000}div#wrapper-barra-brasil{position:relative;overflow:hidden;margin:0 auto;width:100%;max-width:960px;height:100%}#barra-brasil .brasil-flag{float:left;padding:7px 0 6px;width:115px;height:19px;border-right:2px solid #dfdfdf}#barra-brasil .brasil-flag .link-barra{display:block;padding-left:42px;width:43px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAATCAMAAAC5m+00AAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAACrUExURQCXSF27iQCWRQOWSQCWSRCdVACSSgCWRwCVSRKcVv/oAP/yAAIvh/bjBQKVTP/rAK3PF/3sARZBkg05ima2LCqiPg+ZRR9JoermBbGwLwEqkgCST1GwMRqdQZfIHdzgCSdSlTlYbEWrNyNKeouUPHOgtEJsn2WOrSClX2m/lF+6i3q8JsDVEBpCgWN2WefTD8i/IYSstzKmO3eIUaa2h3SOjfvlHjVfq6OmNShvDYIAAAFISURBVCjPbVHXksMgDNQBljC4l9iOndjp5VKv//+XnXByb7fDADO7rNAK9v4DngPv/h/24BHBuEhqB3pCeUxJIAWKtMZlIVCTciogH3yhWMpinM2t7ZctS5UgAR74kVICpMauNrfmaucTpMj5e+4VUNTOEvuzCoL8EvZLJCH1SIHAqKjtehowposwTmbIcqZIt+UpNV/3zWa3HYLp2sZ1gegoPXkNU5M238Ow3d132cIYEyel9MHDLo2NcX4519puPkPmbOIowrdTbGyTZXk2BEH1kZo4LPSjFgq2DFcVc3lWNZbt2rGWIIiwTOztzJZV9W77glCp8RsSNHdc1NfL6rxoxp5JCcmUC1cJjdx0GKZ1hxq0eqYBkuPlzLHrjXuiOAwaDUGQFJyWBpyU7EUaQI/xckGeA98jksqNQLmp8BnB4Xh8+ReHX640GNLt25uiAAAAAElFTkSuQmCC") 8px center no-repeat;text-transform:uppercase;line-height:19px}#barra-brasil .acesso-info{position:absolute;left:130px}#barra-brasil .list{position:absolute;top:0;right:0}#barra-brasil .list .first{border-left:2px solid #dfdfdf}#barra-brasil .list-item{display:inline-block;padding:0 15px 0 13px;height:32px;border-right:2px solid #dfdfdf}#barra-brasil .link-barra{color:#606060}body.contraste #barra-brasil .link-barra{color:#FFF}#menu-icon{display:hidden;width:35px;height:22px;background:#f1f1f1 url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZBAMAAAA2x5hQAAAAJ1BMVEUAAABubm5ubm5ubm5ubm5ubm5ubm5ubm5vb29ubm5ubm5ubm5ubm5Wlu/fAAAADHRSTlMA6ioQ1wqDzlIj9Vz4BBXdAAAAR0lEQVQY02PAB1izzsCABAMD0xk4OIjOY053gYFqoMZIJRiYwIAfBBvDgAHQvkRBGPDAZx+qSjRT8ABUl6G6Gp99aCFBPAAA++pVuwpeGZsAAAAASUVORK5CYII=") no-repeat center;border-bottom:1px solid #DFDFDF}@media only screen and (max-width: 959px){#barra-brasil #menu-icon{display:inline-block;float:right;padding:5px}#barra-brasil nav:hover #menu-icon,#barra-brasil nav:active #menu-icon,#barra-brasil nav:focus #menu-icon{background-color:#DDD}#barra-brasil ul.list,#barra-brasil ul.list:active,#barra-brasil ul.list:focus{overflow:hidden;height:0px;transition:0.3s;padding-top:32px;width:auto;position:absolute;z-index:9}#barra-brasil .list-item{display:block;text-align:center;height:30px;background:#EEE;padding:0 15px;border:1px solid #dfdfdf}body.contraste #barra-brasil .list-item{background:#000}#barra-brasil .list a:active li,#barra-brasil .list a:focus li,#barra-brasil .list a:hover li{background:#DDD}body.contraste #barra-brasil .list a:active li,body.contraste #barra-brasil .list a:focus li,body.contraste #barra-brasil .list a:hover li{background:#000}#barra-brasil nav:active ul.list,#barra-brasil nav:focus ul.list,#barra-brasil nav:hover ul.list{height:150px;transition:0.5s}div#wrapper-barra-brasil{overflow:visible}}@media screen and (min-width: 960px){#wrapper-barra-brasil{width:960px}}</style><style type="text/css" media="all">div#wrapper-footer-brasil{position:relative;overflow:hidden;margin:0 auto;width:auto;padding:0 20px;max-width:960px}#wrapper-footer-brasil .logo-acesso-footer{float:left;width:107px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGsAAAAxCAMAAADqdKevAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAFZUExURQAAAP////7+/v////////39/f////////////////v7+/qnHv7+/v////qmGv////X19f////qnHPqmGuaqR/qmGvepKvqmGvqmGsvMzuTl5vn38+jdy/fx5tTU1u+gHt7c1827ns3Oz/jivvCdGP////yuGfunGv/LFvyyGf24F//WE/upGfCfF/21GP6+Fv/QFP/EFv67F//hif7Qb//HFv/BFgCZTP3FWv/Xd//ffgCEQgB6Pv/glP7ckwKKRQCgTv7iptiMEgCSSP/OY+OVFfy7Sf7gnf/aif7Ufv7sx0CkO/qzOD2SNvuuKP/GP3G3lP/bbnq6mv7lsf7cmsV7DrJrCv3VieLQof7nuM+EEdfMGv/YSq7Hk5+2J4a1K2eyjfO4VPbEb41MA1SPMO63GZXAmPPNjSGTW+rj12iyM4iiKVOrgNi2fr6nIN/BG8bJfpi6dsGymid2QgoAAAAldFJOUwDvkd9AEGC/gLBSl6Fw7M8zIH4g/RBQPb9ogNXq9yD319en97/AhMqTAAAFFUlEQVRYw+3X+1faSBQH8LxnEgkBq23dvtsdAjSxoKBBFq1IVOTRWotYrFr73Lbbff3/P+y9M0TRlp72NP60vQc5IUo+fm9mJokk/awLqcsTV5MuVvLq5JWLhC5NoOMNC7zJSxckTU+A0w36y6sbT5eXm8F6F7jJ6QvpXtL1go2tZzucWt7s95tB23OTF9BJCNXe2IqoTagmVADZJuOnvObW1tbO6upGLaIqzVKptO65E3FT3ac8FFIHb5+8PVhqViqlEsf8iZipHdG/jVrt4AnU44OKsBqNddePsY2XXW9ZULVabQ+lx49f/F3ZRqkRBIDFNkCmk25peKpqtfkDQb34p/GIVxAEXT85HVsH28NTVZufn3+L1B+/r3SKCwsP5vL52Vw348XVxUvQwWH/gJo/QKlarX4sF4tDLJPxb40GI2T80dLE1L8Wa/3Z6gm1tPcCpWr1r/IQQ+tMMIsxa/zhNGKP/2XS68P8HUpLS88PV7AOs9lRzE+efiEhs4SkJyAAJQk9bRIzZZKERAmBf4F/HEddcbtILUdUobB/dHS0XygUQBNdRMu/fPIN1XRkiTBiJpgiE5MppsmoaTCisjT0UGHmOGvSDZ7yVSmi7otCrFyOgo1M6BRTEiwF0SRZJhCROYbJHMtkusVszCuPPZ1X3ZKgliJq/6h1tI9YFIw3cSr6gsKgFG6plFLdVplGVaYySWNUosxwyPjT1eQLIFLbSB0uYh1yjAcTVvtm1EJH02RV5a1LKDZVHGZSh1FmOiwFlqKOtWDEbw6ppSxY+wA9fLi4uD8aDCw3FQ1qGGcK0UxCoF+EwpAwFBwWYmzosJ+Otzb7SFUq28+zEOsDUoB9EMGiJvr+zI9PZdfr9/ECUtnexlj3W5x6uNg6b/0Si9UU1PNs9husNNXEhk6V9Nij6tQw9C9YKPFYZQzW4j1c5NbIQPTdoYWDTaxUzBlvGarMUl+wSiJWoyysNT4OwTqdYHwcWieWYRg0bTDV1m0IaeBHi9o6taUUxdQGtdOUWrhhnJ1fXtDkF+BHRbQKrTXE1taEVSxGc/lYO7EITDAV3xz4sWADt5nMmK3AmwafZFuWmaHAPvPc0suvv9vZIg8GFq/Wmbns++/0ESvlMIkRjSm6TAgzJObo+IKJnYCFBI6v2wqjsgONPntR7vJLfePBAgTLFjornFppcerUui6NWDBluWVLDsHDMcJf1JFNCAkn1JTBgl2UnVs4AqQeoQVYZ0VUJ3tmOWwrn1tpZlrMHLUYsSGOahlEhb9TZUuVz1+WG2jNCaxT5VS1I6gHeRHrpfW5Be9MTY1asIPZBpw0Azc0mcnG+esy3FMEYAFWLHeqojqCErHCkxZ+Symq8ZX7DbTyAjuxihHFYxnfYSVUc/wNRxet2fwctHGh85uo1wunVNi99j1LUUrTx1uYq52bzWO0j0PrECSg8GSF/o4V0z3bpLsOlctxbO6NCNZBiafywvClGde9aNIDqpvJZHKzoOXfvMYOvoGtWdHAsH1Nj4m64raBcj3EhJb/Mx9JGb8etm+k43twaK93/fpuKDTgeOVQ8sJ6+PJGKrYnh6TbHey+erXbExpyOQ6BNKj772JrIFSI0GDq079Tvd26n4nK8+uDQXj8Xonz4evXXm9q7/rdGWnmzlR9d7dX5zXo9erh8T1Ti/WZUrt3I2GJPs3c+TQV1uu93qBev3X87n0iXulc3Zy5e3sP6/1txdKln/X/rP8A6HRZ8kCrrTMAAAAASUVORK5CYII=") center no-repeat;height:49px}#wrapper-footer-brasil .logo-brasil-footer{float:right;width:153px;background:url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJkAAAAwCAMAAAA1kSiuAAAABGdBTUEAALGPC/xhBQAAAAFzUkdCAK7OHOkAAAFiUExURQAAAP/////////////////////////dAICUGYa2J////////////////////////////////////////////////////////////////////////////6PBH97PCY2fGMDCEFSIKV6EIv/dAP/dACd2OCuHPil+OyqBPCh6OSuKPyqEPSJkMCyTQyyNQS2gSCZwNS2bRiFfLiRtNCRqMy2dRydzNx9bLCNnMi2YRR1UKS2WRCyQQip8OcnIDyBYKiZyNvfZAiyRQvWGHcbADSBioqy7F/////uoFkaFMEiVNpimFztyLJ21HPaPG3GuLiBQjvyxE3GdJ+nUBvmYGTeRPY24JEekPmGJJd7NCFqXMoKbH9TQDtKTJlipN/mgGKKvF7fFF4GvJ0VymbKGRKmaJ/vHCKODJO2nGdrl8N6WKry8EYp0WGSOuoisza7D2nd7JEpYcrWacEN9stekWsTR4lEu4eYAAABIdFJOUwDzBb3oLXhAcHA7EJJUhJ6wRxpg0NrhI2jHbnOpX0hfUd2Nqf///////////////////////////////////////////////nia+rQAAAnqSURBVFjD7ZnXf9tIDoApkdTuSVTvtjZll8kmci+JHSeiQ5sRrWIpkSNbkuMap9dt//9hBphhkXd/93b3cPNiZkAAHzDAUJlREumIFlP4iBqaloryx3gpocQy/DGhaVoRX1C1UjrHn3JaXEkZOFtWI4WkEhgq6Oj8KQ1PKMxrmppFcRwm0bgCto0oadVUeihrbCpd1bNxnIgV9XiJKEt5pZhHCFfXyzhZiOnVFOq6Ws5I02ytXHHLAbLijK6jv4yh6wn+VCnoMxHEzWq6jhEqbjZO5EouQtEousuUI9lyOo261RmgI+6YGo9EiUxVZ4nBSBZmiaymElnOzaGqn6yaIexMSSWLlSq8htpZMEk4bj4ZocSk0iJWJCtWEjMuBqDC8qRriuAxxFMyS7EUipoaJbJEIYJ2Em5ciZaCy1k0KjSRSWezkixaylPOslmRs2qE/ES1YjGS8JHlI0aGJuKRWo3yDSZdXZAZBikX8nGSl92oTmRKSjMKhWiQTIJmVMPAnFS0dKGKr2UjhkFJdvVKCb3nC9lsNUZkaaMCPKmZnKi8WEzWi04FpyRisRitZl5XkkmajCoiGUo2lQ+CKXlpJgnaOhmcTUaln1ieqiahzCB5Ev7oeeky1FP/H//ZuPmv4Pjpxg9y3AiJbvlkvvGTfOEfZH7pDd/Mret1FeV2vb64+OTJzsLC40ePVlYePFhaOjrtX5hs2EMQgUSImKx/+MoMjVcrqAfDCkrsi9PH0uzS0inp2kdLNA5RmT83A6q/KHfvMjQOAEakj/4YpBZSCzThvh9iO/V8HwUEVnsnrHvKdC2Mkr/flMr9oFVljqHVp9FYCFbdS6gvdBaqP2WohzJ/0pohXVQ+tIFsRSyB2VwQTqfI/GgLfv+vTMuX0GDofrTLBR+az3yz7qXcH/KpaT3itmCCkQmnYbJ79wDtbnDZqCpMS1JPpc3LjT1k3JOTkwmXHXjzfxOXZVrcFpsAMvQKz2GyXwFtTqDt+It9ybbmBHW4EZaObGFhH/SGb17CeMM8y2wezl0fF7xgLWAeHz0CskXhdYrMhxYqtleWEF2zKpKgvbh43GNgL8/eH8P6COTGveviWjkFucX/zcwdQWBiscJk9wXacB/G4enQW9ELi0ReRr20CTtOfXLS6738eHX18ezs7GTyADcc88ALud+82O+DYZ423vPC2gKQyfabIrvfABtgoo0TY8/9K6shsR3Lsi4uj7yCEfvD4F2v1zv57fmzZ89efzzb23tDDhwvZMyi3TwCZb5pWSyPDG4HyGSNh8nuINq9OSIz+7LYbOu+QBPCfa9g0N+L3V0Ae/6ckQHa3t7e+zF25n2pfCm64qK/j/tcnRcIALXNfVHkO1NkgMbDa4uWEsV2aVokmpPYtlcwDODty11G9huRPXsNZHsvXjDoT2iXAjt0bP8OzAuE8TAygRYmeyjQWhZbsMO26IOVA9NiooYP2zQl94pt2nu7bPT+/PbXh7++ff0D0E442Yu3UBXcsCyHu/WJR4c9z+CATDZgmGz54UP07+9D8N6Gz4jlYYv9XvbZCltIJPv9y+vXr798/fDh67MrRsbYbLOFyg2vE+rDQ1xX3vMcrm2eY5WzRgmTLT/1RSf6cMhrw3kqrCPZQbMt949T80yQfX6Oq/nHtw+/Y85Y1s5ZzHdkPZBlbtdiUxwOyKR8ECJbC6LN+QyYzjJZb9ybwGj79w9osrc9JDt5Lursy59Extats/x0Om2LbbDMO4vDMTKxOYTJ1tfWhIXAptsHC47EJpm3I7eZb/sdJ9vlHcD3jTNG9r6DBdUJaAs20GSdhXBAhlkB8RQZQ6Ni88e22LZMR8juhAJffML3U7vbfcd680rkjDXA3pvhY9ommq0pbVCfQGcxb1gl51IeJttENG9FZUkMDxy/LFAv+CvvfPnpche+AAyNZewKUnbSgjKUny5ndM2SWhbD5bMtZoNch8nmNzfRPRb5uDmRK9p3Atie8SH9/GyxjK59h6ztXn3+fNU7O3s/usuat+3tXuPzQSMU2aXDTHK4ltmRKzZFxtDWQSw2hrFXbA7Kwis6oMWixX66/o6+6GdvGrTp4MdzLEw2Bw1fZAOH6XE4IJOFPk1G7gWZ2ZL11JyXaP60CROjTaJe654wspPur+JLc8qqcDTf7Yjk2Z8aMm0TXiUcDsiEkTujENnqKrkXZE1v0+2sSu5Rp+GlDRfzYHNTWt383ut9X/N+6e3APj1i2t2OSNxAqkOVgE0Ox8gwdgh9sO+Npq1srHL36+vdDhuDlm/TPV8VaF3bbHqNMOTL2ZGFAJK1+bX7/h+hl2YHLHP17qjzyWl2Hsqs7ztMk8O1yEpofwDfA2VjQ7qf2nQdYXy9yxbPW9EB3zJWp9Q8tGFze2NDqIeK1QGyeYQDMkqM3FbJSlvZ9qMxda+PJo60zcgOut7+AevZXF39J7TlrS1kmw8Xa8t20Cq32xFvhNIGZNvk3hcZfeGbjrTd5RXoNULjwByhiKmNjmm05Od5cW4L0LbDaWP6jokRo93OhqwnX9rg66Dw0FZ9Qik9NB1pu4vN6C3JZOxlxGt3eyLR6qtbW9emDd7mEXM4IAtkhnvnaWspIXUPjVmQQiQ76Hr7x0iqbR74fhOK7oGP0PbWdWk7NrndbYQDMnrFywyGzsmmIgPnIwctkLBLO4qs5DvS63xgH2rJ5qqPj7c942S9yzccbperMzJv1fxpaym3vcgEWnc0cHBxZNjH5LizRkld3iKvq91x4CijIb9C8J9lh8PJwFvnts8ukxyb46B/mbbbinLzx+C46T+lEnNy5pZ47eef6SF0cHUjdCblM3/zWru3frxu3AwepeX+V8/44qFz4P/yiMXkAfJsUhwew6Dz31k6rE/S32iqHDIQlSfM8dgsHSrnZkCDzsaTqZkEzaboIe4dJoOYHnOxWD4hzqTZSbJbU7UEHa/TJU42HVHxRD1TSNPVj0pH3XnXCJEl3DSdyqeK6VKGzu9Bo8IfDc0oVOh43qWj9lQpXaSLhVrRKOEVRNw1VA0no0U3wQ7kE3Tyn0qXxDl6gc7EMynFyATICqlINExWoYSm0koCL0Q8MmY8Kq4iUhR6KgMvZvHkP8euj5BMESTJYgbcuYUS3h+AYkYNk0VKaEGQxd28lg+TidsfIFPwEondDFXzdNkiLwm0vJsVZHSrlY3wCyY0XYrQNZmaMSB7biWOMSW1TEZcbEkyY5aWmshqhYxaCJPFdUp6Rk/h61GtknXjuDDpcgVTWlUzBXSdUvVYJIcXgaky6cRdvYirrUcyGYhQk9c5QJOmNRP3VelZpYY1VONKiVIZfOlBMg0GNpNWUkXZF7QUtZMaKXAyvRhVciXOMwsvUkfp1UiV7lhKShzF7HpypvZvSR7U59ZU+3sAAAAASUVORK5CYII=") center no-repeat;height:48px}body.contraste #footer-brasil{background:#000}@media screen and (min-width: 960px){#wrapper-footer-brasil{width:960px}}</style></head>
+    <body bgcolor="#ffffff" leftmargin="0" text="#000000" topmargin="0">
+    
+    <div id="janelaModalCaptchaDownload" class="janelaModal">
+
+            <div class="tituloModal">Digite o texto da imagem abaixo</div>            
+           
+           <!-- RECAPTCHA -->
+			<div class="g-recaptcha" data-sitekey="6LfhwSAaAAAAANyx2xt8Ikk-YkQ3PGeAVhCfF3i2"><div style="width: 304px; height: 78px;"><div><iframe title="reCAPTCHA" width="304" height="78" role="presentation" name="a-qhiygvm6iqmi" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="https://www.google.com/recaptcha/api2/anchor?ar=1&amp;k=6LfhwSAaAAAAANyx2xt8Ikk-YkQ3PGeAVhCfF3i2&amp;co=aHR0cHM6Ly9idXNjYS5pbnBpLmdvdi5icjo0NDM.&amp;hl=en&amp;v=naPR4A6FAh-yZLuCX253WaZq&amp;size=normal&amp;anchor-ms=20000&amp;execute-ms=15000&amp;cb=vqi16ib9o81x"></iframe></div><textarea id="g-recaptcha-response" name="g-recaptcha-response" class="g-recaptcha-response" style="width: 250px; height: 40px; border: 1px solid rgb(193, 193, 193); margin: 10px 25px; padding: 0px; resize: none; display: none;"></textarea></div><iframe style="display: none;"></iframe></div>
+		
+            <fieldset></fieldset>
+            <input type="hidden" id="NumeroID" style="">
+            <input type="hidden" id="certificado" style="">
+            <input type="hidden" id="ipasDoc" style="">
+            <input type="hidden" id="ehTitularOuProcurador" style="">
+            
+    </div> 
+     
+    <form name="MarcaPesquisa" method="POST" action="../servlet/MarcasServletController">
+		<input type="hidden" name="CodPedido" id="CodPedido" value="2976374" style="">
+    	<input type="hidden" name="NumPedido" value="" style="">
+    	<input type="hidden" name="Action" id="Action" value="" style="">
+    
+        <div id="overlay"></div>
+
+        <div id="mainContainer">
+
+<div id="principal">
+<br>
+<div id="barra-brasil"><div id="wrapper-barra-brasil"><div class="brasil-flag"><a href="http://brasil.gov.br" class="link-barra">Brasil</a></div><span class="acesso-info"><a href="http://brasil.gov.br/barra#acesso-informacao" class="link-barra">Acesso à informação</a></span><nav><a href="#" id="menu-icon"></a><ul class="list"><a href="http://brasil.gov.br/barra#participe" class="link-barra"><li class="list-item first">Participe</li></a><a href="http://www.servicos.gov.br/?pk_campaign=barrabrasil" class="link-barra"><li class="list-item">Serviços</li></a><a href="http://www.planalto.gov.br/legislacao" class="link-barra"><li class="list-item">Legislação</li></a><a href="http://brasil.gov.br/barra#orgaos-atuacao-canais" class="link-barra"><li class="list-item last last-item">Canais</li></a></ul></nav></div></div>
+<div id="logo">
+	<a id="portal-logo" href="http://www.inpi.gov.br" title="O portal do Brasil">
+		<span id="portal-title-1">Instituto Nacional da</span>
+		<span id="portal-title" class="corto">Propriedade Industrial</span>
+		<span id="portal-description">Ministério da Economia</span>
+	</a>
+</div>
+<script src="/pePI/jsp/funcoes/barra.js" type="text/javascript"></script>
+
+
+
+        <table width="780px">
+            <tbody><tr>
+                <td align="center" colspan="2"><font class="titulo">Consulta à Base de Dados do INPI</font></td>
+            </tr>
+            <tr>
+                <td align="right" colspan="2">
+                    <font class="normal">
+						<div align="right">
+                            [ <a href="../jsp/Base_pesquisa.jsp" class="titulo">Início</a> |
+                            <a href="../jsp/Ajuda.jsp" class="normal">Ajuda?</a> ]
+						</div>
+                    </font>
+                </td>
+            </tr>
+            <tr>
+                <td align="left">
+                    <font class="normal">
+                        » Consultar por: <a class="titulo" href="../jsp/marcas/Pesquisa_num_processo.jsp">No.Processo</a> | 
+                            <a class="titulo" href="../jsp/marcas/Pesquisa_classe_basica.jsp">Marca</a> | 
+                            <a class="titulo" href="../jsp/marcas/Pesquisa_titular.jsp">Titular</a> | 
+                            <a class="titulo" href="../jsp/marcas/Pesquisa_figura.jsp">Cód. Figura</a> ]
+                    </font>
+                </td>
+	            <td align="right">
+	                <font class="normal">
+	                	
+						1/0
+						
+	                </font>
+	            </td>
+            </tr>
+            <tr>
+		  		<td colspan="2">
+	   	   			<hr class="hr">
+	    		</td>
+			</tr>
+            <tr>
+                <td colspan="2" align="center">
+                	<font class="normal">Marca</font>
+                </td>
+            </tr>
+            <tr>
+                
+	                <td align="right" colspan="2">
+	                    <font class="normal">
+	                    Meus Pedidos&nbsp;
+	                    </font>
+						<input type="checkbox" name="MeusPedidos" value="907206638" onchange="ConfirmMyList(this.form,'907206638',0)" style="">
+		            </td>
+	                
+            </tr>
+        </tbody></table>
+        <table width="780px" border="0" cellpadding="0" cellspacing="0">
+            <tbody><tr>
+                <td align="left" width="120">
+                	<font class="normal">Nº do Processo:</font>
+                </td>
+                <td align="left" valign="middle">
+                	<font class="marcador">&nbsp;<b>907206638</b></font>
+                	<input type="hidden" id="numeroProcesso" name="numeroProcesso" value="907206638" style="">
+                </td>
+                    
+                		<td align="right" valign="middle" rowspan="5">
+                        	<img border="0" height="220" width="220" src="/pePI/servlet/LogoMarcasServletController?Action=image&amp;codProcesso=2976374">
+               			</td>
+                        
+            </tr>
+            <tr>	
+			
+			
+			
+            </tr><tr>
+                <td align="left">
+                	<font class="normal">Marca:</font>
+                </td>
+                <td align="left">
+                
+                        <font class="normal">&nbsp;NUBANK</font>
+                        
+                </td>
+        	</tr>
+        	<tr>
+                <td align="left">
+                	<font class="normal">Situação:</font>
+                </td>
+                <td align="left">
+                    <font class="normal">&nbsp;
+                    Registro de marca em vigor
+                    </font>
+                </td>
+            </tr>
+            
+            
+             <tr>
+                <td align="left">
+                	<font class="normal">Apresentação:</font>
+                </td>
+                <td align="left">
+                	<font class="normal">&nbsp;Mista</font>
+                </td>
+               </tr>
+                
+               <tr>
+                    <td align="left">
+                    	<font class="normal">Natureza:</font>
+                    </td>
+                    <td align="left">
+                    	<font class="normal">&nbsp;De Serviço                    </font>
+                    </td>
+                </tr>
+<tr>
+                   
+                </tr>                
+        </tbody></table>
+        
+        <br>
+         
+          <div class="accordions">
+			<div class="accordion-item">
+				<input type="checkbox" name="accordion" checked="checked" id="accordion-classe-nice" style="">
+				<label for="accordion-classe-nice"><font class="titulo">Classificação de Produtos / Serviços</font>
+                        <font class="normal">
+                            <a class="normal" href="javascript:void(0)" onclick="DisableHide()">
+                            </a>
+                        </font>
+					</label>
+					<div class="accordion-content">
+					
+					<table width="780px">
+					    <thead> 
+					    	<tr bgcolor="#b5d6ad"> 
+					    		<th width="110"><font class="normal">Classe de Nice</font></th>
+                                <th width="230"><font class="normal">Situação da Classe</font></th>
+                                <th width="440"><font class="normal">Especificação</font></th>
+					    	</tr>
+					    </thead>
+					    
+					     <tbody>
+					     
+					     
+                               
+                        <tr bgcolor="#e9e9e9" align="center">
+                        	<td>
+                               <font class="normal">
+	                               <a class="normal" href="javascript:void(0)" onmouseout="hideMe('cln0')" onmouseover="showMe('cln0')" onclick="DisableHide()">
+										NCL(10) 36
+	                               </a>
+                               </font>
+                               <div id="cln0" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF"> 
+                                   <table width="100%" border="1" cellspacing="0" cellpadding="5" bordercolor="#006363">
+                                       <tbody><tr>
+                                           <td align="left" bgcolor="#b5d6ad">
+                                               <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                   <tbody><tr>
+                                                       <td><font class="normal"><b>Classe Nice - Revisão: (10)</b></font></td>
+                                                       <td width="30">
+                                                           <a href="javascript:EnableHide('cln0');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+                                                       </td>
+                                                   </tr>
+                                               </tbody></table>
+                                           </td>
+                                       </tr>
+                                       <tr>
+                                           <td align="left" bgcolor="#ffffff">
+                                               <font class="normal">Seguros; negócios financeiros; negócios monetários; negócios imobiliários.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  </font>
+                                           </td>
+                                       </tr>
+                                   </tbody></table>
+                               </div>
+                        	
+                        	</td>
+
+                            <td>
+                                <font class="normal">
+                                    Vide Situação do Processo
+                                </font></td>
+                            
+
+                        	<td>
+								
+                       			
+	                            <font class="normal">&nbsp;
+	                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('especificacao0')" onmouseover="showMe('especificacao0')" onclick="DisableHide()"> 
+	                                    Administração financeira; Análise financeira; Avaliação fina...
+	                                </a>
+	                            </font>
+	                            <div id="especificacao0" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 800px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+	                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+	                                        <tbody><tr>
+	                                            <td align="center" bgcolor="#b5d6ad">
+	                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+	                                                    <tbody><tr>
+	                                                        <td><font class="normal">Especificação</font></td>
+	                                                        <td width="30">
+	                                                            <a href="javascript:EnableHide('especificacao0');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+	                                                        </td>
+	                                                    </tr>
+	                                                </tbody></table>
+	                                            </td>
+	                                        </tr>
+	                                        <tr>
+	                                            <td align="left" bgcolor="#ffffff">
+	                                                <font class="normal"> 
+	                                                    Administração financeira; Análise financeira; Avaliação financeira [seguros, bancos, imóveis]; Bancários (Serviços -); Serviços bancários de acesso remoto [online banking]; Bolsa de valores (Cotações de -); Câmara de Compensação [bancário]; Capital (Investimentos de -) [finanças]; Cartão de crédito (Serviços de -); Cartão de débito (Serviços de -); Cheque (Verificação de validade de -); Cheques de viagem (Emissão de -); Cobrança (Serviços de -); Compensação [bancário]; Consultoria em seguros; Consultoria financeira; Corretagem de valores; Crédito (Agências de -); Emissão de cartões de crédito; Emissão de cheques de viagem; Emissão de títulos de valor; Empréstimos [financiamento]; Empréstimos a prazo; Fianças [garantias]; Fiduciários (Serviços -); Financeira (Administração -); Financeira (Avaliação -) [seguros, bancos, imóveis]; Financeira (Consultoria -); Financeiras (Informações -); Financiamento (Serviços de -); Financiamento de leasing; Fundos (Transferência eletrônica de -); Fundos de investimentos [finanças]; Fundos de pensão [aposentadoria]; Fundos mútuos; Garantias [fianças]; Garantias [fianças] (serviços de -); Informações sobre seguros; Liquidação financeira (Serviços de -); Operações bancárias de hipoteca; Operações de câmbio; Orçamento [avaliação financeira]; Poupança (Serviços bancários de -); Previdência (Serviços de fundos de-); Seguro contra acidentes; Seguros; Seguros (Consultoria em -); Seguros (Corretagem de -); Seguros (Informações sobre -); Seguros contra incêndio; Seguros de  saúde; Seguros de vida; Seguros marítimos; Serviços atuariais; Serviços de empréstimo com garantia de ações; Verificação de validade de cheque
+	                                                </font>
+	                                            </td>
+	                                        </tr>
+	                                </tbody></table>
+	                            </div>
+	                            
+	                            
+	                            
+	                            
+	                            	<hr style="border: 1px solid #ffffff">
+	                            	<font class="normal"></font>
+	                            
+	                            
+                        	</td>
+                        
+                        </tr>
+                        
+					    </tbody>
+		               
+					</table>		
+					</div>
+				</div>
+			</div>
+			<br>
+			
+			
+			
+			 
+			
+			<div class="accordions">
+			<div class="accordion-item">
+				<input type="checkbox" name="accordion" checked="checked" id="accordion-classificacao-viena" style="">
+				<label for="accordion-classificacao-viena"><font class="titulo">Classificação Internacional de Viena</font>
+                        <font class="normal">
+                            <a class="normal" href="javascript:void(0)" onclick="DisableHide()">
+                            </a>
+                        </font>
+					</label>
+					<div class="accordion-content">
+					
+					<table width="780px">
+					    <thead> 
+					    	<tr bgcolor="#b5d6ad" align="center"> 
+					    		<th width="15%"><font class="normal">Edição</font></th>
+					    		<th width="180"><font class="normal">Código</font></th>
+					    		<th width="600"><font class="normal">Descrição</font></th>
+					    	</tr>
+					    </thead>
+					    <tbody>
+					    
+                        <tr bgcolor="#e9e9e9" align="center">
+                        	<td><font class="normal">4                 </font></td>
+                        	<td><font class="normal">27.5.1    </font></td>
+                        	<td><font class="normal">Letras apresentando um grafismo especial</font></td>
+                        </tr>
+                        
+                        
+                        
+					    
+					    </tbody>
+		               
+					</table>		
+					</div>
+				</div>
+			</div>
+			<br>
+			
+			
+					
+        
+         <div class="accordions">
+			<div class="accordion-item">
+				<input type="checkbox" name="accordion" checked="checked" id="accordion-titulares" style="">
+				<label for="accordion-titulares"><font class="titulo">Titulares</font>
+                        <font class="normal">
+                            <a class="normal" href="javascript:void(0)" onclick="DisableHide()">
+                            </a>
+                        </font>
+					</label>
+					<div class="accordion-content">
+					
+					<table width="780px">
+					    <thead> 
+					    	<tr bgcolor="#b5d6ad"> 
+					    		<th width="20"><font class="normal"></font></th>
+					    		<th width="400"><font class="normal">Nome</font></th>
+					    	</tr>
+					    </thead>
+					     <tbody>
+                         
+
+                         <tr bgcolor="#e9e9e9" align="center">
+                             <td width="20"><font class="normal">Titular(1):</font></td>
+                             <td width="400"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO
+                             </font></td>
+                         </tr>
+                         
+
+					     </tbody>
+		               
+					</table>		
+					</div>
+				</div>
+			</div>
+			<br>
+
+
+        <div class="accordions">
+            <div class="accordion-item">
+                <input type="checkbox" name="accordion" checked="checked" id="accordion-representantes" style="">
+                <label for="accordion-representantes"><font class="titulo">Representante Legal</font>
+                    <font class="normal">
+                        <a class="normal" href="javascript:void(0)" onclick="DisableHide()">
+                        </a>
+                    </font>
+                </label>
+                <div class="accordion-content">
+
+                    <table width="780px">
+                        <thead>
+                        <tr bgcolor="#b5d6ad">
+                            <th width="20"><font class="normal"></font></th>
+                            <th width="400"><font class="normal">Nome</font></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        
+                        <tr bgcolor="#e9e9e9" align="center">
+                            <td width="20"><font class="normal">Procurador:</font></td>
+                            <td width="400"><font class="normal">Dannemann, Siemsen, Bigler &amp; Ipanema Moreira</font></td>
+                        </tr>
+                        
+
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        <div class="accordions">
+			<div class="accordion-item">
+				<input type="checkbox" name="accordion" checked="checked" id="accordion-datas" style="">
+				<label for="accordion-datas"><font class="titulo">Datas</font>
+                        <font class="normal">
+                            <a class="normal" href="javascript:void(0)" onclick="DisableHide()">
+                            </a>
+                        </font>
+					</label>
+					<div class="accordion-content">
+					
+					<table width="780px">
+					    <thead> 
+					    	<tr bgcolor="#b5d6ad"> 
+					    		<th width="260"><font class="normal">Data de Depósito</font></th>
+					    		<th width="260"><font class="normal">Data de Concessão</font></th>
+					    		<th width="260"><font class="normal">Data de Vigência</font>
+						    		<font class="normal">
+	                     				<a class="normal" href="javascript:void(0)" onmouseout="hideMe('helpdatavigencia')" onmouseover="showMe('helpdatavigencia')" onclick="DisableHide()">
+												<img src="../jsp/imagens/help.gif" width="13" height="15" border="0" name="class">
+										</a>
+									</font>
+									<div id="helpdatavigencia" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+											<table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+												<tbody><tr>
+													<td align="center" bgcolor="#b5d6ad">
+														<table width="100%" border="0" cellspacing="0" cellpadding="0">
+															<tbody><tr>
+																<td><font class="normal">Leia-me</font></td>
+																<td width="30"><a href="javascript:EnableHide('helpdatavigencia');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a></td>
+															</tr>
+														</tbody></table>
+													</td>
+												</tr>
+												<tr>
+													<td align="left" bgcolor="#ffffff"><font class="normal">
+															A data de vigência dos processos de marca designados ao Brasil, pela via do Protocolo de Madri,
+															acompanha o prazo de vigência da inscrição internacional junto à OMPI,
+															independentemente da data de concessão do registro de marca no Brasil. </font></td>
+												</tr>
+											</tbody></table>
+										</div>
+					    		</th>
+					    		
+					    	</tr>
+					    </thead>
+					    <tbody>
+					    	<tr bgcolor="#e9e9e9">
+					    		<th><font class="normal">
+									10/01/2014	 		
+					    		
+					    			</font>
+					    		</th>
+					    		<th><font class="normal"> 
+						    		27/09/2016
+                     				</font>
+                     			</th>
+					    		<th><font class="normal">
+					    			27/09/2026
+					    			</font>
+					    		</th>
+					    		
+					    		
+					    	</tr>
+					    </tbody>
+		               
+					</table>		
+					</div>
+				</div>
+			</div>
+			<br>
+			
+			
+				 
+			
+			
+			 			
+			<div class="accordions">
+			<div class="accordion-item">
+				<input type="checkbox" name="accordion" checked="checked" id="accordion-prazos" style="">
+				<label for="accordion-prazos"><font class="titulo">Prazos para prorrogação de registro de marca</font>
+                        <font class="normal">
+                            <a class="normal" href="javascript:void(0)" onclick="DisableHide()">
+                            </a>
+                        </font>
+					</label>
+					<div class="accordion-content">
+					
+					<table width="780px">
+					    <thead> 
+					    	<tr bgcolor="#b5d6ad" align="center"> 
+					    		<th width="50"><font class="normal"></font></th>
+					    		<th width="150"><font class="normal">Prazo Ordinário</font></th>
+					    		<th width="150"><font class="normal">Prazo Extraordinário</font></th>
+					    		
+					    	</tr>
+					    </thead>
+					    <tbody>
+					    	<tr bgcolor="#e9e9e9" align="center">
+					    		<td><font class="normal">Início</font></td>
+					    		<td><font class="normal">28/09/2025</font></td>
+					    		<td><font class="normal">28/09/2026</font></td>
+					    	</tr>					    	
+					    	<tr bgcolor="#e9e9e9" align="center">
+					    		<td><font class="normal">Fim</font></td>
+					    		<td><font class="normal">27/09/2026</font></td>
+					    		<td><font class="normal">27/03/2027</font></td>
+					    	</tr>
+					    </tbody>
+		               
+					</table>		
+					</div>
+				</div>
+			</div>
+			<br>
+        	 
+        
+        <div class="accordions">
+			<div class="accordion-item">
+				<input type="checkbox" name="accordion" checked="checked" id="accordion-1" style="">
+				<label for="accordion-1"><font class="titulo">Petições</font>
+                        <font class="normal">
+                            <a class="normal" href="javascript:void(0)" onmouseout="hideMe('helppeticoes')" onmouseover="showMe('helppeticoes')" onclick="DisableHide()">
+                                <img src="../jsp/imagens/help.gif" width="13" height="15" border="0" name="class">
+                            </a>
+                        </font>
+                        <div id="helppeticoes" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+                            <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+                                    <tbody><tr>
+                                        <td align="center" bgcolor="#b5d6ad">
+                                            <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                                <tbody><tr>
+                                                    <td><font class="normal">Leia-me</font></td>
+                                                    <td width="30">
+                                                        <a href="javascript:EnableHide('helppeticoes');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody></table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td align="left" bgcolor="#ffffff">
+                                            <font class="normal">
+                                                Só serão identificados nesta consulta os documentos (petições) 
+                                                apresentados por meio do sistema de Guia de Recolhimento da 
+                                                União - GRU - em vigor desde 2006. Documentos anteriores a 
+                                                esta data podem não estar relacionados.
+                                            </font>
+                                        </td>
+                                    </tr>
+                            </tbody></table>
+                        </div>
+						 
+					</label>
+					<div class="accordion-content">
+					
+					<table width="780px">
+					    <thead> 
+					    	<tr bgcolor="#b5d6ad"> 
+					    		<th width="10"><font class="normal">Pgo</font>
+					    		</th><th width="50"><font class="normal">Protocolo</font>
+					    		</th><th width="62"><font class="normal">Data</font>
+					    		</th><th width="10"><font class="normal">Img</font>
+					    		</th><th width="10">
+				                
+					    		</th><th width="30"><font class="normal">Serviço</font>
+					    		</th><th width="246"><font class="normal">Cliente</font>
+					    		</th><th width="10"><font class="normal">Delivery</font>
+			    				</th><th width="10"><font class="normal">Data</font>
+					    </th></tr></thead><tbody>
+		                
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto0')" onmouseover="showMe('pgto0')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto0" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto0');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                341        - Banco Itaú S.A.<br>
+		                                                                
+		                                                                Data: 16/10/2024<br>
+		                                                                Valor: R$140.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">850240570498</font></td>
+		                        <td align="center" width="62"><font class="normal">31/10/2024</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('352')" onmouseover="showMe('352')" onclick="DisableHide()">
+		                                    352
+		                                </a>
+		                            </font>
+		                            <div id="352" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('352');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>352</b>
+		                                                    Cópia oficial para efeito de reivindicação de prioridade unionista
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto1')" onmouseover="showMe('pgto1')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto1" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto1');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                237        - Banco Bradesco S.A.<br>
+		                                                                
+		                                                                Data: 22/03/2023<br>
+		                                                                Valor: R$14.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">850230130804</font></td>
+		                        <td align="center" width="62"><font class="normal">23/03/2023</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('825')" onmouseover="showMe('825')" onclick="DisableHide()">
+		                                    825
+		                                </a>
+		                            </font>
+		                            <div id="825" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('825');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>825</b>
+		                                                    Cópia reprográfica autenticada
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto2')" onmouseover="showMe('pgto2')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto2" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto2');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                237        - Banco Bradesco S.A.<br>
+		                                                                
+		                                                                Data: 17/02/2023<br>
+		                                                                Valor: R$140.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">800230070577</font></td>
+		                        <td align="center" width="62"><font class="normal">17/02/2023</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('351')" onmouseover="showMe('351')" onclick="DisableHide()">
+		                                    351
+		                                </a>
+		                            </font>
+		                            <div id="351" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('351');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>351</b>
+		                                                    Segunda via de certificado de registro de marca
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto3')" onmouseover="showMe('pgto3')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto3" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto3');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                237        - Banco Bradesco S.A.<br>
+		                                                                
+		                                                                Data: 18/01/2023<br>
+		                                                                Valor: R$14.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">850230024861</font></td>
+		                        <td align="center" width="62"><font class="normal">19/01/2023</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('825')" onmouseover="showMe('825')" onclick="DisableHide()">
+		                                    825
+		                                </a>
+		                            </font>
+		                            <div id="825" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('825');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>825</b>
+		                                                    Cópia reprográfica autenticada
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto4')" onmouseover="showMe('pgto4')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto4" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto4');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                237        - Banco Bradesco S.A.<br>
+		                                                                
+		                                                                Data: 26/10/2022<br>
+		                                                                Valor: R$14.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">850220478747</font></td>
+		                        <td align="center" width="62"><font class="normal">26/10/2022</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('825')" onmouseover="showMe('825')" onclick="DisableHide()">
+		                                    825
+		                                </a>
+		                            </font>
+		                            <div id="825" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('825');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>825</b>
+		                                                    Cópia reprográfica autenticada
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto5')" onmouseover="showMe('pgto5')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto5" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto5');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                237        - Banco Bradesco S.A.<br>
+		                                                                
+		                                                                Data: 31/10/2019<br>
+		                                                                Valor: R$70.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">850190369595</font></td>
+		                        <td align="center" width="62"><font class="normal">06/11/2019</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('385')" onmouseover="showMe('385')" onclick="DisableHide()">
+		                                    385
+		                                </a>
+		                            </font>
+		                            <div id="385" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('385');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>385</b>
+		                                                    Nomeação, destituição ou substituição de procurador
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto6')" onmouseover="showMe('pgto6')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto6" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto6');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                033        - Banco do Estado de São Paulo S.A. - Banespa<br>
+		                                                                
+		                                                                Data: 05/09/2016<br>
+		                                                                Valor: R$70.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">850160200310</font></td>
+		                        <td align="center" width="62"><font class="normal">09/09/2016</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('381')" onmouseover="showMe('381')" onclick="DisableHide()">
+		                                    381
+		                                </a>
+		                            </font>
+		                            <div id="381" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('381');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>381</b>
+		                                                    Apresentação de documentos
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto7')" onmouseover="showMe('pgto7')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto7" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto7');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                033        - Banco do Estado de São Paulo S.A. - Banespa<br>
+		                                                                
+		                                                                Data: 05/09/2016<br>
+		                                                                Valor: R$745.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">800160252003</font></td>
+		                        <td align="center" width="62"><font class="normal">05/09/2016</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('372')" onmouseover="showMe('372')" onclick="DisableHide()">
+		                                    372
+		                                </a>
+		                            </font>
+		                            <div id="372" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('372');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>372</b>
+		                                                    Primeiro decênio de vigência de registro de marca e expedição de certificado de registro - retribuição paga no prazo ordinário - valor por classe
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto8')" onmouseover="showMe('pgto8')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto8" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto8');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                237        - Banco Bradesco S.A.<br>
+		                                                                
+		                                                                Data: 17/11/2015<br>
+		                                                                Valor: R$70.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">850150265072</font></td>
+		                        <td align="center" width="62"><font class="normal">23/11/2015</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('378')" onmouseover="showMe('378')" onclick="DisableHide()">
+		                                    378
+		                                </a>
+		                            </font>
+		                            <div id="378" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('378');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>378</b>
+		                                                    Correção de dados no processo devido à falha do interessado
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto9')" onmouseover="showMe('pgto9')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto9" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto9');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">850150138202</font></td>
+		                        <td align="center" width="62"><font class="normal">24/06/2015</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('366')" onmouseover="showMe('366')" onclick="DisableHide()">
+		                                    366
+		                                </a>
+		                            </font>
+		                            <div id="366" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('366');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>366</b>
+		                                                    Retificação por erro de publicação na Revista da Propriedade Industrial (RPI
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                                    <font class="normal">
+		                                        <a class="normal" href="javascript:void(0)" onmouseout="hideMe('pgto10')" onmouseover="showMe('pgto10')" onclick="DisableHide()">
+		                                            <img src="../jsp/imagens/registro_em_exame.gif" width="17" height="13" border="0" alt="Pagamento Conciliado">
+		                                        </a>
+		                                    </font>
+		                                    <div id="pgto10" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                        <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                                <tbody><tr>
+		                                                    <td align="center" bgcolor="#b5d6ad">
+		                                                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                            <tbody><tr>
+		                                                                <td><font class="normal">Informações do Banco:</font></td>
+		                                                                <td width="30">
+		                                                                    <a href="javascript:EnableHide('pgto10');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                                </td>
+		                                                            </tr>
+		                                                        </tbody></table>
+		                                                    </td>
+		                                                </tr>
+		                                                <tr>
+		                                                    <td align="left" bgcolor="#ffffff">
+		                                                        <font class="normal">
+		                                                            
+		                                                                399        - HSBC Bank Brasil S.A. - Banco Múltiplo<br>
+		                                                                
+		                                                                Data: 10/01/2014<br>
+		                                                                Valor: R$355.0
+		                                                                
+		                                                            <br>
+		                                                        </font>
+		                                                    </td>
+		                                                </tr>
+		                                        </tbody></table>
+		                                    </div>
+		                                    
+		                            </font>
+		                        </td>
+		                        <td align="center" width="50"><font class="normal">850140004365</font></td>
+		                        <td align="center" width="62"><font class="normal">10/01/2014</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            
+		                                -
+		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                		<font class="normal">
+		                		
+				                </font>
+				                </td>
+		                        <td align="center" width="30">
+		                            <font class="normal">
+		                                <a class="normal" href="javascript:void(0)" onmouseout="hideMe('389')" onmouseover="showMe('389')" onclick="DisableHide()">
+		                                    389
+		                                </a>
+		                            </font>
+		                            <div id="389" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 300px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                                <table border="1" bordercolor="#006363" cellpadding="5" cellspacing="0" width="100%">
+		                                        <tbody><tr>
+		                                            <td align="center" bgcolor="#b5d6ad">
+		                                                <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                                    <tbody><tr>
+		                                                        <td><font class="normal">Descrição do Serviço</font></td>
+		                                                        <td width="30">
+		                                                            <a href="javascript:EnableHide('389');"><img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class"></a>
+		                                                        </td>
+		                                                    </tr>
+		                                                </tbody></table>
+		                                            </td>
+		                                        </tr>
+		                                        <tr>
+		                                            <td align="left" bgcolor="#ffffff">
+		                                                <font class="normal">
+		                                                    <b>389</b>
+		                                                    Pedido de registro de marca (com especificação pré-aprovada) - valor por classe
+		                                                </font>
+		                                            </td>
+		                                        </tr>
+		                                </tbody></table>
+		                            </div>
+		                        </td>
+		                        <td align="center" width="246"><font class="normal">NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO</font></td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+								<td align="center" width="10">
+									<font class="normal">&nbsp;                                
+										- 
+									</font>
+								</td>
+		                    </tr>
+		                    
+					</tbody></table>		
+					</div>					
+				</div>
+			</div>
+			
+			<div style="margin-top: 4px;">
+				<font class="link-sol-amplo-acesso">
+				<a href="javascript:void(0)" style="cursor:pointer;" onclick="createPopupWin('../servlet/MarcasServletController?Action=modalSolicitacaoAmploAcesso&amp;CodPedido=2976374', 'modal1', 900, 590);" class="titulo">Clique aqui para ter acesso as petições do processo</a>
+			   </font>
+			   <font class="normal">
+		                    <a class="normal" href="javascript:void(0)" onmouseout="hideMe('helpamploacesso')" onmouseover="showMe('helpamploacesso')" onclick="DisableHide()">
+		                        <img src="../jsp/imagens/help.gif" width="13" height="15" border="0" name="class">
+		                    </a>
+		                </font>
+		                <div id="helpamploacesso" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 460px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                    <table border="1" bordercolor="#006363" bordercolorlight="#b5d6ad" cellpadding="5" cellspacing="0" width="460px">
+		                        <tbody>
+		                            <tr>
+		                                <td align="center" bgcolor="#b5d6ad">
+		                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                        <tbody><tr>
+		                                            <td><font class="normal">Leia-me</font></td>
+		                                            <td width="30">
+		                                                <a href="javascript:EnableHide('helpamploacesso');">
+		                                                <img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class">
+		                                                </a>
+		                                            </td>
+		                                        </tr>
+		                                    </tbody></table>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <td align="justify" bgcolor="#ffffff" class="tooltip-sol-amplo-acesso">
+		                                    <font class="normal"> O INPI zela pelos dados pessoais nos termos da Lei Geral de Proteção
+															de Dados Pessoais (LGPD). Desse modo, foram adotadas medidas de
+															privacidade em prol dos solicitantes dos serviços prestados
+															pelo INPI, sem prejudicar a transparência e publicidade dos
+															atos praticados pelo Instituto. </font>
+										</td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		            	</div>
+			</div>
+			
+			
+			<br>
+			<div class="accordions">
+				<div class="accordion-item">
+					<input type="checkbox" name="accordion" checked="checked" id="accordion-2" style="">
+					<label for="accordion-2"><font class="titulo">Publicações</font>
+		                <font class="normal">
+		                    <a class="normal" href="javascript:void(0)" onmouseout="hideMe('helpdespacho')" onmouseover="showMe('helpdespacho')" onclick="DisableHide()">
+		                        <img src="../jsp/imagens/help.gif" width="13" height="15" border="0" name="class">
+		                    </a>
+		                </font>
+		                <div id="helpdespacho" style="BACKGROUND-COLOR: #ffffff; BORDER-BOTTOM: #000000 1px; BORDER-LEFT: #000000 1px; BORDER-RIGHT: #000000 1px; BORDER-TOP: #000000 1px; HEIGHT: 20px; POSITION: absolute; VISIBILITY: hidden; WIDTH: 600px; Z-INDEX: 10; layer-background-color: #FFFFFF">
+		                    <table border="1" bordercolor="#006363" bordercolorlight="#b5d6ad" cellpadding="5" cellspacing="0" width="100%">
+		                        <tbody>
+		                            <tr>
+		                                <td align="center" bgcolor="#b5d6ad">
+		                                    <table width="100%" border="0" cellspacing="0" cellpadding="0">
+		                                        <tbody><tr>
+		                                            <td><font class="normal">Leia-me</font></td>
+		                                            <td width="30">
+		                                                <a href="javascript:EnableHide('helpdespacho');">
+		                                                <img src="../jsp/imagens/bt_layer.gif" width="26" height="16" border="0" name="class">
+		                                                </a>
+		                                            </td>
+		                                        </tr>
+		                                    </tbody></table>
+		                                </td>
+		                            </tr>
+		                            <tr>
+		                                <td align="left" bgcolor="#ffffff">
+		                                    <font class="normal">
+		                                        PRAZOS:
+												O direito de praticar qualquer ato perante o INPI se extingue ao final do prazo 
+												estabelecido pela LPI para realização do mesmo, a não ser que o interessado comprove 
+												que o não realizou por justa causa. Reputa-se justa causa o evento imprevisto, alheio à 
+												vontade da parte, e que a impediu de praticar o ato.
+												Os prazos previstos na LPI em relação às patentes são contados em dias, meses 
+												e anos. Os prazos expressos em dias contam-se de modo contínuo; os expressos em 
+												meses devem ser contados de data a data, ou seja, expiram no dia de número igual ao do 
+												dia do início da contagem, ou no dia imediatamente subseqüente, caso falte esta
+												correspondência.
+												No cômputo dos prazos, exclui-se o dia do começo e inclui-se o do vencimento. Se 
+												este cair em dia sem expediente, o prazo será prorrogado até o primeiro dia útil após o 
+												vencimento.
+												Os prazos somente começam a correr a partir do primeiro dia útil após a
+												intimação, que será feita mediante publicação na RPI, ressalvados:
+												- os que expressamente independerem de notificação ou publicação por força do 
+												disposto na LPI; 
+												- as decisões administrativas, quando feita notificação por via postal ou por ciência 
+												dada ao interessado no processo; e
+												- os pareceres e despachos internos que não necessitem ser do conhecimento das 
+												partes (art. 226 da LPI). 
+												Não havendo expressa estipulação na LPI, o prazo para a prática de um ato será 
+												de 60 (sessenta) dias
+		                                    </font>
+		                                </td>
+		                            </tr>
+		                        </tbody>
+		                    </table>
+		            	</div>
+					</label>
+					<div class="accordion-content">
+
+					<table>
+					    <thead> 
+					    	<tr bgcolor="#b5d6ad"> 
+					    		<th width="10"><font class="normal">RPI</font>
+					    		</th><th width="50"><font class="normal">Data RPI</font>
+					    		</th><th width="62"><font class="normal">Despacho</font>
+					    		</th><th width="30"><font class="normal">Certificado</font>
+					    		</th><th width="30"><font class="normal">Inteiro Teor</font>
+					    		</th><th width="10"><font class="normal">Complemento do Despacho</font>
+					    </th></tr></thead><tbody>
+		                
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="28"><font class="normal">2817</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>31/12/2024</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Deferimento da petição
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850240569647 (31/10/2024) <br> <b>Petição (tipo):</b> Anotação de alteração de nome, sede ou endereço (348.3)<br><b>Requerente: </b>NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO<br><b>Procurador: </b>Jéssica de Barros Souza Tebar<br><b>Detalhes do despacho:</b>Anotada a alteração de sede.<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="28"><font class="normal">2813</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>03/12/2024</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Emissão de Cópia oficial de registro de marca
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850240570498 (31/10/2024) <br> <b>Petição (tipo):</b> Cópia oficial (352.3)<br><b>Requerente: </b>NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO<br><b>Procurador: </b>Jéssica de Barros Souza Tebar<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="28"><font class="normal">2727</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>11/04/2023</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Emissão de folha de rosto de cópia reprográfica autenticada
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850230130804 (23/03/2023) <br> <b>Petição (tipo):</b> Cópia reprográfica autenticada (825.3)<br><b>Requerente: </b>NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO<br><b>Procurador: </b>Dannemann, Siemsen, Bigler &amp; Ipanema Moreira<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="28"><font class="normal">2723</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>14/03/2023</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Emissão de segunda via de certificado de registro
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	    	    <a href="#">                          
+					                            	<img id="d2ad13765aa55caf5fac989a1ba7fbdcd1d26da533db984ed43e68db1087d7ed" value="20478970" ehtitularouprocurador="false" name="certificadoPublicacao" src="../jsp/imagens/pdf.gif" width="16" height="16" border="0" alt="Imagem do Documento em PDF" align="top" style="padding-top: 5px;" class="salvaDocumento">
+						                			</a>
+						                		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 800230070577 (17/02/2023) <br> <b>Petição (tipo):</b> Segunda via de certificado de registro de marca (351.1)<br><b>Requerente: </b>NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO<br><b>Procurador: </b>Dannemann, Siemsen, Bigler &amp; Ipanema Moreira<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="28"><font class="normal">2720</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>23/02/2023</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Emissão de folha de rosto de cópia reprográfica autenticada
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850230024861 (19/01/2023) <br> <b>Petição (tipo):</b> Cópia reprográfica autenticada (825.3)<br><b>Requerente: </b>NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO<br><b>Procurador: </b>Dannemann, Siemsen, Bigler &amp; Ipanema Moreira<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="28"><font class="normal">2709</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>06/12/2022</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Emissão de folha de rosto de cópia reprográfica autenticada
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850220478747 (26/10/2022) <br> <b>Petição (tipo):</b> Cópia reprográfica autenticada (825.3)<br><b>Requerente: </b>NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO<br><b>Procurador: </b>Dannemann, Siemsen, Bigler &amp; Ipanema Moreira<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="28"><font class="normal">2660</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>28/12/2021</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Deferimento da petição
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850210513997 (24/11/2021) <br> <b>Petição (tipo):</b> Anotação de alteração de nome, sede ou endereço (348.3)<br><b>Requerente: </b>NU PAGAMENTOS S.A. - INSTITUIÇÃO DE PAGAMENTO<br><b>Procurador: </b>Dannemann, Siemsen, Bigler &amp; Ipanema Moreira<br><b>Detalhes do despacho:</b>NOME ALTERADO.<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="28"><font class="normal">2550</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>19/11/2019</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Deferimento da petição
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850190369595 (06/11/2019) <br> <b>Petição (tipo):</b> Nomeação, destituição ou substituição de procurador [em processo de registro] (385.1)<br><b>Titular(es): </b>NU PAGAMENTOS S.A.<br><b>Procurador: </b>Dannemann, Siemsen, Bigler &amp; Ipanema Moreira<br><b>Detalhes do despacho:</b>Destituído o procurador José Ruy Lia e nomeado novo representante Elisabeth Siemsen do Amaral com poderes para representar o titular do processo perante o INPI.<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="28"><font class="normal">2482</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>31/07/2018</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Deferimento da petição
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850160202012 (12/09/2016) <br> <b>Petição (tipo):</b> Anotação de alteração de nome, sede ou endereço (348.3)<br><b>Requerente(es): </b>NU PAGAMENTOS S.A.<br><b>Procurador: </b>Pinheiro Neto Advogados<br><b>Detalhes do despacho:</b>SEDE ALTERADA.<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="28"><font class="normal">2407</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>21/02/2017</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Deferimento da petição
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850140161994 (14/08/2014) <br> <b>Petição (tipo):</b> Anotação de alteração de nome, sede ou endereço (348.3)<br><b>Requerente: </b>NU PAGAMENTOS S.A.<br><b>Procurador: </b>Sul América Marcas e Patentes S/C  Ltda.<br><b>Detalhes do despacho:</b>Nome e sede alterados.<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="28"><font class="normal">2386</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>27/09/2016</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Concessão de registro
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="28"><font class="normal">2376</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>19/07/2016</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Deferimento da petição
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850150265072 (23/11/2015) <br> <b>Petição (tipo):</b> Correção de dados no processo devido a falha do interessado (378.1)<br><b>Requerente: </b>NU PAGAMENTOS S.A.<br><b>Procurador: </b>Sul América Marcas e Patentes Ltda.<br><b>Detalhes do despacho:</b>Realizada a correção no elemento nominativo da marca, conforme solicitado nesta petição.<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="28"><font class="normal">2376</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>19/07/2016</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Deferimento do pedido
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="white">
+		                        <td align="center" width="28"><font class="normal">2336</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>13/10/2015</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Petição de retificação não atendida
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                <b>Protocolo:</b> 850150138202 (24/06/2015) <br> <b>PetiÃ§Ã£o (tipo):</b> Retificação por erro de publicação na RPI [em processo de registro] (366.3)<br><b>Requerente: </b>NU PAGAMENTOS S.A.<br><b>Procurador: </b>Sul América Marcas e Patentes Ltda.<br><b>Detalhes do despacho:</b>A petição de retificação não atende ao solicitado pelo usuário. Para solicitar correção por falha do interessado, o usuário deverá utilizar petição específica - cód. 378.<br>
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+		                    <tr bgcolor="#e9e9e9">
+		                        <td align="center" width="28"><font class="normal">2256</font></td>
+		                        <td align="center" width="55"><font class="normal"><b>01/04/2014</b></font></td>
+		                        <td align="center" width="74">
+		                        
+		                            <font class="normal">
+		                                Publicação de pedido de registro para oposição (exame formal concluído)
+		                            </font>
+		                            
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="center" width="10">
+		                            <font class="normal">
+		                            	-		                                
+		                            </font>
+		                        </td>
+		                        <td align="left" width="623">
+		                             <font class="normal">
+		                                
+		                            </font>
+		                        </td>
+		                    </tr>
+		                    
+				</tbody></table>		
+				</div>
+			</div>
+		</div>
+        
+        <table border="0" width="780px" cellpadding="3" cellspacing="2" class="fundoportal">
+                <tbody><tr>
+                    <td align="center" colspan="6">
+                        <font class="normal">
+                            &nbsp;<br>Dados atualizados  até 
+                            <b>
+                                04/11/2025
+                            </b>
+                            - Nº da Revista:
+                            <b>2861</b>
+                        </font>
+                    </td>
+                </tr>
+        </tbody></table>
+            
+    <!-- RECAPTCHA -->
+        <div id="conteudoCaptcha" style="display: none">
+            <form id="captchaForm">
+            
+                <div id="captchaConteiner">
+                    <br> 
+                    <input type="submit" id="captchaButton" class="button branco" value="Download" style="">
+                    <div id="msgErroCaptcha" class="errorMsgCaptcha" style="display: none"></div>
+                </div>
+                
+                <div id="loader" style="display: none">
+                    <img src="../jsp/imagens/loading.gif" style="margin-top: 75px; width: 180px">
+                </div>
+                
+                <input type="hidden" value="300" id="codDiretoria" style="">
+                <input type="hidden" id="cdDespach" style="">
+                
+            </form>
+        </div>
+    <!-- RECAPTCHA -->
+    
+	<br>
+      
+	<div id="bottom_principal"></div>
+	<div id="footer">
+		<div id="texto_footer">
+			<p>Rua Mayrink Veiga, 9 - Centro - RJ - CEP: 20090-910</p>
+		</div>
+		<div id="logo_ouvidoria">
+			<a href="http://faleconosco.inpi.gov.br/" target="blank"><img src="/pePI/jsp/imagens/faleconosco.png" border="0" alt="Fale Conosco" onmouseout="this.src='/pePI/jsp/imagens/faleconosco.png';" title="Fale Conosco" onmouseover="this.src='/pePI/jsp/imagens/faleconosco.png';"> </a>
+		</div>
+	</div>
+    
+</div></div></form><div style="background-color: rgb(255, 255, 255); border: 1px solid rgb(204, 204, 204); box-shadow: rgba(0, 0, 0, 0.2) 2px 2px 3px; position: absolute; transition: visibility linear 0.3s, opacity 0.3s linear; opacity: 0; visibility: hidden; z-index: 2000000000; left: 0px; top: -10000px;"><div style="width: 100%; height: 100%; position: fixed; top: 0px; left: 0px; z-index: 2000000000; background-color: rgb(255, 255, 255); opacity: 0.05;"></div><div class="g-recaptcha-bubble-arrow" style="border: 11px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -11px; z-index: 2000000000;"></div><div class="g-recaptcha-bubble-arrow" style="border: 10px solid transparent; width: 0px; height: 0px; position: absolute; pointer-events: none; margin-top: -10px; z-index: 2000000000;"></div><div style="z-index: 2000000000; position: relative;"><iframe title="recaptcha challenge expires in two minutes" name="c-qhiygvm6iqmi" frameborder="0" scrolling="no" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-top-navigation allow-modals allow-popups-to-escape-sandbox allow-storage-access-by-user-activation" src="https://www.google.com/recaptcha/api2/bframe?hl=en&amp;v=naPR4A6FAh-yZLuCX253WaZq&amp;k=6LfhwSAaAAAAANyx2xt8Ikk-YkQ3PGeAVhCfF3i2&amp;bft=0dAFcWeA44OrHlwRRbR14kfONwDyM4ETfgiwok9GZfYYPO_S8szVB7XkNR8rp970ZBy8P2HkWeaDK8NKv68BsBLy5pmSNaib7GjA" style="width: 100%; height: 100%;"></iframe></div></div></body></html>
