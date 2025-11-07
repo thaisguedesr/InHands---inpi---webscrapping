@@ -94,15 +94,10 @@ class PepiScraper:
                 page.wait_for_load_state("networkidle", timeout=60000)
                 time.sleep(3)
                 
-                # 3. Clicar em "Marcas"
-                page.click('text=Marca')
+                # 3. Ir direto para Pesquisa de Marcas por número de processo
+                page.goto("https://busca.inpi.gov.br/pePI/jsp/marcas/Pesquisa_num_processo.jsp", timeout=60000)
                 page.wait_for_load_state("networkidle")
-                time.sleep(1)
-                
-                # 4. Ir para Pesquisa Básica
-                page.click('text=Pesquisa Básica')
-                page.wait_for_load_state("networkidle")
-                time.sleep(1)
+                time.sleep(2)
                 
                 # 5. Preencher número do processo
                 page.fill('input[name="processo"]', numero_processo)
