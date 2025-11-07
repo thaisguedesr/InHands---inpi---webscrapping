@@ -161,6 +161,16 @@ class PepiScraper:
                 time.sleep(2)
                 logger.info("Página de detalhes carregada")
                 
+                # 5.1 Verificar se é marca figurativa (se for, pular)
+                # Procurar por "Apresentação:" e verificar o tipo
+                page_content = page.content()
+                if 'Figurativa' in page_content:
+                    logger.warning(f"⚠️  Processo {numero_processo} é FIGURATIVA - pulando")
+                    browser.close()
+                    return {'marca': None, 'email': None, 'tipo': 'figurativa'}
+                
+                logger.info("✅ Marca não é figurativa, continuando...")
+                
                 # 6. Clicar no link de petições
                 peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso")').first
                 if peticoes_link.count() == 0:
