@@ -130,16 +130,16 @@ class PepiScraper:
                     pdf_response = page.request.get(pdf_link)
                     pdf_content = pdf_response.body()
                     
-                    # 8. Extrair email do PDF
-                    email = self.extrair_email_de_pdf(pdf_content)
+                    # 8. Extrair marca e email do PDF
+                    dados = self.extrair_dados_de_pdf(pdf_content)
                     
                     browser.close()
-                    return email
+                    return dados
                 else:
                     logger.warning(f"PDF código 300 não encontrado para processo {numero_processo}")
                     browser.close()
-                    return None
+                    return {'marca': None, 'email': None}
                     
         except Exception as e:
             logger.error(f"Erro ao buscar processo {numero_processo} no pePI: {str(e)}")
-            return None
+            return {'marca': None, 'email': None}
