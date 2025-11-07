@@ -213,8 +213,25 @@ class PepiScraper:
                 time.sleep(2)
                 logger.info("Página de detalhes carregada")
                 
-                # 5.1 Verificar se é marca figurativa (se for, pular)
-                # Procurar por "Apresentação:" e verificar o tipo
+                # 5.1 EXTRAIR A MARCA diretamente da página de detalhes
+                marca_extraida = None
+                try:
+                    # Procurar pela seção "Marca:" na página
+                    # Formato: <td>Marca:</td> seguido de <td> com o nome
+                    marca_cell = page.locator('td:has-text("Marca:")').first
+                    if marca_cell.count() > 0:
+                        # Pegar a próxima célula (que contém o nome da marca)
+                        parent_row = marca_cell.locator('xpath=..').first  # Pegar o <tr>
+                        cells = parent_row.locator('td').all()
+                        
+                        if len(cells) >= 2:
+                            marca_text = cells[1].inner_text()
+                            marca_extraida = marca_text.strip()
+                            logger.info(f"✅ MARCA extraída da página: {marca_extraida}")
+                except Exception as e:
+                    logger.warning(f"⚠️  Erro ao extrair marca da página: {str(e)}")
+                
+                # 5.2 Verificar se é marca figurativa (se for, pular)
                 page_content = page.content()
                 if 'Figurativa' in page_content:
                     logger.warning(f"⚠️  Processo {numero_processo} é FIGURATIVA - pulando")
