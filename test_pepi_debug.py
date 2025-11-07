@@ -103,6 +103,31 @@ def debug_pepi_navigation():
                 page.screenshot(path="/app/step6_search_results.png")
                 logger.info("   ✅ Screenshot salvo: step6_search_results.png")
                 logger.info(f"   URL atual: {page.url}")
+                
+                # 5. Procurar link de petições
+                logger.info("7. Procurando link de petições...")
+                peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso as petições do processo")')
+                logger.info(f"   Link de petições encontrado: {peticoes_link.count() > 0}")
+                
+                if peticoes_link.count() > 0:
+                    logger.info("8. Clicando no link de petições...")
+                    peticoes_link.click()
+                    time.sleep(3)
+                    page.screenshot(path="/app/step7_peticoes_page.png")
+                    logger.info("   ✅ Screenshot salvo: step7_peticoes_page.png")
+                    logger.info(f"   URL atual: {page.url}")
+                    
+                    # Salvar HTML da página de petições
+                    html_content = page.content()
+                    with open("/app/peticoes_html.html", "w") as f:
+                        f.write(html_content)
+                    logger.info("   ✅ HTML das petições salvo: peticoes_html.html")
+                else:
+                    # Salvar HTML da página de resultados
+                    html_content = page.content()
+                    with open("/app/results_html.html", "w") as f:
+                        f.write(html_content)
+                    logger.info("   ✅ HTML dos resultados salvo: results_html.html")
             
             logger.info("\n✅ Debug completo! Verifique os screenshots em /app/")
             
