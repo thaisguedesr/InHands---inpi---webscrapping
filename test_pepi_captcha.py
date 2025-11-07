@@ -21,9 +21,7 @@ def test_pepi_scraper():
     
     # Números de processo para testar (fornecidos pelo usuário anteriormente)
     processos_teste = [
-        "928223068",
-        "927960690",
-        "926941951"
+        "907206638"  # Processo que sabemos que existe
     ]
     
     scraper = PepiScraper()
