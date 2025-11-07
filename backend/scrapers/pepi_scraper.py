@@ -311,50 +311,53 @@ class PepiScraper:
                         logger.warning(f"⚠️  Erro ao abrir popup: {str(e)}")
                         time.sleep(2)
                 
-                # 7. Procurar ícone do PDF correto (código 389 ou 394, o mais antigo)
-                logger.info("🔍 Procurando PDF correto (código 389 ou 394)...")
+                # 7. Procurar ícone do PDF correto (código 389 ou 394 na coluna Serviço)
+                logger.info("🔍 Procurando PDF com Serviço 389 ou 394...")
                 
-                # Procurar todos os PDFs
-                all_pdf_icons = page.locator('img.salvaDocumento, img[name="certificadoPublicacao"]').all()
-                
-                if len(all_pdf_icons) == 0:
-                    logger.warning("❌ Nenhum ícone do PDF encontrado")
-                    browser.close()
-                    return {'marca': None, 'email': None}
-                
-                logger.info(f"  📄 Total de PDFs encontrados: {len(all_pdf_icons)}")
-                
-                # Tentar encontrar PDF com código 389 ou 394
+                # Procurar na tabela de petições
+                # A estrutura é: <tr> contém <td> com o serviço e <td> com a imagem do PDF
                 pdf_icon = None
                 pdf_escolhido = None
                 
-                for icon in all_pdf_icons:
+                # Procurar por células que contenham 389 ou 394
+                for codigo in ['389', '394']:
                     try:
-                        # Verificar atributos do ícone (id, name, etc)
-                        icon_id = icon.get_attribute('id') or ""
-                        icon_name = icon.get_attribute('name') or ""
+                        # Procurar td que contenha o código do serviço
+                        service_cells = page.locator(f'td:has-text("{codigo}")').all()
                         
-                        logger.info(f"    🔸 PDF: id={icon_id[:50]}, name={icon_name[:50]}")
+                        for cell in service_cells:
+                            # Pegar a linha (tr) que contém essa célula
+                            row = cell.locator('xpath=ancestor::tr').first
+                            
+                            # Procurar o ícone do PDF nessa linha
+                            pdf_in_row = row.locator('img.salvaDocumento, img[name="certificadoPublicacao"]')
+                            
+                            if pdf_in_row.count() > 0:
+                                pdf_icon = pdf_in_row.first
+                                pdf_escolhido = f"Serviço {codigo}"
+                                logger.info(f"  ✅ Encontrado PDF com Serviço {codigo}!")
+                                break
                         
-                        # Verificar se contém código 389 ou 394
-                        if '389' in icon_id or '389' in icon_name:
-                            pdf_icon = icon
-                            pdf_escolhido = "389"
-                            logger.info(f"  ✅ Encontrado PDF com código 389!")
+                        if pdf_icon:
                             break
-                        elif '394' in icon_id or '394' in icon_name:
-                            pdf_icon = icon
-                            pdf_escolhido = "394"
-                            logger.info(f"  ✅ Encontrado PDF com código 394!")
-                            break
-                    except:
+                    except Exception as e:
+                        logger.warning(f"    ⚠️  Erro ao procurar serviço {codigo}: {str(e)}")
                         continue
                 
-                # Se não encontrou 389/394, pegar o ÚLTIMO da lista (mais antigo)
+                # Se não encontrou 389/394, pegar o ÚLTIMO PDF da lista (mais antigo)
                 if not pdf_icon:
+                    logger.info("  ℹ️  Serviços 389/394 não encontrados, procurando todos os PDFs...")
+                    all_pdf_icons = page.locator('img.salvaDocumento, img[name="certificadoPublicacao"]').all()
+                    
+                    if len(all_pdf_icons) == 0:
+                        logger.warning("❌ Nenhum ícone do PDF encontrado")
+                        browser.close()
+                        return {'marca': None, 'email': None}
+                    
+                    logger.info(f"  📄 Total de PDFs encontrados: {len(all_pdf_icons)}")
                     pdf_icon = all_pdf_icons[-1]  # Último = mais antigo
                     pdf_escolhido = "último (mais antigo)"
-                    logger.info(f"  ⚠️  Códigos 389/394 não encontrados, usando o {pdf_escolhido}")
+                    logger.info(f"  ⚠️  Usando o {pdf_escolhido}")
                 
                 # 8. Clicar no ícone do PDF escolhido
                 logger.info(f"🖱️  Clicando no PDF escolhido: {pdf_escolhido}")
