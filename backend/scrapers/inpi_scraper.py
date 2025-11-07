@@ -172,46 +172,71 @@ Processando dados..."""
                 logger.warning(f"⚠️  Menos de 100 processos disponíveis. Usando os primeiros 10.")
                 processos_sem_procurador = processos_sem_procurador[:10]
             
-            logger.info("Iniciando busca de MARCA e EMAIL no pePI...")
+            # 4. PRIMEIRO: Salvar apenas os números de processo no MongoDB
+            logger.info(f"💾 Salvando {len(processos_sem_procurador)} números de processo no MongoDB...")
+            processos_dict = [p.dict() if hasattr(p, 'dict') else p for p in processos_sem_procurador]
+            for proc in processos_dict:
+                if 'data_extracao' in proc and isinstance(proc['data_extracao'], datetime):
+                    proc['data_extracao'] = proc['data_extracao'].isoformat()
             
-            # 4. Buscar marca e email no pePI apenas para processos SEM procurador
+            await self.db.processos_indeferimento.insert_many(processos_dict)
+            logger.info("✅ Números de processo salvos")
+            
+            # 5. SEGUNDO: Buscar marca e email no pePI para cada processo
+            logger.info("🔍 Iniciando busca de MARCA e EMAIL no pePI...")
             pepi_scraper = PepiScraper()
             
-            # Processar em lotes para não sobrecarregar
-            lote_size = 5  # Reduzido para 5 processos por vez
             total_com_dados = 0
+            total_figurativas = 0
             
-            for i in range(0, len(processos_sem_procurador), lote_size):
-                lote = processos_sem_procurador[i:i+lote_size]
-                logger.info(f"Processando lote {i//lote_size + 1}/{(len(processos_sem_procurador)//lote_size) + 1}")
+            # Processar UM POR VEZ para garantir estabilidade
+            for idx, proc in enumerate(processos_sem_procurador, 1):
+                numero_processo = proc.get('numero_processo')
+                logger.info(f"\n{'='*80}")
+                logger.info(f"📋 Processo {idx}/{len(processos_sem_procurador)}: {numero_processo}")
+                logger.info(f"{'='*80}")
                 
-                # Executar em paralelo (ThreadPoolExecutor para código síncrono)
-                with ThreadPoolExecutor(max_workers=3) as executor:
-                    futures = []
-                    for proc in lote:
-                        future = executor.submit(
-                            pepi_scraper.buscar_processo_e_extrair_dados,
-                            proc['numero_processo']
-                        )
-                        futures.append((proc, future))
+                try:
+                    # Buscar dados no pePI
+                    dados = pepi_scraper.buscar_processo_e_extrair_dados(numero_processo)
                     
-                    # Coletar resultados
-                    for proc, future in futures:
-                        try:
-                            dados = future.result(timeout=90)
-                            if dados.get('marca'):
-                                proc['marca'] = dados['marca']
-                            if dados.get('email'):
-                                proc['email'] = dados['email']
-                            if dados.get('marca') or dados.get('email'):
-                                total_com_dados += 1
-                        except Exception as e:
-                            logger.error(f"Erro ao processar {proc['numero_processo']}: {str(e)}")
+                    # Verificar se é figurativa
+                    if dados.get('tipo') == 'figurativa':
+                        total_figurativas += 1
+                        logger.warning(f"⏭️  Pulando processo {numero_processo} (figurativa)")
+                        continue
+                    
+                    # Atualizar no MongoDB se encontrou dados
+                    updates = {}
+                    if dados.get('marca'):
+                        updates['marca'] = dados['marca']
+                        logger.info(f"  ✅ MARCA: {dados['marca']}")
+                    if dados.get('email'):
+                        updates['email'] = dados['email']  
+                        logger.info(f"  ✅ EMAIL: {dados['email']}")
+                    
+                    if updates:
+                        await self.db.processos_indeferimento.update_one(
+                            {"numero_processo": numero_processo, "execucao_id": execucao_id},
+                            {"$set": updates}
+                        )
+                        total_com_dados += 1
+                        logger.info(f"  💾 Dados salvos no MongoDB")
+                    else:
+                        logger.warning(f"  ⚠️  Nenhum dado extraído para {numero_processo}")
+                        
+                except Exception as e:
+                    logger.error(f"❌ Erro ao processar {numero_processo}: {str(e)}")
                 
-                # Pequeno delay entre lotes
-                await asyncio.sleep(3)
+                # Delay entre processos
+                await asyncio.sleep(2)
             
-            logger.info(f"Total de processos com dados extraídos do pePI: {total_com_dados}/{len(processos_sem_procurador)}")
+            logger.info(f"\n{'='*80}")
+            logger.info(f"📊 RESUMO FINAL:")
+            logger.info(f"  Total processados: {len(processos_sem_procurador)}")
+            logger.info(f"  Figurativas (puladas): {total_figurativas}")
+            logger.info(f"  Com MARCA/EMAIL extraídos: {total_com_dados}")
+            logger.info(f"{'='*80}\n")
             
             # 5. Salvar apenas processos SEM procurador no banco
             if processos_sem_procurador:
