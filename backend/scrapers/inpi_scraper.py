@@ -155,10 +155,17 @@ Processando dados..."""
             # 3. Parsear XML e extrair processos de indeferimento
             processos = parsear_xml_revista(xml_content, execucao_id, semana, ano)
             
-            logger.info(f"Encontrados {len(processos)} processos de indeferimento")
+            logger.info(f"Encontrados {len(processos)} processos de indeferimento no total")
+            
+            # Filtrar apenas processos SEM procurador
+            processos_sem_procurador = [p for p in processos if not p.get('tem_procurador', False)]
+            processos_com_procurador = [p for p in processos if p.get('tem_procurador', False)]
+            
+            logger.info(f"   ✅ Com procurador: {len(processos_com_procurador)} (serão ignorados)")
+            logger.info(f"   ❌ Sem procurador: {len(processos_sem_procurador)} (serão processados)")
             logger.info("Iniciando busca de emails no pePI...")
             
-            # 4. Buscar emails no pePI para cada processo (paralelizar)
+            # 4. Buscar emails no pePI apenas para processos SEM procurador
             pepi_scraper = PepiScraper()
             
             # Processar em lotes para não sobrecarregar
