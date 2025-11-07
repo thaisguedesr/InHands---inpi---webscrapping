@@ -198,16 +198,23 @@ class PepiScraper:
                 
                 logger.info("✅ Marca não é figurativa, continuando...")
                 
-                # 6. Expandir a seção de Petições (pode estar colapsada)
-                # Clicar no accordion de Petições para expandir
+                # 6. EXPANDIR a seção de Petições (accordion)
+                # O conteúdo está colapsado por padrão!
+                logger.info("📂 Expandindo seção Petições...")
                 try:
+                    # Clicar no accordion para abrir
                     accordion_peticoes = page.locator('label[for="accordion-1"]')
                     if accordion_peticoes.count() > 0:
                         accordion_peticoes.click()
-                        time.sleep(1)
-                        logger.info("📂 Seção Petições expandida")
-                except:
-                    pass
+                        time.sleep(2)
+                        logger.info("  ✅ Seção Petições expandida")
+                    else:
+                        # Tentar pelo input checkbox
+                        page.locator('#accordion-1').click()
+                        time.sleep(2)
+                        logger.info("  ✅ Seção Petições expandida (via checkbox)")
+                except Exception as e:
+                    logger.warning(f"  ⚠️  Erro ao expandir: {str(e)}")
                 
                 # 6.1 VERIFICAR SE JÁ TEM OS PDFs (sessão já aceita anteriormente)
                 time.sleep(1)
