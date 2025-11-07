@@ -266,14 +266,13 @@ class PepiScraper:
                     logger.warning(f"  ⚠️  Erro ao expandir: {str(e)}")
                     time.sleep(2)
                 
-                # 6.1 VERIFICAR SE JÁ TEM OS PDFs (sessão já aceita anteriormente)
+                # 6.1 VERIFICAR SE O LINK "Clique aqui..." EXISTE
+                # Se existir, precisamos clicar nele SEMPRE (mesmo que já haja PDFs visíveis)
                 time.sleep(1)
-                # Procurar por múltiplos seletores de PDF
-                pdf_icons = page.locator('img.salvaDocumento, img[name="certificadoPublicacao"]')
                 
-                if pdf_icons.count() > 0:
-                    logger.info(f"✅ 1º VERIFICAÇÃO: PDFs já visíveis ({pdf_icons.count()} encontrados)")
-                else:
+                peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso")').first
+                
+                if peticoes_link.count() > 0:
                     logger.info("📋 1º VERIFICAÇÃO: PDFs não visíveis ainda")
                     logger.info("📋 2º AÇÃO: Procurando link 'Clique aqui para ter acesso as petições do processo'...")
                     
