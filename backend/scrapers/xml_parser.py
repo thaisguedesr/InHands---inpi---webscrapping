@@ -47,12 +47,19 @@ def parsear_xml_revista(xml_content: str, execucao_id: str, semana: int, ano: in
                         if email_tag:
                             email = email_tag.get_text(strip=True)
                 
+                # Verificar se tem procurador
+                tem_procurador = False
+                procurador_tag = processo_tag.find('procurador')
+                if procurador_tag and procurador_tag.get_text(strip=True):
+                    tem_procurador = True
+                
                 processo_dict = {
                     'id': str(uuid.uuid4()),
                     'execucao_id': execucao_id,
                     'numero_processo': numero_processo,
                     'marca': marca or 'Não informado',
                     'email': email,
+                    'tem_procurador': tem_procurador,
                     'data_extracao': datetime.now(timezone.utc).isoformat(),
                     'semana': semana,
                     'ano': ano
