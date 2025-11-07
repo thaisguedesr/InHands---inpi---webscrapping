@@ -202,54 +202,49 @@ class PepiScraper:
                     return {'marca': None, 'email': None}
                 
                 peticoes_link.click()
-                time.sleep(2)
+                time.sleep(3)
                 logger.info("Link de petições clicado")
                 
-                # 6.1 LIDAR COM O POPUP DE FINALIDADE DE ACESSO
-                try:
-                    # Aguardar popup aparecer
-                    time.sleep(2)
+                # 6.1 A página NAVEGA para o formulário de finalidade
+                # Aguardar carregar a página do formulário (Action=modalSolicitacaoAmploAcesso)
+                page.wait_for_load_state("networkidle", timeout=10000)
+                logger.info("📋 Página de finalidade carregada")
+                
+                # Verificar se estamos na página de finalidade
+                current_url = page.url
+                logger.info(f"  URL atual: {current_url}")
+                
+                if "modalSolicitacaoAmploAcesso" in current_url:
+                    logger.info("  ✅ Detectada página de finalidade")
                     
-                    # Verificar se há popup (nova janela)
-                    if len(context.pages) > 1:
-                        popup_page = context.pages[-1]
-                        logger.info("📋 Popup detectado em nova janela")
-                        
-                        # Selecionar opção no dropdown
-                        if popup_page.locator('select[name="finalidade"]').count() > 0:
-                            popup_page.select_option('select[name="finalidade"]', index=1)
+                    # Preencher o formulário
+                    try:
+                        # Selecionar primeira opção do dropdown
+                        selects = page.locator('select')
+                        if selects.count() > 0:
+                            selects.first.select_option(index=1)
                             logger.info("  ✅ Finalidade selecionada")
                         
-                        # Marcar checkbox
-                        if popup_page.locator('input[type="checkbox"]').count() > 0:
-                            popup_page.locator('input[type="checkbox"]').first.check()
+                        # Marcar o checkbox
+                        checkboxes = page.locator('input[type="checkbox"]')
+                        if checkboxes.count() > 0:
+                            checkboxes.first.check()
                             logger.info("  ✅ Checkbox marcado")
                         
-                        # Clicar Enviar
-                        if popup_page.locator('input[type="submit"], button:has-text("Enviar")').count() > 0:
-                            popup_page.locator('input[type="submit"], button:has-text("Enviar")').first.click()
-                            logger.info("  ✅ Enviado")
-                            time.sleep(2)
-                        
-                        # Voltar para página principal
-                        page = context.pages[0]
-                    else:
-                        # Modal na mesma página
-                        logger.info("📋 Verificando modal na mesma página")
-                        if page.locator('select[name="finalidade"]').count() > 0:
-                            page.select_option('select[name="finalidade"]', index=1)
-                            page.locator('input[type="checkbox"]').first.check()
-                            page.locator('input[type="submit"], button:has-text("Enviar")').first.click()
-                            logger.info("  ✅ Modal preenchido e enviado")
+                        # Clicar no botão Enviar
+                        enviar_btn = page.locator('button:has-text("Enviar"), input[value="Enviar"]')
+                        if enviar_btn.count() > 0:
+                            enviar_btn.first.click()
+                            logger.info("  ✅ Formulário enviado")
+                            page.wait_for_load_state("networkidle", timeout=15000)
                             time.sleep(2)
                         else:
-                            logger.info("  ℹ️  Sem modal/popup detectado")
+                            logger.warning("  ⚠️  Botão Enviar não encontrado")
                     
-                except Exception as e:
-                    logger.warning(f"Erro ao processar popup: {str(e)}")
-                
-                time.sleep(2)
-                logger.info("Aguardando página de petições carregar...")
+                    except Exception as e:
+                        logger.error(f"  ❌ Erro ao preencher formulário: {str(e)}")
+                else:
+                    logger.info("  ℹ️  Já está na página de petições (sem formulário)")
                 
                 # 7. Procurar ícone do PDF da PRIMEIRA petição
                 # A primeira petição normalmente contém os dados do requerente
