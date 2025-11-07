@@ -182,22 +182,19 @@ class PepiScraper:
                 time.sleep(3)
                 logger.info("Link de petições clicado")
                 
-                # 7. Procurar ícone do PDF (códigos 389 ou 394 - petição inicial)
-                # Precisamos do PDF da petição inicial, não o certificado (300)
-                # Os códigos 389/394 são da petição que contém email e marca
+                # 7. Procurar ícone do PDF da PRIMEIRA petição
+                # A primeira petição normalmente contém os dados do requerente
+                # Vamos pegar o ÚLTIMO PDF da lista (mais antigo = primeiro depositado)
+                pdf_icons = page.locator('img[name="certificadoPublicacao"]')
                 
-                pdf_icon = None
-                # Tentar encontrar PDF com código 389 ou 394
-                for codigo in ['389', '394']:
-                    icons = page.locator(f'img[value="{codigo}"][name="certificadoPublicacao"]')
-                    if icons.count() > 0:
-                        pdf_icon = icons.first
-                        logger.info(f"Encontrado PDF com código {codigo}")
-                        break
+                if pdf_icons.count() == 0:
+                    logger.warning("Nenhum ícone do PDF encontrado")
+                    browser.close()
+                    return {'marca': None, 'email': None}
                 
-                # Se não encontrar com códigos específicos, pegar o primeiro disponível
-                if not pdf_icon:
-                    pdf_icon = page.locator('img[name="certificadoPublicacao"]').first
+                # Pegar o ÚLTIMO ícone (primeira petição cronologicamente)
+                pdf_icon = pdf_icons.last
+                logger.info(f"Encontrado {pdf_icons.count()} PDF(s), usando o último (primeira petição)")
                 
                 if pdf_icon.count() == 0:
                     logger.warning("Ícone do PDF não encontrado")
