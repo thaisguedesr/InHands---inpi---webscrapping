@@ -226,7 +226,8 @@ class PepiScraper:
                 
                 # 6.1 VERIFICAR SE JÁ TEM OS PDFs (sessão já aceita anteriormente)
                 time.sleep(1)
-                pdf_icons = page.locator('img[name="certificadoPublicacao"]')
+                # Procurar por múltiplos seletores de PDF
+                pdf_icons = page.locator('img.salvaDocumento, img[name="certificadoPublicacao"]')
                 
                 if pdf_icons.count() > 0:
                     logger.info(f"✅ 1º VERIFICAÇÃO: PDFs já visíveis ({pdf_icons.count()} encontrados)")
