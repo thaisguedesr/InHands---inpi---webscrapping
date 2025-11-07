@@ -198,20 +198,48 @@ class PepiScraper:
                 
                 logger.info("✅ Marca não é figurativa, continuando...")
                 
-                # 6. VERIFICAR SE JÁ TEM OS PDFs (sessão já aceita anteriormente)
-                # OU se precisa clicar no link para aceitar
+                # 6. Expandir a seção de Petições (pode estar colapsada)
+                # Clicar no accordion de Petições para expandir
+                try:
+                    accordion_peticoes = page.locator('label[for="accordion-1"]')
+                    if accordion_peticoes.count() > 0:
+                        accordion_peticoes.click()
+                        time.sleep(1)
+                        logger.info("📂 Seção Petições expandida")
+                except:
+                    pass
+                
+                # 6.1 VERIFICAR SE JÁ TEM OS PDFs (sessão já aceita anteriormente)
                 time.sleep(1)
                 pdf_icons = page.locator('img[name="certificadoPublicacao"]')
                 
                 if pdf_icons.count() > 0:
-                    logger.info(f"✅ PDFs já visíveis ({pdf_icons.count()} encontrados) - acesso já foi concedido anteriormente")
+                    logger.info(f"✅ 1º VERIFICAÇÃO: PDFs já visíveis ({pdf_icons.count()} encontrados)")
                 else:
-                    logger.info("📋 PDFs não visíveis, procurando link de acesso...")
+                    logger.info("📋 1º VERIFICAÇÃO: PDFs não visíveis ainda")
+                    logger.info("📋 2º AÇÃO: Procurando link 'Clique aqui para ter acesso as petições do processo'...")
                     
-                    # Procurar o link "Clique aqui para ter acesso"
-                    peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso")').first
-                    if peticoes_link.count() == 0:
-                        logger.warning("⚠️  Link de petições não encontrado e PDFs não visíveis")
+                    # Tentar múltiplos seletores para o link
+                    peticoes_link = None
+                    seletores = [
+                        'a:has-text("Clique aqui para ter acesso as petições do processo")',
+                        'a:has-text("Clique aqui para ter acesso")',
+                        'a:has-text("petições do processo")',
+                        'a[href*="modalSolicitacaoAmploAcesso"]'
+                    ]
+                    
+                    for seletor in seletores:
+                        links = page.locator(seletor)
+                        if links.count() > 0:
+                            peticoes_link = links.first
+                            logger.info(f"  ✅ Link encontrado com seletor: {seletor}")
+                            break
+                    
+                    if not peticoes_link:
+                        logger.warning("  ⚠️  Link não encontrado com nenhum seletor")
+                        logger.warning("  ⚠️  Salvando HTML para debug...")
+                        with open(f"/tmp/no_link_{numero_processo}.html", "w") as f:
+                            f.write(page.content())
                         browser.close()
                         return {'marca': None, 'email': None}
                     
