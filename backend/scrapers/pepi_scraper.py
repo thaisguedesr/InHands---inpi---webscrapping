@@ -273,33 +273,7 @@ class PepiScraper:
                 peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso")').first
                 
                 if peticoes_link.count() > 0:
-                    logger.info("📋 1º VERIFICAÇÃO: PDFs não visíveis ainda")
-                    logger.info("📋 2º AÇÃO: Procurando link 'Clique aqui para ter acesso as petições do processo'...")
-                    
-                    # Tentar múltiplos seletores para o link
-                    peticoes_link = None
-                    seletores = [
-                        'a[onclick*="modalSolicitacaoAmploAcesso"]',  # Mais específico!
-                        'a:has-text("Clique aqui para ter acesso as petições do processo")',
-                        'a:has-text("Clique aqui para ter acesso")',
-                        'a.titulo:has-text("Clique aqui")',
-                        'font.titulo:has-text("Clique aqui")'
-                    ]
-                    
-                    for seletor in seletores:
-                        links = page.locator(seletor)
-                        if links.count() > 0:
-                            peticoes_link = links.first
-                            logger.info(f"  ✅ Link encontrado com seletor: {seletor}")
-                            break
-                    
-                    if not peticoes_link:
-                        logger.warning("  ⚠️  Link não encontrado com nenhum seletor")
-                        logger.warning("  ⚠️  Salvando HTML para debug...")
-                        with open(f"/tmp/no_link_{numero_processo}.html", "w") as f:
-                            f.write(page.content())
-                        browser.close()
-                        return {'marca': None, 'email': None}
+                    logger.info("📋 Link 'Clique aqui...' encontrado - precisa clicar para ver os PDFs")
                     
                     # O link abre em uma NOVA JANELA/TAB (popup)
                     # Aguardar nova janela aparecer
