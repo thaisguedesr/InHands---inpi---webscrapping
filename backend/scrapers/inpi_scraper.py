@@ -199,10 +199,10 @@ Processando dados..."""
                 # Pequeno delay entre lotes
                 await asyncio.sleep(2)
             
-            logger.info(f"Total de processos com email extraído: {total_com_email}/{len(processos)}")
+            logger.info(f"Total de processos com email extraído: {total_com_email}/{len(processos_sem_procurador)}")
             
-            # 5. Salvar processos no banco
-            if processos:
+            # 5. Salvar apenas processos SEM procurador no banco
+            if processos_sem_procurador:
                 processos_dict = [p.dict() if hasattr(p, 'dict') else p for p in processos]
                 for proc in processos_dict:
                     if 'data_extracao' in proc and isinstance(proc['data_extracao'], datetime):
