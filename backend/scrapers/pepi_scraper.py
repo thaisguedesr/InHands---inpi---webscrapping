@@ -136,13 +136,17 @@ class PepiScraper:
         """
         try:
             with sync_playwright() as p:
-                # Iniciar browser
+                # Iniciar browser com contexto NOVO (sem cookies) para garantir que o link apareça
                 browser = p.chromium.launch(
                     headless=True,
                     executable_path='/pw-browsers/chromium_headless_shell-1187/chrome-linux/headless_shell',
                     args=['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
                 )
-                context = browser.new_context()
+                # Criar contexto completamente novo (sem cache/cookies)
+                context = browser.new_context(
+                    viewport={'width': 1920, 'height': 1080},
+                    ignore_https_errors=True
+                )
                 page = context.new_page()
                 
                 logger.info(f"Acessando pePI para processo {numero_processo}")
