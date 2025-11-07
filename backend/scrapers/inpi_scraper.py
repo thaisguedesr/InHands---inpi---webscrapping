@@ -203,7 +203,7 @@ Processando dados..."""
             
             # 5. Salvar apenas processos SEM procurador no banco
             if processos_sem_procurador:
-                processos_dict = [p.dict() if hasattr(p, 'dict') else p for p in processos]
+                processos_dict = [p.dict() if hasattr(p, 'dict') else p for p in processos_sem_procurador]
                 for proc in processos_dict:
                     if 'data_extracao' in proc and isinstance(proc['data_extracao'], datetime):
                         proc['data_extracao'] = proc['data_extracao'].isoformat()
