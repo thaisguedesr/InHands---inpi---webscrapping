@@ -184,6 +184,11 @@ class PepiScraper:
                 time.sleep(2)
                 logger.info("Página de detalhes carregada")
                 
+                # DEBUG: Salvar HTML para análise
+                with open(f"/tmp/debug_detail_{numero_processo}.html", "w") as f:
+                    f.write(page.content())
+                logger.info(f"  DEBUG: HTML salvo em /tmp/debug_detail_{numero_processo}.html")
+                
                 # 5.1 Verificar se é marca figurativa (se for, pular)
                 # Procurar por "Apresentação:" e verificar o tipo
                 page_content = page.content()
