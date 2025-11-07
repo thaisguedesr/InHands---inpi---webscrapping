@@ -172,9 +172,9 @@ Processando dados..."""
             lote_size = 10
             total_com_email = 0
             
-            for i in range(0, len(processos), lote_size):
-                lote = processos[i:i+lote_size]
-                logger.info(f"Processando lote {i//lote_size + 1}/{(len(processos)//lote_size) + 1}")
+            for i in range(0, len(processos_sem_procurador), lote_size):
+                lote = processos_sem_procurador[i:i+lote_size]
+                logger.info(f"Processando lote {i//lote_size + 1}/{(len(processos_sem_procurador)//lote_size) + 1}")
                 
                 # Executar em paralelo (ThreadPoolExecutor para código síncrono)
                 with ThreadPoolExecutor(max_workers=5) as executor:
