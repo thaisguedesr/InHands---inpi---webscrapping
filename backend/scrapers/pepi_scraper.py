@@ -49,7 +49,8 @@ class PepiScraper:
                 # Iniciar browser
                 browser = p.chromium.launch(
                     headless=True,
-                    args=['--no-sandbox', '--disable-setuid-sandbox']
+                    executable_path='/pw-browsers/chromium-1187/chrome-linux/chrome',
+                    args=['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
                 )
                 context = browser.new_context()
                 page = context.new_page()
