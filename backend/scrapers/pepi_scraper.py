@@ -106,7 +106,7 @@ class PepiScraper:
             logger.error(f"Erro ao resolver reCAPTCHA: {str(e)}")
             raise
 
-    def buscar_processo_e_extrair_dados(self, numero_processo: str) -> dict:
+    def buscar_processo_e_extrair_dados_original(self, numero_processo: str) -> dict:
         """
         Faz login no pePI, busca o processo, resolve CAPTCHA e extrai marca e email do PDF
         Retorna: {'marca': str, 'email': str}
