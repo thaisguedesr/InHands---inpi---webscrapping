@@ -237,10 +237,11 @@ class PepiScraper:
                     # Tentar múltiplos seletores para o link
                     peticoes_link = None
                     seletores = [
+                        'a[onclick*="modalSolicitacaoAmploAcesso"]',  # Mais específico!
                         'a:has-text("Clique aqui para ter acesso as petições do processo")',
                         'a:has-text("Clique aqui para ter acesso")',
-                        'a:has-text("petições do processo")',
-                        'a[href*="modalSolicitacaoAmploAcesso"]'
+                        'a.titulo:has-text("Clique aqui")',
+                        'font.titulo:has-text("Clique aqui")'
                     ]
                     
                     for seletor in seletores:
