@@ -202,19 +202,27 @@ class PepiScraper:
                 # O conteúdo está colapsado por padrão!
                 logger.info("📂 Expandindo seção Petições...")
                 try:
-                    # Clicar no accordion para abrir
-                    accordion_peticoes = page.locator('label[for="accordion-1"]')
-                    if accordion_peticoes.count() > 0:
-                        accordion_peticoes.click()
-                        time.sleep(2)
-                        logger.info("  ✅ Seção Petições expandida")
+                    # Verificar se já está expandido
+                    accordion_checkbox = page.locator('#accordion-1')
+                    is_checked = accordion_checkbox.is_checked()
+                    
+                    if not is_checked:
+                        # Clicar no accordion para abrir
+                        accordion_peticoes = page.locator('label[for="accordion-1"]')
+                        if accordion_peticoes.count() > 0:
+                            accordion_peticoes.click()
+                            logger.info("  ✅ Accordion clicado")
                     else:
-                        # Tentar pelo input checkbox
-                        page.locator('#accordion-1').click()
-                        time.sleep(2)
-                        logger.info("  ✅ Seção Petições expandida (via checkbox)")
+                        logger.info("  ℹ️  Accordion já estava expandido")
+                    
+                    # Aguardar o conteúdo carregar (importante!)
+                    time.sleep(3)
+                    page.wait_for_load_state("networkidle", timeout=10000)
+                    logger.info("  ✅ Conteúdo carregado")
+                    
                 except Exception as e:
                     logger.warning(f"  ⚠️  Erro ao expandir: {str(e)}")
+                    time.sleep(2)
                 
                 # 6.1 VERIFICAR SE JÁ TEM OS PDFs (sessão já aceita anteriormente)
                 time.sleep(1)
