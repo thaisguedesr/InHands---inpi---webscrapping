@@ -217,7 +217,7 @@ class PepiScraper:
                 time.sleep(1)
                 
                 # 11. Clicar no botão de download
-                download_btn = page.locator('#captchaButton')
+                download_btn = page.locator('#captchaButton').first
                 if download_btn.count() > 0:
                     logger.info("Clicando no botão de download...")
                     
