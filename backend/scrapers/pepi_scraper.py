@@ -385,71 +385,7 @@ class PepiScraper:
                         browser.close()
                         return {'marca': marca_extraida, 'email': None}
                 
-                # 7. Agora temos o PDF correto - vamos clicar nele
-                logger.info("🔍 Procurando PDF com Serviço 389 ou 394...")
-                
-                # Procurar na tabela de petições
-                # A estrutura é: <tr> contém várias <td>, uma delas tem o serviço e outra tem o PDF
-                pdf_icon = None
-                pdf_escolhido = None
-                
-                # Estratégia: Procurar todas as linhas (tr) da tabela e verificar cada uma
-                try:
-                    # Procurar a tabela de petições (pode estar dentro de um div ou section específico)
-                    all_rows = page.locator('table tr').all()
-                    logger.info(f"  📊 Total de linhas na tabela: {len(all_rows)}")
-                    
-                    for row in all_rows:
-                        try:
-                            # Pegar todas as células da linha
-                            cells = row.locator('td').all()
-                            
-                            # Procurar se alguma célula contém 389 ou 394
-                            row_text = " ".join([c.inner_text().strip() for c in cells])
-                            
-                            if '389' in row_text or '394' in row_text:
-                                # Esta linha tem o código que procuramos!
-                                codigo_encontrado = '389' if '389' in row_text else '394'
-                                logger.info(f"  🔍 Linha com código {codigo_encontrado} encontrada")
-                                
-                                # Procurar o ícone do PDF nessa linha
-                                # Tentar múltiplos seletores
-                                pdf_in_row = row.locator('img[src*="pdf.gif"]')
-                                
-                                if pdf_in_row.count() > 0:
-                                    pdf_icon = pdf_in_row.first
-                                    pdf_escolhido = f"Serviço {codigo_encontrado}"
-                                    logger.info(f"  ✅ Encontrado ícone PDF na linha com Serviço {codigo_encontrado}!")
-                                    break
-                                else:
-                                    logger.warning(f"  ⚠️  Linha tem {codigo_encontrado} mas não encontrou ícone PDF")
-                        except:
-                            continue
-                    
-                except Exception as e:
-                    logger.error(f"  ❌ Erro ao procurar na tabela: {str(e)}")
-                
-                # Se não encontrou 389/394, FALHAR (não usar fallback)
-                if not pdf_icon:
-                    logger.error("❌ PDF com Serviço 389 ou 394 NÃO encontrado!")
-                    logger.error("   Salvando HTML para debug...")
-                    
-                    # Salvar HTML para debug
-                    with open(f"/tmp/sem_389_394_{numero_processo}.html", "w") as f:
-                        f.write(page.content())
-                    
-                    # Listar todos os serviços encontrados
-                    all_services = page.locator('td').all()
-                    logger.info("   Serviços encontrados na página:")
-                    for cell in all_services[:20]:  # Primeiros 20
-                        text = cell.inner_text().strip()
-                        if text.isdigit() and len(text) == 3:
-                            logger.info(f"     - Serviço: {text}")
-                    
-                    browser.close()
-                    return {'marca': marca_extraida, 'email': None}
-                
-                # 8. Clicar no ícone do PDF escolhido
+                # 7. Clicar no ícone do PDF encontrado
                 logger.info(f"🖱️  Clicando no PDF escolhido: {pdf_escolhido}")
                 pdf_icon.click()
                 time.sleep(2)
