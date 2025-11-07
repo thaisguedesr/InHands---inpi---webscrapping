@@ -89,8 +89,8 @@ class PepiScraper:
                 page.fill('input[name="T_Login"]', self.login_user)
                 page.fill('input[name="T_Senha"]', self.login_pass)
                 
-                # Clicar no botão de submit do formulário
-                page.click('input[type="submit"][value="Continuar"]')
+                # Clicar no botão de submit do formulário (o único submit da página)
+                page.click('input[type="submit"]')
                 page.wait_for_load_state("networkidle", timeout=60000)
                 time.sleep(3)
                 
