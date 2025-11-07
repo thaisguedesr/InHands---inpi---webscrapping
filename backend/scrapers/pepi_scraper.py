@@ -116,7 +116,7 @@ class PepiScraper:
                 # Iniciar browser
                 browser = p.chromium.launch(
                     headless=True,
-                    executable_path='/pw-browsers/chromium-1187/chrome-linux/chrome',
+                    executable_path='/pw-browsers/chromium_headless_shell-1187/chrome-linux/headless_shell',
                     args=['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
                 )
                 context = browser.new_context()
