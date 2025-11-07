@@ -120,9 +120,11 @@ class INPIScraper:
         
         try:
             # 1. Buscar URL do XML
-            xml_url = await self.buscar_ultimo_xml_marcas()
-            if not xml_url:
+            result = await self.buscar_ultimo_xml_marcas()
+            if not result:
                 raise Exception("XML não encontrado na página da revista")
+            
+            xml_url, numero_revista = result
             
             # Atualizar URL
             await self.db.execucoes.update_one(
@@ -130,10 +132,10 @@ class INPIScraper:
                 {"$set": {"xml_url": xml_url}}
             )
             
-            # 2. Baixar XML
+            # 2. Baixar e extrair XML do ZIP
             xml_content = await self.baixar_xml(xml_url)
             if not xml_content:
-                raise Exception("Falha ao baixar XML")
+                raise Exception("Falha ao baixar/extrair XML")
             
             # Enviar email de notificação
             enviar_email_notificacao(
