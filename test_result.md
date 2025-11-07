@@ -101,3 +101,97 @@
 #====================================================================================================
 # Testing Data - Main Agent and testing sub agent both should log testing data below this section
 #====================================================================================================
+
+user_problem_statement: |
+  Sistema automatizado de web scraping para extrair dados de propriedade intelectual do INPI brasileiro.
+  Funcionalidades principais:
+  1. Download semanal (terças 08:00) do XML de marcas do INPI
+  2. Parsear XML e filtrar processos "Indeferimento do pedido"
+  3. Para cada processo, acessar pePI, fazer login, buscar processo
+  4. Navegar até petições, resolver CAPTCHA, baixar PDF (códigos 389/394)
+  5. Extrair EMAIL e MARCA do PDF
+  6. Salvar dados no MongoDB
+  7. Dashboard React para visualização
+  8. Export XLSX dos dados
+
+backend:
+  - task: "CAPTCHA Resolution - CapMonster Integration"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/scrapers/pepi_scraper.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: |
+          Implementada integração completa com CapMonster API:
+          - Adicionada API key do CapMonster no .env
+          - Implementado método resolver_recaptcha() usando CapmonsterClient
+          - Fluxo: clicar no PDF → detectar site_key → resolver via CapMonster → injetar token → download
+          - Usa RecaptchaV2Task com create_task() e join_task_result()
+          - Precisa testar com processo real para verificar se site_key é detectado corretamente
+          
+  - task: "PDF Download and Data Extraction"
+    implemented: true
+    working: "NA"
+    file: "/app/backend/scrapers/pepi_scraper.py"
+    stuck_count: 0
+    priority: "high"
+    needs_retesting: true
+    status_history:
+      - working: "NA"
+        agent: "main"
+        comment: |
+          Implementado fluxo completo:
+          - Login no pePI
+          - Navegação para pesquisa de processo
+          - Clique no link de petições
+          - Handling do popup de finalidade de acesso
+          - Procura e clique no ícone do PDF (códigos 389/394)
+          - Extração de MARCA (Elemento Nominativo) e EMAIL do PDF usando regex
+          - Método extrair_dados_de_pdf() já implementado e testado
+
+metadata:
+  created_by: "main_agent"
+  version: "1.0"
+  test_sequence: 1
+  run_ui: false
+
+test_plan:
+  current_focus:
+    - "CAPTCHA Resolution - CapMonster Integration"
+    - "PDF Download and Data Extraction"
+  stuck_tasks: []
+  test_all: false
+  test_priority: "high_first"
+
+agent_communication:
+  - agent: "main"
+    message: |
+      Implementação completa do CapMonster para resolver reCAPTCHA durante download de PDF do pePI.
+      
+      Mudanças principais:
+      1. Adicionada CAPMONSTER_API_KEY no .env
+      2. Corrigido import: CapmonsterClient (com 'm' minúsculo)
+      3. Implementado resolver_recaptcha() com fluxo correto:
+         - create_task() para criar task
+         - join_task_result() para aguardar solução
+         - Retorna token g-recaptcha-response
+      4. Fluxo completo no buscar_processo_e_extrair_dados():
+         - Login e navegação ✅
+         - Clique em petições ✅
+         - Handling de popup ✅
+         - Clique no PDF → Modal CAPTCHA
+         - Detectar site_key do reCAPTCHA
+         - Resolver via CapMonster
+         - Injetar token na página
+         - Download do PDF
+         - Extrair EMAIL e MARCA
+      
+      Próximos passos:
+      - Testar com processo real (928223068, 927960690, ou 926941951)
+      - Verificar se site_key é detectado corretamente
+      - Confirmar que CAPTCHA é resolvido e PDF baixado
+      - Validar extração de dados do PDF
