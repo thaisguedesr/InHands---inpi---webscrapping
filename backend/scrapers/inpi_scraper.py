@@ -221,7 +221,7 @@ Processando dados..."""
                 }}
             )
             
-            logger.info(f"Scraping concluído com sucesso - {len(processos)} processos salvos")
+            logger.info(f"Scraping concluído com sucesso - {len(processos_sem_procurador)} processos SEM procurador salvos")
             
         except Exception as e:
             error_msg = str(e)
