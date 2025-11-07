@@ -32,32 +32,55 @@ class PepiScraper:
             }
             
             # Extrair MARCA (Elemento Nominativo)
-            # Padrão: "Elemento Nominativo: NOME DA MARCA"
-            marca_pattern = r'Elemento Nominativo:\s*(.+?)(?:\n|$)'
-            marca_match = re.search(marca_pattern, texto_completo, re.IGNORECASE)
-            if marca_match:
-                resultado['marca'] = marca_match.group(1).strip()
-                logger.info(f"Marca encontrada no PDF: {resultado['marca']}")
-            else:
+            # Padrões possíveis:
+            # 1. "Elemento Nominativo: NOME DA MARCA"
+            # 2. "Marca: NOME DA MARCA"
+            # 3. Linha após "Dados da Marca"
+            
+            marca_patterns = [
+                r'Elemento Nominativo[:\s]+([^\n]+)',
+                r'(?:^|\n)Marca[:\s]+([^\n]+)',
+                r'Sinal[:\s]+([^\n]+)',
+                r'Nome da marca[:\s]+([^\n]+)'
+            ]
+            
+            for pattern in marca_patterns:
+                marca_match = re.search(pattern, texto_completo, re.IGNORECASE | re.MULTILINE)
+                if marca_match:
+                    marca_text = marca_match.group(1).strip()
+                    # Limpar possíveis quebras de linha extras
+                    marca_text = ' '.join(marca_text.split())
+                    if len(marca_text) > 2:  # Validar que não é vazio
+                        resultado['marca'] = marca_text
+                        logger.info(f"Marca encontrada no PDF: {resultado['marca']}")
+                        break
+            
+            if not resultado['marca']:
                 logger.warning("Marca (Elemento Nominativo) não encontrada no PDF")
             
             # Extrair EMAIL
-            # Regex para encontrar emails
-            email_pattern = r'e-mail:\s*([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})'
-            email_match = re.search(email_pattern, texto_completo, re.IGNORECASE)
+            # Padrões possíveis:
+            # 1. "e-mail: email@domain.com"  
+            # 2. "E-mail: email@domain.com"
+            # 3. Qualquer email no texto
             
-            if email_match:
-                resultado['email'] = email_match.group(1).strip()
-                logger.info(f"Email encontrado no PDF: {resultado['email']}")
-            else:
-                # Tentar regex genérico se não encontrar com "e-mail:"
-                email_generic = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-                emails = re.findall(email_generic, texto_completo)
-                if emails:
-                    resultado['email'] = emails[0]
-                    logger.info(f"Email encontrado no PDF (genérico): {resultado['email']}")
-                else:
-                    logger.warning("Nenhum email encontrado no PDF")
+            email_patterns = [
+                r'e-?mail[:\s]+([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})',
+                r'\b([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})\b'
+            ]
+            
+            for pattern in email_patterns:
+                email_match = re.search(pattern, texto_completo, re.IGNORECASE)
+                if email_match:
+                    email_text = email_match.group(1).strip().lower()
+                    # Validar que não é um email genérico/inválido
+                    if '@' in email_text and '.' in email_text.split('@')[1]:
+                        resultado['email'] = email_text
+                        logger.info(f"Email encontrado no PDF: {resultado['email']}")
+                        break
+            
+            if not resultado['email']:
+                logger.warning("Nenhum email encontrado no PDF")
             
             return resultado
                 
