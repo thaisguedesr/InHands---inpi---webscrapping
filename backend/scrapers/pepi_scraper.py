@@ -339,11 +339,23 @@ class PepiScraper:
                     except Exception as e:
                         logger.warning(f"⚠️  Erro ao abrir popup: {str(e)}")
                         time.sleep(2)
-                else:
-                    # Link não existe - PDFs já devem estar visíveis
-                    logger.info("✅ Link 'Clique aqui...' NÃO encontrado - PDFs já devem estar visíveis")
+                    
+                    # Agora procurar o PDF novamente
+                    logger.info("🔍 2ª TENTATIVA: Procurando PDF com Serviço 389 ou 394 após clicar no link...")
+                    time.sleep(2)
+                    
+                    pdf_icon_tentativa2 = self._procurar_pdf_389_394(page)
+                    
+                    if pdf_icon_tentativa2:
+                        logger.info("✅ PDF 389/394 encontrado na 2ª tentativa!")
+                        pdf_icon = pdf_icon_tentativa2
+                        pdf_escolhido = "389 ou 394"
+                    else:
+                        logger.error("❌ PDF 389/394 NÃO encontrado mesmo após clicar no link!")
+                        browser.close()
+                        return {'marca': marca_extraida, 'email': None}
                 
-                # 7. Procurar ícone do PDF correto (código 389 ou 394 na coluna Serviço)
+                # 7. Agora temos o PDF correto - vamos clicar nele
                 logger.info("🔍 Procurando PDF com Serviço 389 ou 394...")
                 
                 # Procurar na tabela de petições
