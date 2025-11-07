@@ -460,8 +460,13 @@ class PepiScraper:
                     
                     logger.info("PDF baixado com sucesso!")
                     
-                    # 12. Extrair marca e email do PDF
+                    # 12. Extrair EMAIL do PDF (MARCA já foi extraída da página)
                     dados = self.extrair_dados_de_pdf(pdf_content)
+                    
+                    # Usar a marca extraída da página em vez do PDF
+                    if marca_extraida:
+                        dados['marca'] = marca_extraida
+                        logger.info(f"✅ Usando MARCA da página: {marca_extraida}")
                     
                     browser.close()
                     return dados
