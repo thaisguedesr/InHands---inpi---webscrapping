@@ -202,8 +202,54 @@ class PepiScraper:
                     return {'marca': None, 'email': None}
                 
                 peticoes_link.click()
-                time.sleep(3)
+                time.sleep(2)
                 logger.info("Link de petições clicado")
+                
+                # 6.1 LIDAR COM O POPUP DE FINALIDADE DE ACESSO
+                try:
+                    # Aguardar popup aparecer
+                    time.sleep(2)
+                    
+                    # Verificar se há popup (nova janela)
+                    if len(context.pages) > 1:
+                        popup_page = context.pages[-1]
+                        logger.info("📋 Popup detectado em nova janela")
+                        
+                        # Selecionar opção no dropdown
+                        if popup_page.locator('select[name="finalidade"]').count() > 0:
+                            popup_page.select_option('select[name="finalidade"]', index=1)
+                            logger.info("  ✅ Finalidade selecionada")
+                        
+                        # Marcar checkbox
+                        if popup_page.locator('input[type="checkbox"]').count() > 0:
+                            popup_page.locator('input[type="checkbox"]').first.check()
+                            logger.info("  ✅ Checkbox marcado")
+                        
+                        # Clicar Enviar
+                        if popup_page.locator('input[type="submit"], button:has-text("Enviar")').count() > 0:
+                            popup_page.locator('input[type="submit"], button:has-text("Enviar")').first.click()
+                            logger.info("  ✅ Enviado")
+                            time.sleep(2)
+                        
+                        # Voltar para página principal
+                        page = context.pages[0]
+                    else:
+                        # Modal na mesma página
+                        logger.info("📋 Verificando modal na mesma página")
+                        if page.locator('select[name="finalidade"]').count() > 0:
+                            page.select_option('select[name="finalidade"]', index=1)
+                            page.locator('input[type="checkbox"]').first.check()
+                            page.locator('input[type="submit"], button:has-text("Enviar")').first.click()
+                            logger.info("  ✅ Modal preenchido e enviado")
+                            time.sleep(2)
+                        else:
+                            logger.info("  ℹ️  Sem modal/popup detectado")
+                    
+                except Exception as e:
+                    logger.warning(f"Erro ao processar popup: {str(e)}")
+                
+                time.sleep(2)
+                logger.info("Aguardando página de petições carregar...")
                 
                 # 7. Procurar ícone do PDF da PRIMEIRA petição
                 # A primeira petição normalmente contém os dados do requerente
