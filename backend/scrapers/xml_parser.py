@@ -29,23 +29,23 @@ def parsear_xml_revista(xml_content: str, execucao_id: str, semana: int, ano: in
                 if not numero_processo:
                     continue
                 
-                # Extrair marca do titular (atributo nome-razao-social)
+                # Extrair NOME DA MARCA (tag <nome> dentro de <marca>)
                 marca = 'Não informado'
-                titular_tag = processo_tag.find('titular')
-                if titular_tag:
-                    marca = titular_tag.get('nome-razao-social', 'Não informado')
+                marca_tag = processo_tag.find('marca')
                 
-                # Extrair email (pode estar como atributo ou tag)
+                if marca_tag:
+                    nome_marca_tag = marca_tag.find('nome')
+                    if nome_marca_tag:
+                        marca = nome_marca_tag.get_text(strip=True)
+                
+                # Se não encontrou marca, usar nome do titular como fallback
+                if marca == 'Não informado':
+                    titular_tag = processo_tag.find('titular')
+                    if titular_tag:
+                        marca = titular_tag.get('nome-razao-social', 'Não informado')
+                
+                # Extrair email (será preenchido depois pelo pePI scraper)
                 email = None
-                if titular_tag:
-                    # Tentar pegar email como atributo
-                    email = titular_tag.get('email')
-                    
-                    # Se não encontrou, tentar como tag
-                    if not email:
-                        email_tag = titular_tag.find('email')
-                        if email_tag:
-                            email = email_tag.get_text(strip=True)
                 
                 # Verificar se tem procurador
                 tem_procurador = False
