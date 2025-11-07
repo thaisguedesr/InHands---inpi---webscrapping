@@ -14,8 +14,8 @@ class PepiScraper:
         self.login_pass = "Marcas01"
         self.base_url = "https://busca.inpi.gov.br/pePI/"
     
-    def extrair_email_de_pdf(self, pdf_content: bytes) -> str:
-        """Extrai email de um PDF"""
+    def extrair_dados_de_pdf(self, pdf_content: bytes) -> dict:
+        """Extrai marca (Elemento Nominativo) e email do PDF"""
         try:
             pdf_reader = PdfReader(io.BytesIO(pdf_content))
             texto_completo = ""
@@ -24,21 +24,44 @@ class PepiScraper:
             for page in pdf_reader.pages:
                 texto_completo += page.extract_text()
             
-            # Regex para encontrar emails
-            email_pattern = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
-            emails = re.findall(email_pattern, texto_completo)
+            resultado = {
+                'marca': None,
+                'email': None
+            }
             
-            if emails:
-                # Retornar primeiro email encontrado
-                logger.info(f"Email encontrado no PDF: {emails[0]}")
-                return emails[0]
+            # Extrair MARCA (Elemento Nominativo)
+            # Padrão: "Elemento Nominativo: NOME DA MARCA"
+            marca_pattern = r'Elemento Nominativo:\s*(.+?)(?:\n|$)'
+            marca_match = re.search(marca_pattern, texto_completo, re.IGNORECASE)
+            if marca_match:
+                resultado['marca'] = marca_match.group(1).strip()
+                logger.info(f"Marca encontrada no PDF: {resultado['marca']}")
             else:
-                logger.warning("Nenhum email encontrado no PDF")
-                return None
+                logger.warning("Marca (Elemento Nominativo) não encontrada no PDF")
+            
+            # Extrair EMAIL
+            # Regex para encontrar emails
+            email_pattern = r'e-mail:\s*([A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,})'
+            email_match = re.search(email_pattern, texto_completo, re.IGNORECASE)
+            
+            if email_match:
+                resultado['email'] = email_match.group(1).strip()
+                logger.info(f"Email encontrado no PDF: {resultado['email']}")
+            else:
+                # Tentar regex genérico se não encontrar com "e-mail:"
+                email_generic = r'\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Z|a-z]{2,}\b'
+                emails = re.findall(email_generic, texto_completo)
+                if emails:
+                    resultado['email'] = emails[0]
+                    logger.info(f"Email encontrado no PDF (genérico): {resultado['email']}")
+                else:
+                    logger.warning("Nenhum email encontrado no PDF")
+            
+            return resultado
                 
         except Exception as e:
-            logger.error(f"Erro ao extrair email do PDF: {str(e)}")
-            return None
+            logger.error(f"Erro ao extrair dados do PDF: {str(e)}")
+            return {'marca': None, 'email': None}
     
     def buscar_processo_e_extrair_email(self, numero_processo: str) -> str:
         """
