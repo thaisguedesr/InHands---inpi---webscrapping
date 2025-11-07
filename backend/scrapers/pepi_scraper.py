@@ -233,6 +233,12 @@ class PepiScraper:
                     with open(pdf_path, 'rb') as f:
                         pdf_content = f.read()
                     
+                    # Salvar uma cópia para debug (opcional)
+                    debug_path = f"/tmp/debug_{numero_processo}.pdf"
+                    with open(debug_path, 'wb') as f:
+                        f.write(pdf_content)
+                    logger.info(f"PDF salvo em: {debug_path}")
+                    
                     logger.info("PDF baixado com sucesso!")
                     
                     # 12. Extrair marca e email do PDF
