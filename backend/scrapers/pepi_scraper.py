@@ -199,60 +199,66 @@ class PepiScraper:
                 
                 logger.info("✅ Marca não é figurativa, continuando...")
                 
-                # 6. Clicar no link de petições
-                peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso")').first
-                if peticoes_link.count() == 0:
-                    logger.warning("Link de petições não encontrado")
-                    browser.close()
-                    return {'marca': None, 'email': None}
+                # 6. VERIFICAR SE JÁ TEM OS PDFs (sessão já aceita anteriormente)
+                # OU se precisa clicar no link para aceitar
+                time.sleep(1)
+                pdf_icons = page.locator('img[name="certificadoPublicacao"]')
                 
-                # O link abre em uma NOVA JANELA/TAB (popup)
-                # Aguardar nova janela aparecer
-                with page.expect_popup() as popup_info:
-                    peticoes_link.click()
-                    logger.info("Link de petições clicado")
-                
-                popup_page = popup_info.value
-                popup_page.wait_for_load_state("networkidle", timeout=10000)
-                logger.info("📋 Popup de finalidade aberto")
-                logger.info(f"  URL do popup: {popup_page.url}")
-                
-                # Preencher o formulário no popup
-                try:
-                    # Selecionar primeira opção do dropdown
-                    selects = popup_page.locator('select')
-                    if selects.count() > 0:
-                        selects.first.select_option(index=1)
-                        logger.info("  ✅ Finalidade selecionada")
-                    else:
-                        logger.warning("  ⚠️  Dropdown não encontrado")
+                if pdf_icons.count() > 0:
+                    logger.info(f"✅ PDFs já visíveis ({pdf_icons.count()} encontrados) - acesso já foi concedido anteriormente")
+                else:
+                    logger.info("📋 PDFs não visíveis, procurando link de acesso...")
                     
-                    # Marcar o checkbox
-                    checkboxes = popup_page.locator('input[type="checkbox"]')
-                    if checkboxes.count() > 0:
-                        checkboxes.first.check()
-                        logger.info("  ✅ Checkbox marcado")
-                    else:
-                        logger.warning("  ⚠️  Checkbox não encontrado")
+                    # Procurar o link "Clique aqui para ter acesso"
+                    peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso")').first
+                    if peticoes_link.count() == 0:
+                        logger.warning("⚠️  Link de petições não encontrado e PDFs não visíveis")
+                        browser.close()
+                        return {'marca': None, 'email': None}
                     
-                    # Clicar no botão Enviar (isso fechará o popup e recarregará a página principal)
-                    enviar_btn = popup_page.locator('button:has-text("Enviar"), input[value="Enviar"]')
-                    if enviar_btn.count() > 0:
-                        enviar_btn.first.click()
-                        logger.info("  ✅ Formulário enviado")
+                    # O link abre em uma NOVA JANELA/TAB (popup)
+                    # Aguardar nova janela aparecer
+                    try:
+                        with page.expect_popup(timeout=5000) as popup_info:
+                            peticoes_link.click()
+                            logger.info("Link de petições clicado")
                         
-                        # Aguardar o popup fechar e a página principal recarregar
-                        time.sleep(3)
-                        page.wait_for_load_state("networkidle", timeout=15000)
-                        logger.info("  📄 Página principal recarregada com petições")
-                    else:
-                        logger.warning("  ⚠️  Botão Enviar não encontrado")
-                        popup_page.close()
-                
-                except Exception as e:
-                    logger.warning(f"  ⚠️  Popup pode ter fechado: {str(e)}")
-                    # Continuar mesmo se der erro - o popup pode ter fechado automaticamente
-                    time.sleep(2)
+                        popup_page = popup_info.value
+                        popup_page.wait_for_load_state("networkidle", timeout=10000)
+                        logger.info("📋 Popup de finalidade aberto")
+                        
+                        # Preencher o formulário no popup
+                        try:
+                            # Selecionar primeira opção do dropdown
+                            selects = popup_page.locator('select')
+                            if selects.count() > 0:
+                                selects.first.select_option(index=1)
+                                logger.info("  ✅ Finalidade selecionada")
+                            
+                            # Marcar o checkbox
+                            checkboxes = popup_page.locator('input[type="checkbox"]')
+                            if checkboxes.count() > 0:
+                                checkboxes.first.check()
+                                logger.info("  ✅ Checkbox marcado")
+                            
+                            # Clicar no botão Enviar
+                            enviar_btn = popup_page.locator('button:has-text("Enviar"), input[value="Enviar"]')
+                            if enviar_btn.count() > 0:
+                                enviar_btn.first.click()
+                                logger.info("  ✅ Formulário enviado")
+                                
+                                # Aguardar página principal recarregar
+                                time.sleep(3)
+                                page.wait_for_load_state("networkidle", timeout=15000)
+                                logger.info("  📄 Página recarregada - PDFs devem estar visíveis agora")
+                        
+                        except Exception as e:
+                            logger.warning(f"  ⚠️  Erro no popup: {str(e)}")
+                            time.sleep(2)
+                    
+                    except Exception as e:
+                        logger.warning(f"⚠️  Erro ao abrir popup: {str(e)}")
+                        time.sleep(2)
                 
                 # 7. Procurar ícone do PDF da PRIMEIRA petição
                 # A primeira petição normalmente contém os dados do requerente
