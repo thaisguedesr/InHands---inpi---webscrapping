@@ -19,7 +19,7 @@ def main():
     scraper = PepiScraper()
     
     # Testar com o processo que sabemos que funciona
-    processo = "907206638"
+    processo = "934379254"  # Processo recente da lista 101-110
     
     logger.info(f"🔍 Testando processo: {processo}")
     logger.info("="*80)
