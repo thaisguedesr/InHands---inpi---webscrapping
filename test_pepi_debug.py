@@ -74,8 +74,8 @@ def debug_pepi_navigation():
             logger.info(f"   URL atual: {page.url}")
             
             # Verificar campo de processo
-            processo_field = page.locator('input[name="processo"]')
-            logger.info(f"   Campo processo encontrado: {processo_field.count() > 0}")
+            processo_field = page.locator('input[name="NumPedido"]')
+            logger.info(f"   Campo processo (NumPedido) encontrado: {processo_field.count() > 0}")
             
             if processo_field.count() == 0:
                 # Tentar outros seletores
