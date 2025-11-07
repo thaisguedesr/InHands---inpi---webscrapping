@@ -166,43 +166,7 @@ Processando dados..."""
             
             logger.info(f"   ✅ Com procurador: {len(processos_com_procurador)} (serão ignorados)")
             logger.info(f"   ❌ Sem procurador: {len(processos_sem_procurador)} (TESTE: processando apenas 10)")
-            logger.info("Iniciando busca de emails no pePI...")
-            
-            # 4. Buscar emails no pePI apenas para processos SEM procurador
-            pepi_scraper = PepiScraper()
-            
-            # Processar em lotes para não sobrecarregar
-            lote_size = 10
-            total_com_email = 0
-            
-            for i in range(0, len(processos_sem_procurador), lote_size):
-                lote = processos_sem_procurador[i:i+lote_size]
-                logger.info(f"Processando lote {i//lote_size + 1}/{(len(processos_sem_procurador)//lote_size) + 1}")
-                
-                # Executar em paralelo (ThreadPoolExecutor para código síncrono)
-                with ThreadPoolExecutor(max_workers=5) as executor:
-                    futures = []
-                    for proc in lote:
-                        future = executor.submit(
-                            pepi_scraper.buscar_processo_e_extrair_email,
-                            proc['numero_processo']
-                        )
-                        futures.append((proc, future))
-                    
-                    # Coletar resultados
-                    for proc, future in futures:
-                        try:
-                            email = future.result(timeout=60)
-                            if email:
-                                proc['email'] = email
-                                total_com_email += 1
-                        except Exception as e:
-                            logger.error(f"Erro ao processar {proc['numero_processo']}: {str(e)}")
-                
-                # Pequeno delay entre lotes
-                await asyncio.sleep(2)
-            
-            logger.info(f"Total de processos com email extraído: {total_com_email}/{len(processos_sem_procurador)}")
+            logger.info("TESTE: Pulando busca no pePI por enquanto...")
             
             # 5. Salvar apenas processos SEM procurador no banco
             if processos_sem_procurador:
