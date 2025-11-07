@@ -161,11 +161,17 @@ Processando dados..."""
             processos_sem_procurador = [p for p in processos if not p.get('tem_procurador', False)]
             processos_com_procurador = [p for p in processos if p.get('tem_procurador', False)]
             
-            # TESTE: Processar apenas primeiros 10 processos
-            processos_sem_procurador = processos_sem_procurador[:10]
+            logger.info(f"Total de processos sem procurador: {len(processos_sem_procurador)}")
+            logger.info(f"Total de processos com procurador: {len(processos_com_procurador)} (serão ignorados)")
             
-            logger.info(f"   ✅ Com procurador: {len(processos_com_procurador)} (serão ignorados)")
-            logger.info(f"   ❌ Sem procurador: {len(processos_sem_procurador)} (TESTE: processando apenas 10)")
+            # Pegar processos 101-110 (índices 100 a 109)
+            if len(processos_sem_procurador) > 100:
+                processos_sem_procurador = processos_sem_procurador[100:110]
+                logger.info(f"📋 Selecionados processos 101-110: {len(processos_sem_procurador)} processos")
+            else:
+                logger.warning(f"⚠️  Menos de 100 processos disponíveis. Usando os primeiros 10.")
+                processos_sem_procurador = processos_sem_procurador[:10]
+            
             logger.info("Iniciando busca de MARCA e EMAIL no pePI...")
             
             # 4. Buscar marca e email no pePI apenas para processos SEM procurador
