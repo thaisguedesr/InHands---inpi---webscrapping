@@ -266,14 +266,28 @@ class PepiScraper:
                     logger.warning(f"  ⚠️  Erro ao expandir: {str(e)}")
                     time.sleep(2)
                 
-                # 6.1 VERIFICAR SE O LINK "Clique aqui..." EXISTE
-                # Se existir, precisamos clicar nele SEMPRE (mesmo que já haja PDFs visíveis)
+                # 6.1 PRIMEIRO: Procurar PDF com Serviço 389/394
                 time.sleep(1)
+                logger.info("🔍 1ª TENTATIVA: Procurando PDF com Serviço 389 ou 394...")
                 
-                peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso")').first
+                pdf_icon_tentativa1 = self._procurar_pdf_389_394(page)
                 
-                if peticoes_link.count() > 0:
-                    logger.info("📋 Link 'Clique aqui...' encontrado - precisa clicar para ver os PDFs")
+                if pdf_icon_tentativa1:
+                    logger.info("✅ PDF 389/394 encontrado na 1ª tentativa!")
+                    pdf_icon = pdf_icon_tentativa1
+                    pdf_escolhido = "389 ou 394"
+                else:
+                    # NÃO encontrou - precisa clicar no "Clique aqui..."
+                    logger.info("📋 PDF 389/394 NÃO encontrado - procurando link 'Clique aqui...'")
+                    
+                    peticoes_link = page.locator('a:has-text("Clique aqui para ter acesso")').first
+                    
+                    if peticoes_link.count() == 0:
+                        logger.error("❌ Link 'Clique aqui...' também não encontrado!")
+                        browser.close()
+                        return {'marca': marca_extraida, 'email': None}
+                    
+                    logger.info("📋 Link 'Clique aqui...' encontrado - clicando...")
                     
                     # O link abre em uma NOVA JANELA/TAB (popup)
                     # Aguardar nova janela aparecer
