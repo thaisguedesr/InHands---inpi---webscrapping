@@ -126,14 +126,25 @@ const ProcessosLive = () => {
           </div>
 
           {processos.length > 0 && (
-            <div className="stats-wrapper">
-              <div className="small-text">
-                Total de processos: <strong>{processos.length}</strong>
+            <>
+              <div className="stats-wrapper">
+                <div className="small-text">
+                  Total de processos: <strong>{processos.length}</strong>
+                </div>
+                <div className="small-text">
+                  Com email: <strong>{processos.filter(p => p.email).length}</strong>
+                </div>
               </div>
-              <div className="small-text">
-                Com email: <strong>{processos.filter(p => p.email).length}</strong>
+
+              <div style={{ textAlign: 'center', marginTop: '30px' }}>
+                <button
+                  onClick={extrairPlanilha}
+                  className="btn-secondary-custom"
+                >
+                  Extrair planilha
+                </button>
               </div>
-            </div>
+            </>
           )}
         </div>
       </section>
