@@ -154,6 +154,10 @@ class PepiScraper:
                 logger.info(f"  ✅ Processo {numero_processo} descadastrado com sucesso!")
             else:
                 logger.warning("  ⚠️  Botão de descadastramento não encontrado na página")
+                # Salvar HTML para debug
+                with open(f"/tmp/descadastrar_{numero_processo}.html", "w") as f:
+                    f.write(page.content())
+                logger.info(f"  📄 HTML salvo em: /tmp/descadastrar_{numero_processo}.html")
                 
         except Exception as e:
             logger.warning(f"  ⚠️  Erro ao descadastrar processo: {str(e)}")
