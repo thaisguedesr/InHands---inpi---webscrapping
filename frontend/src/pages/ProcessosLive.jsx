@@ -38,6 +38,22 @@ const ProcessosLive = () => {
     }
   };
 
+  const extrairPlanilha = async () => {
+    try {
+      const response = await axios.get(`${API}/inpi/executions`);
+      if (response.data && response.data.length > 0) {
+        const ultimaExecucao = response.data[0];
+        // Download do XLSX
+        window.open(`${API}/inpi/executions/${ultimaExecucao.id}/download_xlsx`, '_blank');
+      } else {
+        alert('Nenhuma execução encontrada para exportar.');
+      }
+    } catch (error) {
+      console.error('Erro ao extrair planilha:', error);
+      alert('Erro ao extrair planilha. Tente novamente.');
+    }
+  };
+
   useEffect(() => {
     carregarProcessos();
     const interval = setInterval(carregarProcessos, 10000);
