@@ -77,13 +77,23 @@ const ProcessosLive = () => {
         <h1 className="processos-title">Scraping INPI</h1>
         <p className="processos-subtitle">Consulte os processos indeferidos e o andamento da extração.</p>
 
-        <button
-          onClick={iniciarScraping}
-          disabled={loading}
-          className="btn-primary-custom"
-        >
-          {loading ? 'Processando...' : 'Iniciar Scraping'}
-        </button>
+        <div style={{ display: 'flex', gap: '15px', justifyContent: 'center', marginBottom: '40px' }}>
+          <button
+            onClick={iniciarScraping}
+            disabled={loading}
+            className="btn-primary-custom"
+          >
+            {loading ? 'Processando...' : 'Iniciar Scraping'}
+          </button>
+
+          <button
+            onClick={extrairPlanilha}
+            disabled={processos.length === 0}
+            className="btn-secondary-custom"
+          >
+            Extrair planilha
+          </button>
+        </div>
 
         <div className="central-box">
           <div className="table-responsive">
