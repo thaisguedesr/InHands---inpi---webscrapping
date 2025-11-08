@@ -133,36 +133,40 @@ class PepiScraper:
             popup_page.wait_for_load_state("networkidle", timeout=10000)
             logger.info("  📋 Popup de terceiros aberto")
             
-            # Procurar botão/link de descadastrar ou desabilitar
-            # Pode ser um botão "Descadastrar", "Desabilitar", ou checkbox
+            # Procurar botão/link de descadastrar ou desabilitar no popup
+            # Pode ser um botão, link ou checkbox
             botao_descadastrar = None
             
-            # Tentar diferentes seletores
+            # Tentar diferentes seletores no popup
             seletores_descadastrar = [
                 'button:has-text("Descadastrar")',
                 'input[value*="Descadastrar"]',
                 'a:has-text("Descadastrar")',
                 'button:has-text("Desabilitar")',
-                'a:has-text("Desabilitar")'
+                'a:has-text("Desabilitar")',
+                'input[type="submit"]',
+                'button[type="submit"]'
             ]
             
             for seletor in seletores_descadastrar:
-                botao = page.locator(seletor)
+                botao = popup_page.locator(seletor)
                 if botao.count() > 0:
                     botao_descadastrar = botao.first
-                    logger.info(f"  ✅ Botão de descadastramento encontrado: {seletor}")
+                    logger.info(f"  ✅ Botão encontrado no popup: {seletor}")
                     break
             
             if botao_descadastrar:
                 botao_descadastrar.click()
                 time.sleep(1)
                 logger.info(f"  ✅ Processo {numero_processo} descadastrado com sucesso!")
+                popup_page.close()
             else:
-                logger.warning("  ⚠️  Botão de descadastramento não encontrado na página")
+                logger.warning("  ⚠️  Botão de descadastramento não encontrado no popup")
                 # Salvar HTML para debug
-                with open(f"/tmp/descadastrar_{numero_processo}.html", "w") as f:
-                    f.write(page.content())
-                logger.info(f"  📄 HTML salvo em: /tmp/descadastrar_{numero_processo}.html")
+                with open(f"/tmp/popup_descadastrar_{numero_processo}.html", "w") as f:
+                    f.write(popup_page.content())
+                logger.info(f"  📄 HTML do popup salvo em: /tmp/popup_descadastrar_{numero_processo}.html")
+                popup_page.close()
                 
         except Exception as e:
             logger.warning(f"  ⚠️  Erro ao descadastrar processo: {str(e)}")
