@@ -133,27 +133,14 @@ class PepiScraper:
             popup_page.wait_for_load_state("networkidle", timeout=10000)
             logger.info("  📋 Popup de terceiros aberto")
             
-            # Procurar botão/link de descadastrar ou desabilitar no popup
-            # Pode ser um botão, link ou checkbox
+            # Procurar link de desativação (coluna "Solicitar Desativação")
+            # O link é: <a href="...Action=DesativarAmploAcesso..."><font color="red">[X]</font></a>
+            link_desativar = popup_page.locator('a[href*="DesativarAmploAcesso"]').first
+            
             botao_descadastrar = None
-            
-            # Tentar diferentes seletores no popup
-            seletores_descadastrar = [
-                'button:has-text("Descadastrar")',
-                'input[value*="Descadastrar"]',
-                'a:has-text("Descadastrar")',
-                'button:has-text("Desabilitar")',
-                'a:has-text("Desabilitar")',
-                'input[type="submit"]',
-                'button[type="submit"]'
-            ]
-            
-            for seletor in seletores_descadastrar:
-                botao = popup_page.locator(seletor)
-                if botao.count() > 0:
-                    botao_descadastrar = botao.first
-                    logger.info(f"  ✅ Botão encontrado no popup: {seletor}")
-                    break
+            if link_desativar.count() > 0:
+                botao_descadastrar = link_desativar
+                logger.info(f"  ✅ Link [X] de desativação encontrado")
             
             if botao_descadastrar:
                 botao_descadastrar.click()
