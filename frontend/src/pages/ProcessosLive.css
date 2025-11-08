@@ -67,8 +67,6 @@ body {
   cursor: pointer;
   font-family: var(--font-family-primary);
   transition: background-color 0.3s;
-  display: block;
-  margin: 0 auto 40px;
 }
 
 .btn-primary-custom:hover {
@@ -77,6 +75,29 @@ body {
 
 .btn-primary-custom:disabled {
   opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.btn-secondary-custom {
+  background-color: var(--white);
+  color: var(--primary-color);
+  border: 2px solid var(--primary-color);
+  padding: 10px 20px;
+  min-width: 130px;
+  border-radius: 8px;
+  font-weight: 500;
+  cursor: pointer;
+  font-family: var(--font-family-primary);
+  transition: all 0.3s;
+}
+
+.btn-secondary-custom:hover {
+  background-color: var(--primary-color);
+  color: var(--white);
+}
+
+.btn-secondary-custom:disabled {
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
