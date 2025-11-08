@@ -113,6 +113,51 @@ class PepiScraper:
             logger.error(f"Erro ao extrair dados do PDF: {str(e)}")
             return {'marca': None, 'email': None}
     
+    def _descadastrar_processo(self, page, numero_processo):
+        """Descadastra o processo clicando em Listagem de Terceiros Interessados Habilitados"""
+        try:
+            # Procurar o link "Listagem de Terceiros Interessados Habilitados"
+            link_descadastrar = page.locator('a:has-text("Listagem de Terceiros Interessados Habilitados")').first
+            
+            if link_descadastrar.count() == 0:
+                logger.warning("  ⚠️  Link de descadastramento não encontrado")
+                return
+            
+            logger.info("  🔗 Link de descadastramento encontrado - clicando...")
+            link_descadastrar.click()
+            time.sleep(2)
+            page.wait_for_load_state("networkidle", timeout=10000)
+            
+            # Procurar botão/link de descadastrar ou desabilitar
+            # Pode ser um botão "Descadastrar", "Desabilitar", ou checkbox
+            botao_descadastrar = None
+            
+            # Tentar diferentes seletores
+            seletores_descadastrar = [
+                'button:has-text("Descadastrar")',
+                'input[value*="Descadastrar"]',
+                'a:has-text("Descadastrar")',
+                'button:has-text("Desabilitar")',
+                'a:has-text("Desabilitar")'
+            ]
+            
+            for seletor in seletores_descadastrar:
+                botao = page.locator(seletor)
+                if botao.count() > 0:
+                    botao_descadastrar = botao.first
+                    logger.info(f"  ✅ Botão de descadastramento encontrado: {seletor}")
+                    break
+            
+            if botao_descadastrar:
+                botao_descadastrar.click()
+                time.sleep(1)
+                logger.info(f"  ✅ Processo {numero_processo} descadastrado com sucesso!")
+            else:
+                logger.warning("  ⚠️  Botão de descadastramento não encontrado na página")
+                
+        except Exception as e:
+            logger.warning(f"  ⚠️  Erro ao descadastrar processo: {str(e)}")
+    
     def _procurar_pdf_389_394(self, page):
         """Procura PDF com Serviço 389 ou 394 na tabela"""
         try:
