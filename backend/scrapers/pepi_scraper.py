@@ -452,6 +452,11 @@ class PepiScraper:
                         dados['marca'] = marca_extraida
                         logger.info(f"✅ Usando MARCA da página: {marca_extraida}")
                     
+                    # 13. DESCADASTRAR processo antes de passar ao próximo
+                    if dados.get('email'):
+                        logger.info("📋 Descadastrando processo...")
+                        self._descadastrar_processo(page, numero_processo)
+                    
                     browser.close()
                     return dados
                 else:
