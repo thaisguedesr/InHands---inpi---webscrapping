@@ -17,8 +17,8 @@ def gerar_xlsx(processos: list, execucao: dict) -> BytesIO:
     headers = ['EMAIL', 'MARCA', 'PROCESSO']
     ws.append(headers)
     
-    # Estilizar cabeçalho
-    header_fill = PatternFill(start_color='366092', end_color='366092', fill_type='solid')
+    # Estilizar cabeçalho (cor laranja InHands)
+    header_fill = PatternFill(start_color='FE7C1F', end_color='FE7C1F', fill_type='solid')
     header_font = Font(color='FFFFFF', bold=True, size=12)
     
     for cell in ws[1]:
