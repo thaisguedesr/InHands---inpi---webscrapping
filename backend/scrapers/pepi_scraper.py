@@ -124,9 +124,14 @@ class PepiScraper:
                 return
             
             logger.info("  🔗 Link de descadastramento encontrado - clicando...")
-            link_descadastrar.click()
-            time.sleep(2)
-            page.wait_for_load_state("networkidle", timeout=10000)
+            
+            # O link abre um popup
+            with page.expect_popup(timeout=5000) as popup_info:
+                link_descadastrar.click()
+            
+            popup_page = popup_info.value
+            popup_page.wait_for_load_state("networkidle", timeout=10000)
+            logger.info("  📋 Popup de terceiros aberto")
             
             # Procurar botão/link de descadastrar ou desabilitar
             # Pode ser um botão "Descadastrar", "Desabilitar", ou checkbox
