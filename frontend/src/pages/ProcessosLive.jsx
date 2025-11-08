@@ -70,6 +70,21 @@ const ProcessosLive = () => {
           width="160"
           height="55"
         />
+        <div style={{ marginLeft: 'auto', display: 'flex', gap: '10px', alignItems: 'center' }}>
+          <button className="btn-voltar" onClick={() => console.log('Voltar')}>
+            ← Voltar
+          </button>
+          <div className="dropdown">
+            <button className="btn-dropdown">
+              Outras Semanas ▼
+            </button>
+            <div className="dropdown-content">
+              <a href="#" onClick={(e) => { e.preventDefault(); console.log('Semana 45'); }}>Semana 45 - 2025</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); console.log('Semana 44'); }}>Semana 44 - 2025</a>
+              <a href="#" onClick={(e) => { e.preventDefault(); console.log('Semana 43'); }}>Semana 43 - 2025</a>
+            </div>
+          </div>
+        </div>
       </header>
 
       {/* Content */}
